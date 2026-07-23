@@ -8,9 +8,8 @@
  * to a DDS/NCO/PWM/timer.
  */
 
-/* 软件锁相环模块头文件保护宏。 */
 #ifndef __SOFT_PLL_H
-#define __SOFT_PLL_H /* 软件锁相环模块头文件保护宏。 */
+#define __SOFT_PLL_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,18 +18,17 @@ extern "C" {
 #include <stdint.h>
 #include "IQ.h"
 
-/* 单精度圆周率，允许工程在外部覆盖。 */
 #ifndef SOFTPLL_PI
-#define SOFTPLL_PI 3.14159265358979323846f /* 单精度圆周率。 */
+#define SOFTPLL_PI 3.14159265358979323846f
 #endif
 
-/* 公共接口使用的相位单位。 */
+/** Phase unit used by the public API. */
 typedef enum {
     SOFTPLL_UNIT_RAD = 0,
     SOFTPLL_UNIT_DEG = 1
 } SoftPll_PhaseUnit_t;
 
-/* 单次锁相环更新所需的参考与反馈输入。 */
+/** Input phase pair for one PLL update. */
 typedef struct {
     float reference_phase;  /**< Reference/input phase, rad or deg. */
     float feedback_phase;   /**< Feedback/output phase, rad or deg. */
@@ -41,7 +39,7 @@ typedef struct {
     float fixed_cal;        /**< Fixed phase calibration, rad or deg. */
 } SoftPll_PhaseInput_t;
 
-/* 软件锁相环可调参数，内部相位统一使用度。 */
+/** Tunable PLL configuration.  All phase fields use degrees internally. */
 typedef struct {
     float nominal_freq_hz;       /**< Locked nominal frequency. */
     float initial_phase_deg;     /**< Initial phase command. */
@@ -68,7 +66,7 @@ typedef struct {
     float phase_direction;       /**< Set to -1 if phase correction direction is inverted. */
 } SoftPll_Config_t;
 
-/* 软件锁相环运行状态与最近一次诊断结果。 */
+/** Runtime state and last computed diagnostics. */
 typedef struct {
     SoftPll_Config_t cfg;
 
@@ -89,21 +87,21 @@ typedef struct {
     uint8_t feedback_valid;    /**< Last update accepted amplitudes. */
 } SoftPll_t;
 
-/* 填充适合 DDS 频率和相位微调的保守默认配置。 */
+/** Fill a conservative default config suitable for DDS phase/frequency trim. */
 void SoftPll_DefaultConfig(SoftPll_Config_t *cfg, float nominal_freq_hz);
 
-/* 按配置初始化锁相环状态。 */
+/** Initialize PLL state from config. */
 void SoftPll_Init(SoftPll_t *pll, const SoftPll_Config_t *cfg);
 
-/* 保留配置并复位频率与相位指令状态。 */
+/** Reset phase/frequency command state while keeping the existing config. */
 void SoftPll_Reset(SoftPll_t *pll, float initial_phase_deg, float nominal_freq_hz);
 
-/* 使用弧度或度相位更新锁相环，接受更新时返回 1。 */
+/** Update using phases in radians or degrees.  Returns 1 when an update was accepted. */
 uint8_t SoftPll_UpdatePhase(SoftPll_t *pll,
                             const SoftPll_PhaseInput_t *input,
                             SoftPll_PhaseUnit_t unit);
 
-/* 使用 IQ 解调结果更新锁相环，目标和校准相位单位为度。 */
+/** Update directly from IQ demodulation results.  target/calibration are in degrees. */
 uint8_t SoftPll_UpdateIq(SoftPll_t *pll,
                          const IQ_Result_t *reference,
                          const IQ_Result_t *feedback,
@@ -111,13 +109,10 @@ uint8_t SoftPll_UpdateIq(SoftPll_t *pll,
                          float target_offset_deg,
                          float fixed_cal_deg);
 
-/* 将角度折返到 [0, 360) 度。 */
+/** Utility helpers. */
 float SoftPll_Wrap360Deg(float phase_deg);
-/* 将角度归一化到 (-180, 180] 度。 */
 float SoftPll_Normalize180Deg(float phase_deg);
-/* 将弧度转换为度。 */
 float SoftPll_RadToDeg(float phase_rad);
-/* 将度转换为弧度。 */
 float SoftPll_DegToRad(float phase_deg);
 
 #ifdef __cplusplus

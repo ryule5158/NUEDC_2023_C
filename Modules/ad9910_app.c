@@ -1,54 +1,50 @@
 #include "ad9910_app.h"
 #include <math.h>
 
-/* AD9910应用层后台任务类型。 */
 typedef enum
 {
-  AD9910_APP_PROCESS_NONE = 0,       /* 无后台任务。 */
-  AD9910_APP_PROCESS_RAM_SWEEP,      /* RAM波形软件扫频。 */
-  AD9910_APP_PROCESS_MANUAL_SWEEP,   /* 数字斜坡手动换向。 */
-  AD9910_APP_PROCESS_SINE_SWEEP      /* 正弦波软件扫频。 */
+  AD9910_APP_PROCESS_NONE = 0,
+  AD9910_APP_PROCESS_RAM_SWEEP,
+  AD9910_APP_PROCESS_MANUAL_SWEEP,
+  AD9910_APP_PROCESS_SINE_SWEEP
 } AD9910_AppProcessTypeDef;
 
-/* AD9910 RAM波形扫频状态。 */
 typedef struct
 {
-  uint16_t points;             /* RAM波形点数。 */
-  uint32_t low_hz;             /* 扫频下限，单位Hz。 */
-  uint32_t high_hz;            /* 扫频上限，单位Hz。 */
-  uint32_t current_hz;         /* 当前目标频率，单位Hz。 */
-  uint32_t frequency_step_hz;  /* 频率步进，单位Hz。 */
-  int8_t direction;            /* 扫频方向，1向上、-1向下。 */
-  uint32_t dwell_ms;           /* 频点驻留时间，单位ms。 */
-  uint32_t last_tick;          /* 上次换频系统节拍。 */
+  uint16_t points;
+  uint32_t low_hz;
+  uint32_t high_hz;
+  uint32_t current_hz;
+  uint32_t frequency_step_hz;
+  int8_t direction;
+  uint32_t dwell_ms;
+  uint32_t last_tick;
 } AD9910_AppRamSweepTypeDef;
 
-/* AD9910正弦波软件扫频状态。 */
 typedef struct
 {
-  uint32_t low_hz;             /* 扫频下限，单位Hz。 */
-  uint32_t high_hz;            /* 扫频上限，单位Hz。 */
-  uint32_t current_hz;         /* 当前频率，单位Hz。 */
-  uint32_t frequency_step_hz;  /* 频率步进，单位Hz。 */
-  int8_t direction;            /* 扫频方向，1向上、-1向下。 */
-  uint32_t dwell_ms;           /* 频点驻留时间，单位ms。 */
-  uint32_t last_tick;          /* 上次换频系统节拍。 */
-  uint16_t amplitude;          /* 14位输出幅度。 */
-  AD9910_SweepDirMode dir_mode; /* 终点处理方式。 */
+  uint32_t low_hz;
+  uint32_t high_hz;
+  uint32_t current_hz;
+  uint32_t frequency_step_hz;
+  int8_t direction;
+  uint32_t dwell_ms;
+  uint32_t last_tick;
+  uint16_t amplitude;
+  AD9910_SweepDirMode dir_mode;
 } AD9910_AppSineSweepTypeDef;
 
-static uint8_t s_ad9910_initialized; /* 应用层初始化标志。 */
-static AD9910_AppProcessTypeDef s_process_type = AD9910_APP_PROCESS_NONE; /* 当前后台任务。 */
-static AD9910_AppRamSweepTypeDef s_ram_sweep; /* RAM波形扫频状态。 */
-static AD9910_AppSineSweepTypeDef s_sine_sweep; /* 正弦波软件扫频状态。 */
-static AD9910_SweepDirection s_manual_direction = AD9910_SWEEP_UP; /* 手动扫频方向。 */
-static uint32_t s_manual_toggle_ms; /* 手动换向间隔，单位ms。 */
-static uint32_t s_manual_last_tick; /* 上次手动换向系统节拍。 */
+static uint8_t s_ad9910_initialized;
+static AD9910_AppProcessTypeDef s_process_type = AD9910_APP_PROCESS_NONE;
+static AD9910_AppRamSweepTypeDef s_ram_sweep;
+static AD9910_AppSineSweepTypeDef s_sine_sweep;
+static AD9910_SweepDirection s_manual_direction = AD9910_SWEEP_UP;
+static uint32_t s_manual_toggle_ms;
+static uint32_t s_manual_last_tick;
 
 /* AD9910应用层RAM相位偏移表，用于通过改变RAM索引实现通用波形相位控制 */
 static uint16_t s_ram_phase_table[AD9910_RAM_POINTS];
 
-/* AD9910用户可编辑任意波表。 */
 uint16_t AD9910_AppArbitraryTable[AD9910_APP_WAVE_TABLE_SIZE] =
 {
       0U,  2048U,  4096U,  6144U,  8192U, 10240U, 12288U, 14336U,
@@ -231,7 +227,7 @@ AD9910_Status AD9910_AppSetSinePhaseOffsetDeg(float phase_deg)
 /************************************************************
  * Function :       AD9910_AppOutputRamWavePhaseIndex
  * Comment  :       按RAM相位索引输出AD9910内置RAM波形，用改变采样起点实现相位偏移
- * Parameter:       wave: RAM波形类型; output_hz: 目标波形频率; points: 点数，范围16~1024; amplitude: 14位幅度; phase_index: 相位索引，0~points-1对应0~360度; retry_delay_ms: 重写等待时间
+ * Parameter:       wave: RAM波形类型; output_hz: 目标波形频率; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度; phase_index: 相位索引，0～points-1对应0～360度; retry_delay_ms: 重写等待时间
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-26 V1
 ************************************************************/
@@ -296,7 +292,7 @@ AD9910_Status AD9910_AppOutputRamWavePhaseIndex(AD9910_Waveform wave,
 /************************************************************
  * Function :       AD9910_AppOutputArbitraryPhaseIndex
  * Comment  :       按RAM相位索引输出AD9910用户任意波，用改变采样起点实现相位偏移
- * Parameter:       wave_table: 用户波形表; points: 点数，范围16~1024; output_hz: 目标波形频率; amplitude: 14位幅度; phase_index: 相位索引，0~points-1对应0~360度; retry_delay_ms: 重写等待时间
+ * Parameter:       wave_table: 用户波形表; points: 点数，范围16～AD9910_RAM_POINTS; output_hz: 目标波形频率; amplitude: 14位幅度; phase_index: 相位索引，0～points-1对应0～360度; retry_delay_ms: 重写等待时间
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-26 V1
 ************************************************************/
@@ -358,7 +354,7 @@ AD9910_Status AD9910_AppOutputArbitraryPhaseIndex(const uint16_t *wave_table,
 /************************************************************
  * Function :       AD9910_AppOutputTrianglePhaseIndex
  * Comment  :       按RAM相位索引输出AD9910三角波，用通用RAM调相接口实现
- * Parameter:       output_hz: 目标波形频率; points: 点数，范围16~1024; amplitude: 14位幅度; phase_index: 相位索引，0~points-1对应0~360度; retry_delay_ms: 重写等待时间
+ * Parameter:       output_hz: 目标波形频率; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度; phase_index: 相位索引，0～points-1对应0～360度; retry_delay_ms: 重写等待时间
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-26 V2
 ************************************************************/
@@ -379,7 +375,7 @@ AD9910_Status AD9910_AppOutputTrianglePhaseIndex(uint32_t output_hz,
 /************************************************************
  * Function :       AD9910_AppOutputSquarePhaseIndex
  * Comment  :       按RAM相位索引输出AD9910方波，用改变采样起点实现相位偏移
- * Parameter:       output_hz: 目标波形频率; points: RAM点数，范围16~1024; amplitude: 14位幅度; phase_index: 相位索引，0~points-1对应0~360度; retry_delay_ms: 重写等待时间
+ * Parameter:       output_hz: 目标波形频率; points: RAM点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度; phase_index: 相位索引，0～points-1对应0～360度; retry_delay_ms: 重写等待时间
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-28 V1
 ************************************************************/
@@ -400,7 +396,7 @@ AD9910_Status AD9910_AppOutputSquarePhaseIndex(uint32_t output_hz,
 /************************************************************
  * Function :       AD9910_AppOutputSquare
  * Comment  :       输出AD9910方波
- * Parameter:       output_hz: 目标波形频率, 实际频率受points和整数step影响; points: 点数，范围16~1024; amplitude: 14位幅度，范围0~16383; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       output_hz: 目标波形频率, 实际频率受points和整数step影响; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度，范围0～16383; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -419,7 +415,7 @@ AD9910_Status AD9910_AppOutputSquare(uint32_t output_hz,
 /************************************************************
  * Function :       AD9910_AppOutputSawtoothPhaseIndex
  * Comment  :       按RAM相位索引输出AD9910锯齿波，用改变采样起点实现相位偏移
- * Parameter:       output_hz: 目标波形频率; points: RAM点数，范围16~1024; amplitude: 14位幅度; phase_index: 相位索引，0~points-1对应0~360度; retry_delay_ms: 重写等待时间
+ * Parameter:       output_hz: 目标波形频率; points: RAM点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度; phase_index: 相位索引，0～points-1对应0～360度; retry_delay_ms: 重写等待时间
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-28 V1
 ************************************************************/
@@ -440,7 +436,7 @@ AD9910_Status AD9910_AppOutputSawtoothPhaseIndex(uint32_t output_hz,
 /************************************************************
  * Function :       AD9910_AppOutputSawtooth
  * Comment  :       输出AD9910锯齿波
- * Parameter:       output_hz: 目标波形频率, 实际频率受points和整数step影响; points: 点数，范围16~1024; amplitude: 14位幅度，范围0~16383; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       output_hz: 目标波形频率, 实际频率受points和整数step影响; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度，范围0～16383; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -459,7 +455,7 @@ AD9910_Status AD9910_AppOutputSawtooth(uint32_t output_hz,
 /************************************************************
  * Function :       AD9910_AppOutputArbitraryHz
  * Comment  :       按目标波形频率输出AD9910用户任意波形
- * Parameter:       wave_table: 用户波形表，每点范围0~16383; points: 点数，范围16~1024; output_hz: 目标波形频率, 实际频率受points和整数step影响; amplitude: 14位幅度，范围0~16383; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       wave_table: 用户波形表，每点范围0～16383; points: 点数，范围16～AD9910_RAM_POINTS; output_hz: 目标波形频率, 实际频率受points和整数step影响; amplitude: 14位幅度，范围0～16383; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -614,7 +610,7 @@ AD9910_Status AD9910_AppSweepSineMs(uint32_t low_hz,
 /************************************************************
  * Function :       AD9910_AppSweepTriangle
  * Comment  :       启动AD9910三角波扫频，通过改变RAM播放步进实现
- * Parameter:       low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; points: 点数，范围16~1024; amplitude: 14位幅度，范围0~16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度，范围0～16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -682,7 +678,7 @@ AD9910_Status AD9910_AppSweepTriangle(uint32_t low_hz,
 /************************************************************
  * Function :       AD9910_AppSweepSquare
  * Comment  :       启动AD9910方波扫频，通过改变RAM播放步进实现
- * Parameter:       low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; points: 点数，范围16~1024; amplitude: 14位幅度，范围0~16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度，范围0～16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -750,7 +746,7 @@ AD9910_Status AD9910_AppSweepSquare(uint32_t low_hz,
 /************************************************************
  * Function :       AD9910_AppSweepSawtooth
  * Comment  :       启动AD9910锯齿波扫频，通过改变RAM播放步进实现
- * Parameter:       low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; points: 点数，范围16~1024; amplitude: 14位幅度，范围0~16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度，范围0～16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -818,7 +814,7 @@ AD9910_Status AD9910_AppSweepSawtooth(uint32_t low_hz,
 /************************************************************
  * Function :       AD9910_AppSweepArbitrary
  * Comment  :       启动AD9910用户任意波形扫频，通过改变RAM播放步进实现
- * Parameter:       wave_table: 用户波形表，每点范围0~16383; points: 点数，范围16~1024; low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; amplitude: 14位幅度，范围0~16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
+ * Parameter:       wave_table: 用户波形表，每点范围0～16383; points: 点数，范围16～AD9910_RAM_POINTS; low_hz/high_hz: 目标扫频范围Hz, 实际频点受points和整数step影响; frequency_step_hz: 目标频率步进Hz; amplitude: 14位幅度，范围0～16383; dwell_ms: 每步驻留时间ms; retry_delay_ms: 重写等待时间，0为不重写
  * Return   :       AD9910_OK表示成功，其他值表示失败
  * Date     :       2026-06-12 V3
 ************************************************************/
@@ -1063,163 +1059,4 @@ void AD9910_AppProcess(void)
                          AD9910_SWEEP_UP;
     AD9910_SetSweepDirection(s_manual_direction);
   }
-}
-
-/* 丢弃首尾数据后降采样并转换为14位RAM采样表。 */
-uint16_t AD9910_AppDownSample(const float *src,
-                              uint32_t src_len,
-                              uint16_t discard_front,
-                              uint16_t discard_back,
-                              uint16_t dst_max,
-                              uint16_t *dst)
-{
-    uint32_t valid_len;
-    uint32_t dst_len;
-    float    step;
-    float    v;
-
-    if (src == NULL || dst == NULL || src_len == 0U || dst_max == 0U) {
-        return 0U;
-    }
-
-    if ((uint32_t)discard_front + (uint32_t)discard_back >= src_len) {
-        return 0U;
-    }
-
-    valid_len = src_len - discard_front - discard_back;
-
-    if (valid_len <= dst_max) {
-        for (uint32_t i = 0U; i < valid_len; i++) {
-            v = src[discard_front + i];
-            if (v < 0.0f) v = 0.0f;
-            if (v > 3.3f) v = 3.3f;
-            dst[i] = (uint16_t)((v / 3.3f) * (float)AD9910_MAX_AMPLITUDE + 0.5f);
-        }
-        return (uint16_t)valid_len;
-    }
-
-    dst_len = dst_max;
-    step = (float)(valid_len - 1U) / (float)(dst_len - 1U);
-
-    for (uint32_t j = 0U; j < dst_len; j++) {
-        float    pos = (float)j * step;
-        uint32_t idx = (uint32_t)pos;
-        float    frac = pos - (float)idx;
-
-        if (idx + 1U >= valid_len) {
-            v = src[discard_front + valid_len - 1U];
-        } else {
-            v = src[discard_front + idx] * (1.0f - frac)
-              + src[discard_front + idx + 1U] * frac;
-        }
-
-        if (v < 0.0f) v = 0.0f;
-        if (v > 3.3f) v = 3.3f;
-        dst[j] = (uint16_t)((v / 3.3f) * (float)AD9910_MAX_AMPLITUDE + 0.5f);
-    }
-
-    return (uint16_t)dst_len;
-}
-
-/* 从输入波形中提取一个周期并转换为14位RAM采样表。 */
-uint16_t AD9910_AppExtractOneCycle(const float *src,
-                                   uint32_t      len,
-                                   uint16_t     *dst)
-{
-    float    dc;
-    float    amp;
-    float    sum;
-    uint32_t i;
-    int32_t  cross_idx1;
-    int32_t  cross_idx2;
-    int32_t  cycle_len;
-    uint32_t edge;
-    uint32_t mid_start;
-    uint32_t mid_end;
-    float    v_min;
-    float    v_max;
-
-    if ((src == NULL) || (dst == NULL) || (len < 4U)) {
-        return 0U;
-    }
-
-    /* ---- 1. 算 DC 和幅度 ---- */
-    sum   = 0.0f;
-    v_min = 1e9f;
-    v_max = -1e9f;
-    for (i = 0U; i < len; i++) {
-        sum += src[i];
-        if (src[i] < v_min) v_min = src[i];
-        if (src[i] > v_max) v_max = src[i];
-    }
-    dc  = sum / (float)len;
-    amp = (v_max - v_min) * 0.05f;
-    if (amp < 1e-6f) {
-        return 0U;
-    }
-
-    /* ---- 2. 状态机找上升过零点（带滞回，不要求相邻点跃过）---- */
-    mid_start = len / 4U;
-    mid_end   = len - len / 4U;
-
-    {
-        uint8_t was_below = (src[mid_start] <= dc - amp) ? 1U : 0U;
-
-        cross_idx1 = -1;
-        for (i = mid_start + 1U; i < mid_end; i++) {
-            if (was_below && (src[i] >= dc + amp)) {
-                cross_idx1 = (int32_t)i;
-                break;
-            }
-            if (!was_below && (src[i] <= dc - amp)) {
-                was_below = 1U;
-            }
-        }
-    }
-    if (cross_idx1 < 0) {
-        return 0U;
-    }
-
-    /* ---- 3. 在过零点 1 之后，找下一个上升过零点 ---- */
-    {
-        uint8_t was_below = 1U;
-        i = (uint32_t)cross_idx1 + 1U;
-
-        for (; i < len; i++) {
-            if (src[i] <= dc - amp) {
-                was_below = 1U;
-                i++;
-                break;
-            }
-        }
-
-        cross_idx2 = -1;
-        for (; i < len; i++) {
-            if (was_below && (src[i] >= dc + amp)) {
-                if ((int32_t)i - cross_idx1 > (int32_t)len / 20) {
-                    cross_idx2 = (int32_t)i;
-                    break;
-                }
-            }
-            if (!was_below && (src[i] <= dc - amp)) {
-                was_below = 1U;
-            }
-        }
-    }
-    if (cross_idx2 < 0) {
-        return 0U;
-    }
-
-    /* ---- 4. 截取一个整周期 ---- */
-    cycle_len = cross_idx2 - cross_idx1;
-    if (cycle_len < 32) {
-        return 0U;
-    }
-    edge = (uint32_t)((float)cycle_len * 0.025f);
-    if (edge == 0U) edge = 1U;
-
-    /* ---- 5. 降采样到 1024 ---- */
-    return AD9910_AppDownSample(src, (uint32_t)cross_idx2 - edge,
-                                (uint32_t)cross_idx1 + edge, 0U,
-                                AD9910_RAM_POINTS, dst);
 }

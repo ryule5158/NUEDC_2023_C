@@ -1,18 +1,17 @@
 #include "dac8831_app.h"
 
-#define DAC8831_APP_SCK_GPIO_PORT   GPIOA       /* DAC8831软件SPI时钟端口 */
-#define DAC8831_APP_SCK_PIN         GPIO_PIN_5  /* DAC8831软件SPI时钟引脚 */
-#define DAC8831_APP_MOSI_GPIO_PORT  GPIOA       /* DAC8831软件SPI数据端口 */
-#define DAC8831_APP_MOSI_PIN        GPIO_PIN_7  /* DAC8831软件SPI数据引脚 */
-#define DAC8831_APP_CS_GPIO_PORT    GPIOA       /* DAC8831片选端口 */
-#define DAC8831_APP_CS_PIN          GPIO_PIN_4  /* DAC8831片选引脚 */
+#define DAC8831_APP_SCK_GPIO_PORT   GPIOA       /* 软件SPI时钟虚拟端口，TI映射到PB6。 */
+#define DAC8831_APP_SCK_PIN         GPIO_PIN_5  /* 软件SPI时钟虚拟引脚。 */
+#define DAC8831_APP_MOSI_GPIO_PORT  GPIOA       /* 软件SPI数据虚拟端口，TI映射到PA7。 */
+#define DAC8831_APP_MOSI_PIN        GPIO_PIN_7  /* 软件SPI数据虚拟引脚。 */
+#define DAC8831_APP_CS_GPIO_PORT    GPIOA       /* 片选虚拟端口，TI映射到PB0。 */
+#define DAC8831_APP_CS_PIN          GPIO_PIN_4  /* 低有效片选虚拟引脚。 */
 
 /*
  * DAC8831波形由主循环软件送点产生, 必须持续调用DAC8831_AppProcess()。
- * output_hz越高需要越高送点速率，当前上限16000点/秒，16点表最高1000Hz。
+ * output_hz越高需要越高送点速率，当前默认1000点/秒，16点表最高约62Hz。
  */
 
-/* DAC8831软件波形和扫频任务状态。 */
 typedef struct
 {
   const uint16_t *table;
@@ -32,14 +31,13 @@ typedef struct
   uint8_t sweep_running;
 } DAC8831_AppWaveTaskTypeDef;
 
-static DAC8831_HandleTypeDef s_dac8831;            /* DAC8831应用层驱动句柄。 */
-static DAC8831_AppDataTypeDef s_dac8831_app_data;  /* 最近一次应用层输出状态。 */
-static DAC8831_AppWaveTaskTypeDef s_wave_task;     /* 当前软件波形任务。 */
-static uint8_t s_dac8831_initialized;              /* 应用层初始化标志。 */
+static DAC8831_HandleTypeDef s_dac8831;
+static DAC8831_AppDataTypeDef s_dac8831_app_data;
+static DAC8831_AppWaveTaskTypeDef s_wave_task;
+static uint8_t s_dac8831_initialized;
 static void DAC8831_AppTimebaseInit(void);  /* 初始化CPU周期计数器 */
 static uint32_t DAC8831_AppGetCycle(void);  /* 读取当前CPU周期计数 */
 
-/* DAC8831内置正弦波表。 */
 const uint16_t DAC8831_AppSineTable[DAC8831_APP_WAVE_TABLE_SIZE] =
 {
   32768U, 45307U, 55938U, 63041U,
@@ -48,7 +46,6 @@ const uint16_t DAC8831_AppSineTable[DAC8831_APP_WAVE_TABLE_SIZE] =
       0U,  2494U,  9597U, 20228U
 };
 
-/* DAC8831内置三角波表。 */
 const uint16_t DAC8831_AppTriangleTable[DAC8831_APP_WAVE_TABLE_SIZE] =
 {
       0U,  8192U, 16384U, 24576U,
@@ -57,7 +54,6 @@ const uint16_t DAC8831_AppTriangleTable[DAC8831_APP_WAVE_TABLE_SIZE] =
   32768U, 24576U, 16384U,  8192U
 };
 
-/* DAC8831内置方波表。 */
 const uint16_t DAC8831_AppSquareTable[DAC8831_APP_WAVE_TABLE_SIZE] =
 {
       0U,     0U,     0U,     0U,
@@ -66,7 +62,6 @@ const uint16_t DAC8831_AppSquareTable[DAC8831_APP_WAVE_TABLE_SIZE] =
   65535U, 65535U, 65535U, 65535U
 };
 
-/* DAC8831内置锯齿波表。 */
 const uint16_t DAC8831_AppSawtoothTable[DAC8831_APP_WAVE_TABLE_SIZE] =
 {
       0U,  4369U,  8738U, 13107U,
@@ -75,7 +70,6 @@ const uint16_t DAC8831_AppSawtoothTable[DAC8831_APP_WAVE_TABLE_SIZE] =
   52428U, 56797U, 61166U, 65535U
 };
 
-/* DAC8831用户可编辑任意波表。 */
 uint16_t DAC8831_AppArbitraryTable[DAC8831_APP_WAVE_TABLE_SIZE] =
 {
       0U,  8192U, 16384U, 24576U,
@@ -84,14 +78,11 @@ uint16_t DAC8831_AppArbitraryTable[DAC8831_APP_WAVE_TABLE_SIZE] =
   32768U, 24576U, 16384U,  8192U
 };
 
-/* 按需初始化DAC8831应用层。 */
 static DAC8831_StatusTypeDef EnsureInit(void);
-/* 启动指定波表的周期输出。 */
 static DAC8831_StatusTypeDef StartWave(const uint16_t *wave_table,
                                        uint16_t table_size,
                                        uint32_t output_hz,
                                        uint16_t amplitude);
-/* 启动指定波表的往返扫频。 */
 static DAC8831_StatusTypeDef StartSweep(const uint16_t *wave_table,
                                         uint16_t table_size,
                                         uint32_t low_hz,
@@ -99,11 +90,8 @@ static DAC8831_StatusTypeDef StartSweep(const uint16_t *wave_table,
                                         uint32_t frequency_step_hz,
                                         uint16_t amplitude,
                                         uint32_t dwell_ms);
-/* 按经过时间输出应送波形点。 */
 static DAC8831_StatusTypeDef StepWave(uint8_t force);
-/* 更新扫频方向和当前频率。 */
 static void UpdateSweep(void);
-/* 按目标幅度缩放波表码值。 */
 static uint16_t ScaleCode(uint16_t code, uint16_t amplitude);
 
 /************************************************************
@@ -218,7 +206,7 @@ DAC8831_StatusTypeDef DAC8831_AppOutputBipolarMv(float millivolts)
 /************************************************************
  * Function :       DAC8831_AppOutputSine
  * Comment  :       启动DAC8831正弦波输出任务
- * Parameter:       output_hz: 波形频率, 范围1~1000Hz; amplitude: 16位幅度, 范围0~65535
+ * Parameter:       output_hz: 1~62Hz; amplitude: 0~65535
  * Return   :       DAC8831_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -234,7 +222,7 @@ DAC8831_StatusTypeDef DAC8831_AppOutputSine(uint32_t output_hz,
 /************************************************************
  * Function :       DAC8831_AppOutputTriangle
  * Comment  :       启动DAC8831三角波输出任务
- * Parameter:       output_hz: 波形频率, 范围1~1000Hz; amplitude: 16位幅度, 范围0~65535
+ * Parameter:       output_hz: 1~62Hz; amplitude: 0~65535
  * Return   :       DAC8831_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -250,7 +238,7 @@ DAC8831_StatusTypeDef DAC8831_AppOutputTriangle(uint32_t output_hz,
 /************************************************************
  * Function :       DAC8831_AppOutputSquare
  * Comment  :       启动DAC8831方波输出任务
- * Parameter:       output_hz: 波形频率, 范围1~1000Hz; amplitude: 16位幅度, 范围0~65535
+ * Parameter:       output_hz: 1~62Hz; amplitude: 0~65535
  * Return   :       DAC8831_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -266,7 +254,7 @@ DAC8831_StatusTypeDef DAC8831_AppOutputSquare(uint32_t output_hz,
 /************************************************************
  * Function :       DAC8831_AppOutputSawtooth
  * Comment  :       启动DAC8831锯齿波输出任务
- * Parameter:       output_hz: 波形频率, 范围1~1000Hz; amplitude: 16位幅度, 范围0~65535
+ * Parameter:       output_hz: 1~62Hz; amplitude: 0~65535
  * Return   :       DAC8831_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -451,7 +439,6 @@ void DAC8831_AppProcess(void)
   }
 }
 
-/* 按需初始化DAC8831应用层。 */
 static DAC8831_StatusTypeDef EnsureInit(void)
 {
   if (s_dac8831_initialized != 0U)
@@ -462,7 +449,6 @@ static DAC8831_StatusTypeDef EnsureInit(void)
   return DAC8831_AppInit();
 }
 
-/* 启动指定波表的周期输出。 */
 static DAC8831_StatusTypeDef StartWave(const uint16_t *wave_table,
                                        uint16_t table_size,
                                        uint32_t output_hz,
@@ -504,7 +490,6 @@ static DAC8831_StatusTypeDef StartWave(const uint16_t *wave_table,
   return StepWave(1U);
 }
 
-/* 启动指定波表的往返扫频。 */
 static DAC8831_StatusTypeDef StartSweep(const uint16_t *wave_table,
                                         uint16_t table_size,
                                         uint32_t low_hz,
@@ -545,7 +530,6 @@ static DAC8831_StatusTypeDef StartSweep(const uint16_t *wave_table,
   return DAC8831_OK;
 }
 
-/* 按经过时间输出应送波形点。 */
 static DAC8831_StatusTypeDef StepWave(uint8_t force)
 {
   uint32_t now_cycle;
@@ -627,7 +611,6 @@ static DAC8831_StatusTypeDef StepWave(uint8_t force)
 
   return DAC8831_OK;
 }
-/* 更新扫频方向和当前频率。 */
 static void UpdateSweep(void)
 {
   uint32_t now_tick;
@@ -678,7 +661,6 @@ static void UpdateSweep(void)
   s_wave_task.frequency_hz = next_hz;
 }
 
-/* 按目标幅度缩放波表码值。 */
 static uint16_t ScaleCode(uint16_t code, uint16_t amplitude)
 {
   uint64_t value;
@@ -689,7 +671,6 @@ static uint16_t ScaleCode(uint16_t code, uint16_t amplitude)
   return (uint16_t)(value / DAC8831_MAX_CODE);
 }
 
-/* 初始化DWT周期计数时基。 */
 static void DAC8831_AppTimebaseInit(void)
 {
   SystemCoreClockUpdate();                       /* 更新系统主频变量 */
@@ -698,7 +679,6 @@ static void DAC8831_AppTimebaseInit(void)
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
-/* 获取当前DWT周期计数。 */
 static uint32_t DAC8831_AppGetCycle(void)
 {
   return DWT->CYCCNT;

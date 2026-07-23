@@ -19,7 +19,6 @@ extern "C" {
 #define ADS8363_BUSY_TIMEOUT_US         100U         /* ADS8363等待BUSY状态超时, 单位us */
 #define ADS8363_CONVST_PULSE_CYCLES     32U          /* ADS8363启动转换脉冲保持时间, 单位CPU空循环 */
 
-/* ADS8363驱动状态。 */
 typedef enum
 {
   ADS8363_OK = 0,              /* ADS8363操作成功 */
@@ -30,14 +29,12 @@ typedef enum
   ADS8363_ERROR_SPI            /* ADS8363 SPI通信失败 */
 } ADS8363_StatusTypeDef;
 
-/* ADS8363 A侧差分通道选择。 */
 typedef enum
 {
   ADS8363_DIFF_CH0 = 0U,       /* ADS8363 A侧差分通道0, PCB丝印ADC-A1减ADC-A0 */
   ADS8363_DIFF_CH1 = 3U        /* ADS8363 A侧差分通道1, PCB丝印A3仅偏置减ADC-A2 */
 } ADS8363_DiffChannelTypeDef;
 
-/* ADS8363一次双通道采样结果。 */
 typedef struct
 {
   int16_t a;                   /* ADS8363 SDOA读到的A侧有符号采样码 */
@@ -45,7 +42,6 @@ typedef struct
   uint8_t b_valid;             /* B侧数据有效标志, 当前默认始终为0 */
 } ADS8363_SamplePairTypeDef;
 
-/* ADS8363接口与换算参数配置。 */
 typedef struct
 {
   SPI_HandleTypeDef *hspi;     /* ADS8363使用的SPI句柄, 主工程为hspi2 */
@@ -61,7 +57,6 @@ typedef struct
   float vref_mv;               /* 参考电压, 单位mV, 只影响码值到电压的换算 */
 } ADS8363_ConfigTypeDef;
 
-/* ADS8363驱动句柄。 */
 typedef struct
 {
   ADS8363_ConfigTypeDef cfg;             /* ADS8363底层配置 */

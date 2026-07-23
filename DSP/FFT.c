@@ -1,30 +1,28 @@
 #include "FFT.h"
 #include <stdio.h>
-#define pi 3.1415926f /* 圆周率。 */
-float FFT_Fs=20000.0f; /* 当前采样率，单位Hz。 */
-float f=1000.0f; /* 内部测试正弦波频率，单位Hz。 */
-float FFT_input[FFT_length]={0}; /* FFT实数输入缓存。 */
-float FFT_Buffer[FFT_length*2]={0}; /* FFT交错复数工作缓存。 */
-float FFT_normalized_output[FFT_length / 2 + 1] = {0}; /* 单边归一化幅度谱。 */
-float FFT_output[FFT_length]={0}; /* FFT幅度谱缓存。 */
-float FFT_mag_max=0; /* 当前最大频谱幅值。 */
-uint32_t mag_max_index=0; /* 当前最大频谱索引。 */
-volatile float FFT_Amplitude=0; /* 最近一次主峰幅度。 */
-volatile float FFT_Frequency=0; /* 最近一次主峰频率。 */
+#define pi 3.1415926
+float FFT_Fs=20000.0f;
+float f=1000.0f;
+float FFT_input[FFT_length]={0};
+float FFT_Buffer[FFT_length*2]={0};
+float FFT_normalized_output[FFT_length / 2 + 1] = {0};
+//DSP������⣬һ��Ҫ������������飬������һ��FFT_length*2��input�������
+float FFT_output[FFT_length]={0};
+float FFT_mag_max=0;
+uint32_t mag_max_index=0;
+volatile float FFT_Amplitude=0;
+volatile float FFT_Frequency=0;
 
 
-/* 复制固定长度实数输入数据。 */
 void FFT_Input(float arr[]) {
-	if (arr == NULL) return;
 	for(int i=0;i<FFT_length;i++){
 		FFT_input[i]=arr[i];
 	}
 }
 
-/* 生成内部测试正弦波。 */
 void Sin_Simulation(){
 	for(int i=0;i<FFT_length;i++){
-		FFT_input[i] = sinf(2.0f*pi*f*(float)i/FFT_Fs);
+		FFT_input[i] = sin(2.0f*pi*f*(float)i/FFT_Fs);
 	}
 };
 
@@ -41,66 +39,33 @@ void Sin_Simulation(){
 
 //}
 
-/* 根据点数选择CMSIS复数FFT实例。 */
-static const arm_cfft_instance_f32 *FFT_SelectCfft(uint32_t len)
-{
-    switch (len) {
-    case 64U:   return &arm_cfft_sR_f32_len64;
-    case 128U:  return &arm_cfft_sR_f32_len128;
-    case 256U:  return &arm_cfft_sR_f32_len256;
-    case 512U:  return &arm_cfft_sR_f32_len512;
-    case 1024U: return &arm_cfft_sR_f32_len1024;
-    case 2048U: return &arm_cfft_sR_f32_len2048;
-    case 4096U: return &arm_cfft_sR_f32_len4096;
-    default:    return NULL;
-    }
-}
-
-/* 对支持的二次幂长度执行汉宁窗复数FFT。 */
-bool FFT_StartN(const float *data, uint32_t len)
-{
-    const arm_cfft_instance_f32 *instance = FFT_SelectCfft(len);
+void FFT_Start() {
     float win_sum = 0.0f;
 
-    if ((data == NULL) || (instance == NULL) || (len > FFT_length) || (len < 2U)) {
-        return false;
-    }
-
-    for (uint32_t i = 0U; i < len; i++) {
-        const float win = 0.5f - 0.5f * cosf(2.0f * pi * (float)i / (float)(len - 1U));
+	for (int i = 0; i < FFT_length; i++) {
+        float win = 0.5f - 0.5f * cosf(2.0f * pi * (float)i / (float)(FFT_length - 1));
         win_sum += win;
-        FFT_Buffer[2U * i] = data[i] * win;
-        FFT_Buffer[2U * i + 1U] = 0.0f;
+
+        FFT_Buffer[2*i] = FFT_input[i] * win;
+        FFT_Buffer[2*i+1] = 0.0f;
     }
+	
+    arm_cfft_f32(&arm_cfft_sR_f32_len512, FFT_Buffer, 0, 1);
+    
+    arm_cmplx_mag_f32(FFT_Buffer, FFT_output, FFT_length);
 
-    if (!(win_sum > 0.0f)) return false;
-    arm_cfft_f32(instance, FFT_Buffer, 0, 1);
-    arm_cmplx_mag_f32(FFT_Buffer, FFT_output, len);
-
-    for (uint32_t i = 0U; i < len; i++) {
-        FFT_output[i] = FFT_output[i] * (float)len / win_sum;
+    for (int i = 0; i < FFT_length; i++) {
+        FFT_output[i] = FFT_output[i] * (float)FFT_length / win_sum;
     }
-    return true;
 }
 
-/* 对内部输入缓存执行固定长度FFT。 */
-void FFT_Start() {
-    (void)FFT_StartN(FFT_input, FFT_length);
-}
-
-/* 对指定输入执行固定长度FFT。 */
-void FFT_StartEx(const float *data) {
-    (void)FFT_StartN(data, FFT_length);
-}
-
-/* 从固定长度频谱提取主峰并打印结果。 */
 void Process_FFT_mag(){
 	FFT_Frequency=0;
 	FFT_Amplitude=0;
 	
 	arm_max_f32(FFT_output,FFT_length/2,&FFT_mag_max,&mag_max_index);
 	
-	/* 排除直流分量后重新寻找主峰。 */
+	//���������ж������޳�ֱ�����������Ҫ��ֱ������Ҫע��
 	if(mag_max_index==0){
 		FFT_output[0]=0;
 		arm_max_f32(FFT_output,FFT_length/2,&FFT_mag_max,&mag_max_index);
@@ -114,26 +79,11 @@ void Process_FFT_mag(){
 	printf("003:%.3f\r\n",FFT_Amplitude);
 }
 
-/* 按指定采样率从频谱提取主峰。 */
-void Process_FFT_magEx(float fs){
-    FFT_Frequency=0;
-    FFT_Amplitude=0;
-
-    /* 跳过 DC 附近的 bin 0~3，避免汉宁窗的 DC 泄漏被误判为信号 */
-    FFT_output[0] = 0;
-    FFT_output[1] = 0;
-    FFT_output[2] = 0;
-    FFT_output[3] = 0;
-
-    arm_max_f32(FFT_output,FFT_length/2,&FFT_mag_max,&mag_max_index);
-
-    FFT_Frequency=(float)mag_max_index*fs/(float)FFT_length;
-
-    FFT_Amplitude=FFT_mag_max*2.0f/(float)FFT_length;
-}
-
-
-/* 将当前FFT幅度谱归一化为单边谱。 */
+/**
+ * ��ԭʼFFT�����׹�һ����ת��Ϊ������
+ * ԭʼFFT_output���鱣�ֲ���
+ * ��һ����ĵ����״洢��FFT_normalized_output��
+ */
 void Normalize_FFT_To_Single_Side(void)
 {
     float scale = 1.0f / (float)FFT_length;
@@ -156,13 +106,8 @@ void Normalize_FFT_To_Single_Side(void)
     }
 }
 
-/* 使用Goertzel算法计算指定频率幅度。 */
 float FFT_AmpAtFreq(float data[], uint32_t len, float fs, float freq)
 {
-    if ((data == NULL) || (len < 2U) || !(fs > 0.0f) ||
-        !(freq >= 0.0f) || (freq > 0.5f * fs)) {
-        return 0.0f;
-    }
     float w = 2.0f * pi * freq / fs;
     float coeff = 2.0f * cosf(w);
 
@@ -190,17 +135,12 @@ float FFT_AmpAtFreq(float data[], uint32_t len, float fs, float freq)
     return 2.0f * sqrtf(power) / win_sum;
 }
 
-/* 从时域数据提取整数倍谐波。 */
 uint8_t FFT_GetHarmonics(float data[], uint32_t len, float fs, float f0,
                          float max_freq, float freq_out[], float amp_out[])
 {
     uint8_t count = 0;
 
-    if ((data == NULL) || (freq_out == NULL) || (amp_out == NULL) ||
-        (len < 2U) || !(fs > 0.0f) || (f0 < 1.0f) || !(max_freq > 0.0f)) {
-        return 0;
-    }
-    if (max_freq > 0.5f * fs) max_freq = 0.5f * fs;
+    if (f0 < 1.0f) return 0;
 
     for (int h = 1; h * f0 <= max_freq && count < FFT_MAX_HARMONICS; h++)
     {
@@ -212,18 +152,13 @@ uint8_t FFT_GetHarmonics(float data[], uint32_t len, float fs, float f0,
     return count;
 }
 
-/* 从当前FFT频谱提取整数倍谐波。 */
 uint8_t FFT_GetHarmonics_FromFFT(float fs, float f0, float max_freq,
                                  float freq_out[], float amp_out[])
 {
     uint8_t count = 0;
     float df = fs / (float)FFT_length;
 
-    if ((freq_out == NULL) || (amp_out == NULL) || !(fs > 0.0f) ||
-        (f0 < 1.0f) || !(max_freq > 0.0f)) {
-        return 0;
-    }
-    if (max_freq > 0.5f * fs) max_freq = 0.5f * fs;
+    if (f0 < 1.0f) return 0;
 
     for (int h = 1; h * f0 <= max_freq && count < FFT_MAX_HARMONICS; h++)
     {
@@ -256,7 +191,6 @@ uint8_t FFT_GetHarmonics_FromFFT(float fs, float f0, float max_freq,
     return count;
 }
 
-/* 打印当前FFT原始结果。 */
 void FFT_Data_Print() {
 	printf("\r\nRaw Results\r\n");
     for (int i = 0; i < FFT_length; i++) {
@@ -271,7 +205,6 @@ void FFT_Data_Print() {
 /* ==================================================================== */
 /*  窗函数库实现                                                         */
 /* ==================================================================== */
-/* 生成指定窗系数及其相干增益和等效噪声带宽。 */
 void Window_Generate(float *w, uint32_t n, Window_Type_t type,
                      float *cg, float *enbw)
 {
@@ -320,7 +253,6 @@ void Window_Generate(float *w, uint32_t n, Window_Type_t type,
     }
 }
 
-/* 将窗系数逐点乘到输入信号。 */
 void Window_Apply(float *x, const float *w, uint32_t n)
 {
     if (x == NULL || w == NULL) return;

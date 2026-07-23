@@ -4,12 +4,12 @@
  */
 #include "Filter.h"
 #include <math.h>
+#include <stddef.h>
 
 /* ==================================================================== */
 /*  第一部分：FIR 低通滤波                                                */
 /* ==================================================================== */
-const int LP1 = 101; /* FIR低通抽头数。 */
-/* FIR低通固定系数表。 */
+const int LP1 = 101;
 const float LP1_Resource[101] = {
   -6.246264661e-19,-0.0003093869891,-0.0005282048369,-0.0005686038639,-0.0003847338376,
    8.00412014e-19,0.0004782403412,0.0008727228269,0.0009882040322, 0.000692866859,
@@ -33,9 +33,9 @@ const float LP1_Resource[101] = {
    8.00412014e-19,-0.0003847338376,-0.0005686038639,-0.0005282048369,-0.0003093869891,
   -6.246264661e-19
 };
-float fifo_data1_f[FIFO_SIZE] = {0}; /* FIR通用输入缓存。 */
-float testOutput[FIFO_SIZE] = {0}; /* FIR通用输出缓存。 */
-float firStateF32[BLOCK_SIZE + 101 - 1] = {0}; /* FIR状态缓存。 */
+float fifo_data1_f[FIFO_SIZE] = {0};
+float testOutput[FIFO_SIZE] = {0};
+float firStateF32[BLOCK_SIZE + 101 - 1] = {0};
 /**
   * @brief  对输入数据数组进行FIR低通滤波（101阶）。
   * @param  input  输入采样数组，长度 = num_samples
@@ -49,8 +49,6 @@ void arm_fir_f32_lp(float *input, float *output, uint32_t num_samples)
     uint32_t i;
     arm_fir_instance_f32 S;
 
-    if (input == NULL || output == NULL || num_samples == 0U) return;
-
     /* 清零滤波器状态，确保每次调用独立 */
     for (i = 0; i < (BLOCK_SIZE + LP1 - 1); i++)
     {
@@ -59,13 +57,10 @@ void arm_fir_f32_lp(float *input, float *output, uint32_t num_samples)
 
     arm_fir_init_f32(&S, LP1, (float *)LP1_Resource, firStateF32, BLOCK_SIZE);
 
-    /* 按 BLOCK_SIZE 分块；最后的短块复用同一状态，避免越界。 */
-    for (i = 0; (i + BLOCK_SIZE) <= num_samples; i += BLOCK_SIZE)
+    /* 按BLOCK_SIZE分块处理全部样本 */
+    for (i = 0; i < num_samples; i += BLOCK_SIZE)
     {
         arm_fir_f32(&S, input + i, output + i, BLOCK_SIZE);
-    }
-    if (i < num_samples) {
-        arm_fir_f32(&S, input + i, output + i, num_samples - i);
     }
 }
 
@@ -74,9 +69,8 @@ void arm_fir_f32_lp(float *input, float *output, uint32_t num_samples)
 /*  第二部分：IIR 双二阶滤波（RBJ Cookbook 设计 + DF2T 运行）             */
 /* ==================================================================== */
 
-#define IIR_2PI 6.28318530717958647692f /* 两倍圆周率。 */
+#define IIR_2PI   6.28318530717958647692f
 
-/* 清零单级双二阶滤波器状态。 */
 void IIR_Reset(IIR_Biquad_t *bq)
 {
     if (bq == NULL) return;
@@ -84,10 +78,9 @@ void IIR_Reset(IIR_Biquad_t *bq)
     bq->z2 = 0.0f;
 }
 
-/* 设计低通、高通、带通或陷波双二阶系数。 */
 void IIR_Design(IIR_Biquad_t *bq, IIR_Type_t type, float fs, float fc, float Q)
 {
-    if (bq == NULL || !isfinite(fs) || !isfinite(fc) || !isfinite(Q) || fs <= 0.0f) return;
+    if (bq == NULL || fs <= 0.0f) return;
 
     /* 截止频率限幅到 (0, fs/2) 开区间，防止 tan/cos 异常 */
     if (fc <= 0.0f)        fc = 1.0f;
@@ -151,11 +144,9 @@ void IIR_Design(IIR_Biquad_t *bq, IIR_Type_t type, float fs, float fc, float Q)
     IIR_Reset(bq);
 }
 
-/* 设计峰化或陷落型双二阶系数。 */
 void IIR_DesignPeak(IIR_Biquad_t *bq, float fs, float fc, float Q, float gain_db)
 {
-    if (bq == NULL || !isfinite(fs) || !isfinite(fc) || !isfinite(Q) ||
-        !isfinite(gain_db) || fs <= 0.0f) return;
+    if (bq == NULL || fs <= 0.0f) return;
 
     if (fc <= 0.0f)        fc = 1.0f;
     if (fc >= 0.5f * fs)   fc = 0.499f * fs;
@@ -184,7 +175,6 @@ void IIR_DesignPeak(IIR_Biquad_t *bq, float fs, float fc, float Q, float gain_db
     IIR_Reset(bq);
 }
 
-/* 对一块数据执行单级双二阶滤波。 */
 void IIR_ProcessBlock(IIR_Biquad_t *bq, const float *in, float *out, uint32_t len)
 {
     if (bq == NULL || in == NULL || out == NULL) return;
@@ -195,7 +185,6 @@ void IIR_ProcessBlock(IIR_Biquad_t *bq, const float *in, float *out, uint32_t le
 
 /* ---- 级联 ---- */
 
-/* 初始化指定级数的双二阶级联滤波器。 */
 void IIR_CascadeInit(IIR_Cascade_t *c, IIR_Type_t type,
                      float fs, float fc, float Q, uint8_t num_stages)
 {
@@ -205,13 +194,6 @@ void IIR_CascadeInit(IIR_Cascade_t *c, IIR_Type_t type,
 
     c->num_stages = num_stages;
     for (uint8_t i = 0; i < num_stages; i++) {
-        c->stage[i].b0 = 1.0f;
-        c->stage[i].b1 = 0.0f;
-        c->stage[i].b2 = 0.0f;
-        c->stage[i].a1 = 0.0f;
-        c->stage[i].a2 = 0.0f;
-        IIR_Reset(&c->stage[i]);
-        if (!isfinite(fs) || !isfinite(fc) || !isfinite(Q) || fs <= 0.0f) continue;
         if (type == IIR_PEAK) {
             IIR_DesignPeak(&c->stage[i], fs, fc, Q, 0.0f);
         } else {
@@ -220,19 +202,15 @@ void IIR_CascadeInit(IIR_Cascade_t *c, IIR_Type_t type,
     }
 }
 
-/* 对一个样本执行级联滤波。 */
 float IIR_CascadeProcess(IIR_Cascade_t *c, float x)
 {
     float y = x;
-    if (c == NULL) return x;
-    uint8_t stages = (c->num_stages <= IIR_MAX_STAGES) ? c->num_stages : IIR_MAX_STAGES;
-    for (uint8_t i = 0; i < stages; i++) {
+    for (uint8_t i = 0; i < c->num_stages; i++) {
         y = IIR_Process(&c->stage[i], y);
     }
     return y;
 }
 
-/* 对一块数据执行级联滤波。 */
 void IIR_CascadeBlock(IIR_Cascade_t *c, const float *in, float *out, uint32_t len)
 {
     if (c == NULL || in == NULL || out == NULL) return;
@@ -241,12 +219,10 @@ void IIR_CascadeBlock(IIR_Cascade_t *c, const float *in, float *out, uint32_t le
     }
 }
 
-/* 清零级联滤波器全部状态。 */
 void IIR_CascadeReset(IIR_Cascade_t *c)
 {
     if (c == NULL) return;
-    uint8_t stages = (c->num_stages <= IIR_MAX_STAGES) ? c->num_stages : IIR_MAX_STAGES;
-    for (uint8_t i = 0; i < stages; i++) {
+    for (uint8_t i = 0; i < c->num_stages; i++) {
         IIR_Reset(&c->stage[i]);
     }
 }
@@ -256,7 +232,6 @@ void IIR_CascadeReset(IIR_Cascade_t *c)
 /*  第三部分：非线性 / 多速率工具                                        */
 /* ==================================================================== */
 
-/* 对输入数据执行中心滑动平均。 */
 void Filter_MovingAverage(const float *in, float *out, uint32_t len, uint32_t window)
 {
     if (in == NULL || out == NULL || len == 0u) return;
@@ -264,14 +239,12 @@ void Filter_MovingAverage(const float *in, float *out, uint32_t len, uint32_t wi
     if (window > len) window = len;
 
     /* 以每个点为中心的对称窗；用滑动累加保持 O(len) */
-    const int32_t left = (int32_t)((window - 1U) / 2U);
-    const int32_t right = (int32_t)(window / 2U);
+    const int32_t half = (int32_t)(window / 2u);
     float sum = 0.0f;
     int32_t cnt = 0;
 
-    /* 初始化第 0 点窗口 [0, right]。偶数窗向右多取一个样本，
-     * 从而保证内部窗口恰好等于调用者请求的 window。 */
-    for (int32_t j = 0; j <= right && j < (int32_t)len; j++) {
+    /* 初始化前半窗 [0, half] */
+    for (int32_t j = 0; j <= half && j < (int32_t)len; j++) {
         sum += in[j];
         cnt++;
     }
@@ -279,8 +252,8 @@ void Filter_MovingAverage(const float *in, float *out, uint32_t len, uint32_t wi
     for (int32_t i = 0; i < (int32_t)len; i++) {
         out[i] = sum / (float)cnt;
 
-        int32_t add = i + right + 1;    /* 即将进入窗口右侧的新点 */
-        int32_t rem = i - left;         /* 即将移出窗口左侧的旧点 */
+        int32_t add = i + half + 1;     /* 即将进入窗口右侧的新点 */
+        int32_t rem = i - half;         /* 即将移出窗口左侧的旧点 */
         if (add < (int32_t)len) { sum += in[add]; cnt++; }
         if (rem >= 0)           { sum -= in[rem]; cnt--; }
     }
@@ -301,7 +274,6 @@ static float Filter_MedianOfBuf(float *buf, uint32_t m)
     return buf[m / 2u];
 }
 
-/* 对输入数据执行滑动中值滤波。 */
 void Filter_Median(const float *in, float *out, uint32_t len, uint32_t window)
 {
     if (in == NULL || out == NULL || len == 0u) return;
@@ -327,7 +299,6 @@ void Filter_Median(const float *in, float *out, uint32_t len, uint32_t window)
     }
 }
 
-/* 低通抗混叠后按指定因子抽取。 */
 uint32_t Filter_Decimate(const float *in, uint32_t len, uint32_t factor, float *out)
 {
     if (in == NULL || out == NULL || len == 0u) return 0u;
@@ -342,10 +313,9 @@ uint32_t Filter_Decimate(const float *in, uint32_t len, uint32_t factor, float *
     IIR_CascadeInit(&aa, IIR_LPF, 1.0f, fc_norm, 0.707f, 2u);
 
     uint32_t out_n = 0u;
-    const uint32_t output_count = len / factor;
     for (uint32_t i = 0; i < len; i++) {
         float y = IIR_CascadeProcess(&aa, in[i]);  /* 每点都滤，保持滤波器状态连续 */
-        if (((i % factor) == 0u) && (out_n < output_count)) {
+        if ((i % factor) == 0u) {
             out[out_n++] = y;
         }
     }

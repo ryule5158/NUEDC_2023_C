@@ -5,7 +5,6 @@
 #include "Correlate.h"
 #include <math.h>
 
-/* 计算两路信号在限定滞后范围内的互相关序列。 */
 void Corr_Cross(const float *x, const float *y, uint32_t len,
                 int32_t max_lag, float *out)
 {
@@ -24,14 +23,11 @@ void Corr_Cross(const float *x, const float *y, uint32_t len,
     }
 }
 
-/* 通过互相关峰值估计两路信号的时延。 */
 float Corr_TimeDelay(const float *x, const float *y, uint32_t len,
                      int32_t max_lag, float fs, float *delay_sec)
 {
     if (delay_sec) *delay_sec = 0.0f;
-    if (x == NULL || y == NULL || len < 2u || max_lag <= 0 ||
-        !isfinite(fs) || fs <= 0.0f) return 0.0f;
-    if ((uint32_t)max_lag >= len) max_lag = (int32_t)(len - 1u);
+    if (x == NULL || y == NULL || len == 0u || max_lag <= 0 || fs <= 0.0f) return 0.0f;
 
     /* 不缓存整条相关序列：边算边找峰 + 记录峰两侧值用于插值 */
     float prev_acc = 0.0f;     /* 上一滞后(m-1)的相关值 */
@@ -75,7 +71,6 @@ float Corr_TimeDelay(const float *x, const float *y, uint32_t len,
     return lag;
 }
 
-/* 计算输入信号从零到最大滞后的自相关序列。 */
 void Corr_Auto(const float *x, uint32_t len, uint32_t max_lag, float *out)
 {
     if (x == NULL || out == NULL || len == 0u) return;
@@ -101,7 +96,6 @@ static float Corr_AutoAt(const float *x, uint32_t len, uint32_t lag)
     return acc / (float)len;
 }
 
-/* 在指定频率范围内通过自相关估计基频。 */
 float Corr_Pitch(const float *x, uint32_t len, float fs, float fmin, float fmax)
 {
     if (x == NULL || len < 4u || fs <= 0.0f || fmin <= 0.0f || fmax <= fmin) return 0.0f;

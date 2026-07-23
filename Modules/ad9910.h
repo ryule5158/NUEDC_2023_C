@@ -7,7 +7,8 @@
  *   1. 在CubeMX中配置AD9910引脚，并在main.c中调用MX_GPIO_Init()。
  *   2. 调用AD9910_Init(NULL)。
   *   3. 选择一个输出接口：
-   *        AD9910_SetRamWaveformCarrier(AD9910_WAVE_TRIANGLE, 0U, 1U, 1024U);
+   *        AD9910_SetRamWaveformCarrier(AD9910_WAVE_TRIANGLE, 0U, 1U,
+   *                                     AD9910_RAM_POINTS);
   *        AD9910_SetRamCustomWaveformCarrier(samples, count, 0U, 1U);
   *        AD9910_ConfigureFrequencySweep(..., AD9910_SWEEP_AUTO);
   *
@@ -26,44 +27,39 @@ extern "C" {
 #include <stdint.h>
 
 #ifndef HAL_SPI_MODULE_ENABLED
-/* 未启用HAL硬件SPI时保留兼容的句柄类型声明。 */
 typedef void SPI_HandleTypeDef;
 #endif
 
 #define AD9910_SYSCLK_HZ          1000000000ULL  /* AD9910芯片系统时钟, 单位Hz; 外部参考或PLL配置改变后必须同步修改 */
 #define AD9910_MAX_OUTPUT_HZ      450000000UL    /* AD9910允许设置的最高输出频率, 单位Hz */
 #define AD9910_MAX_AMPLITUDE      16383U         /* AD9910最大14位幅度值 */
-#define AD9910_RAM_POINTS         1024U          /* AD9910内部RAM最大波形点数, 实际使用点数越多频率上限越低 */
+#define AD9910_RAM_POINTS         256U           /* TI端为适配32KB SRAM将RAM波形限定为256点。 */
 
-/* AD9910驱动状态。 */
 typedef enum
 {
-  AD9910_OK = 0,    /* 操作成功。 */
-  AD9910_ERROR,     /* 通信或器件操作失败。 */
-  AD9910_BAD_PARAM  /* 输入参数无效。 */
+  AD9910_OK = 0,
+  AD9910_ERROR,
+  AD9910_BAD_PARAM
 } AD9910_Status;
 
-/* AD9910内置RAM波形类型。 */
 typedef enum
 {
-  AD9910_WAVE_TRIANGLE = 0, /* 三角波。 */
-  AD9910_WAVE_SQUARE,       /* 方波。 */
-  AD9910_WAVE_SINC,         /* SINC波。 */
-  AD9910_WAVE_SAWTOOTH      /* 锯齿波。 */
+  AD9910_WAVE_TRIANGLE = 0,
+  AD9910_WAVE_SQUARE,
+  AD9910_WAVE_SINC,
+  AD9910_WAVE_SAWTOOTH
 } AD9910_Waveform;
 
-/* AD9910数字扫频控制方式。 */
 typedef enum
 {
-  AD9910_SWEEP_MANUAL = 0, /* DRCTL引脚控制方向。 */
-  AD9910_SWEEP_AUTO        /* 器件自动往返扫频。 */
+  AD9910_SWEEP_MANUAL = 0,
+  AD9910_SWEEP_AUTO
 } AD9910_SweepMode;
 
-/* AD9910手动扫频方向。 */
 typedef enum
 {
-  AD9910_SWEEP_DOWN = 0, /* 向下扫频。 */
-  AD9910_SWEEP_UP        /* 向上扫频。 */
+  AD9910_SWEEP_DOWN = 0,
+  AD9910_SWEEP_UP
 } AD9910_SweepDirection;
 
 /**
@@ -100,7 +96,7 @@ AD9910_Status AD9910_SetPhaseOffsetWord(uint16_t phase_word);
 AD9910_Status AD9910_SetAmplitude(uint16_t amplitude);
 
 /**
-  * @brief  将1024点波形写入AD9910 RAM并开始连续播放。
+  * @brief  将默认点数波形写入AD9910 RAM并开始连续播放。
   *
   * 该底层接口假设DDS载波FTW已经配置好。
   * 常规使用建议调用AD9910_SetRamWaveformCarrier()。

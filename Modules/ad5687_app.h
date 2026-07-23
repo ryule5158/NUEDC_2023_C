@@ -10,19 +10,18 @@ extern "C" {
 #define AD5687_APP_VREF_MV            2500U             /* 测试板AD5687参考电压，单位mV */
 #define AD5687_APP_GAIN               1U                /* 测试板AD5687输出增益 */
 #define AD5687_APP_WAVE_TABLE_SIZE    16U               /* 内置波形表点数 */
-#define AD5687_APP_SAMPLE_RATE_HZ     16000U             /* 软件波形最大送点速率，单位点/秒 */
-#define AD5687_APP_MAX_OUTPUT_HZ      (AD5687_APP_SAMPLE_RATE_HZ / AD5687_APP_WAVE_TABLE_SIZE) /* 默认16点波形最高频率，单位Hz */
+#define AD5687_APP_SAMPLE_RATE_HZ     1000U              /* MSPM0软件波形保守送点上限，单位点/秒 */
+#define AD5687_APP_MAX_OUTPUT_HZ      (AD5687_APP_SAMPLE_RATE_HZ / AD5687_APP_WAVE_TABLE_SIZE) /* 16点波形最高频率，单位Hz */
 #define AD5687_APP_DEFAULT_OUTPUT_HZ  10U               /* 默认波形频率，单位Hz */
 #define AD5687_APP_DEFAULT_AMPLITUDE  AD5687_MAX_CODE   /* 默认幅度，4095为满幅 */
 
 /*
  * AD5687波形说明:
  * 本APP通过主循环AD5687_AppProcess()按表送点生成波形, 不是DDS高速波形源。
- * 频率上限约等于AD5687_APP_SAMPLE_RATE_HZ / table_size，默认16点表为1000Hz。
+ * 频率上限约等于AD5687_APP_SAMPLE_RATE_HZ / table_size，默认16点表约62Hz。
  * amplitude是12位DAC原始幅度码0~4095; 需要直接输出电压时使用AD5687_AppOutputVoltageMv()。
  */
 
-/* AD5687应用层CV输出编号。 */
 typedef enum
 {
   AD5687_OUTPUT_CV1 = 0U, /* 测试板CV1输出 */
@@ -53,52 +52,46 @@ HAL_StatusTypeDef AD5687_AppOutputFourVoltageMv(uint32_t cv1_mv,
                                                 uint32_t cv3_mv,
                                                 uint32_t cv4_mv);
 
-/* 输出常见波形，output_hz范围1~1000Hz，amplitude范围0~4095。 */
+/* 输出常见波形，output_hz上限为AD5687_APP_MAX_OUTPUT_HZ。 */
 HAL_StatusTypeDef AD5687_AppOutputSine(AD5687_OutputTypeDef output,
                                        uint32_t output_hz,
                                        uint16_t amplitude);
-/* 输出软件送点三角波。 */
 HAL_StatusTypeDef AD5687_AppOutputTriangle(AD5687_OutputTypeDef output,
                                            uint32_t output_hz,
                                            uint16_t amplitude);
-/* 输出软件送点方波。 */
 HAL_StatusTypeDef AD5687_AppOutputSquare(AD5687_OutputTypeDef output,
                                          uint32_t output_hz,
                                          uint16_t amplitude);
-/* 输出软件送点锯齿波。 */
 HAL_StatusTypeDef AD5687_AppOutputSawtooth(AD5687_OutputTypeDef output,
                                            uint32_t output_hz,
                                            uint16_t amplitude);
 
-/* 输出任意波，最高频率为16000/table_size Hz，幅度范围0~4095。 */
+/* 输出任意波，最高频率为1000/table_size Hz，幅度范围0~4095。 */
 HAL_StatusTypeDef AD5687_AppOutputArbitraryHz(AD5687_OutputTypeDef output,
                                               const uint16_t *wave_table,
                                               uint16_t table_size,
                                               uint32_t output_hz,
                                               uint16_t amplitude);
 
-/* 常见波形扫频，频率上限为1000Hz，幅度范围0~4095。 */
+/* 常见波形扫频，频率上限为31Hz，幅度范围0~4095。 */
 HAL_StatusTypeDef AD5687_AppSweepSine(AD5687_OutputTypeDef output,
                                       uint32_t low_hz,
                                       uint32_t high_hz,
                                       uint32_t frequency_step_hz,
                                       uint16_t amplitude,
                                       uint32_t dwell_ms);
-/* 启动三角波往返扫频。 */
 HAL_StatusTypeDef AD5687_AppSweepTriangle(AD5687_OutputTypeDef output,
                                           uint32_t low_hz,
                                           uint32_t high_hz,
                                           uint32_t frequency_step_hz,
                                           uint16_t amplitude,
                                           uint32_t dwell_ms);
-/* 启动方波往返扫频。 */
 HAL_StatusTypeDef AD5687_AppSweepSquare(AD5687_OutputTypeDef output,
                                         uint32_t low_hz,
                                         uint32_t high_hz,
                                         uint32_t frequency_step_hz,
                                         uint16_t amplitude,
                                         uint32_t dwell_ms);
-/* 启动锯齿波往返扫频。 */
 HAL_StatusTypeDef AD5687_AppSweepSawtooth(AD5687_OutputTypeDef output,
                                           uint32_t low_hz,
                                           uint32_t high_hz,
@@ -106,7 +99,7 @@ HAL_StatusTypeDef AD5687_AppSweepSawtooth(AD5687_OutputTypeDef output,
                                           uint16_t amplitude,
                                           uint32_t dwell_ms);
 
-/* 任意波扫频，最高频率为16000/table_size Hz，幅度范围0~4095。 */
+/* 任意波扫频，最高频率为1000/table_size Hz，幅度范围0~4095。 */
 HAL_StatusTypeDef AD5687_AppSweepArbitrary(AD5687_OutputTypeDef output,
                                            const uint16_t *wave_table,
                                            uint16_t table_size,

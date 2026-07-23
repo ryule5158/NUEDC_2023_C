@@ -37,6 +37,7 @@ AD9910_Status AD9910_AppOutputSine(uint32_t freq_hz,
 
 /* 设置AD9910当前正弦输出相位偏移，phase_deg单位为度 */
 AD9910_Status AD9910_AppSetSinePhaseOffsetDeg(float phase_deg);
+/* 输出AD9910三角波, output_hz为目标频率, points建议用AD9910_APP_DEFAULT_RAM_POINTS, amplitude范围0~16383 */
 /* 按相位索引输出AD9910内置RAM波形, 支持三角波、方波、锯齿波和SINC */
 AD9910_Status AD9910_AppOutputRamWavePhaseIndex(AD9910_Waveform wave,
                                                 uint32_t output_hz,
@@ -145,18 +146,6 @@ AD9910_Status AD9910_AppSweepArbitrary(const uint16_t *wave_table,
                                        uint16_t amplitude,
                                        uint32_t dwell_ms,
                                        uint32_t retry_delay_ms);
-
-/* 丢弃首尾数据后降采样并转换为14位RAM采样表。 */
-uint16_t AD9910_AppDownSample(const float *src,
-                              uint32_t src_len,
-                              uint16_t discard_front,
-                              uint16_t discard_back,
-                              uint16_t dst_max,
-                              uint16_t *dst);
-/* 从输入波形中提取一个周期并转换为14位RAM采样表。 */
-uint16_t AD9910_AppExtractOneCycle(const float *src,
-                                   uint32_t      len,
-                                   uint16_t     *dst);
 
 /* 停止AD9910后台扫频任务, 当前输出保持最后状态 */
 void AD9910_AppStop(void);

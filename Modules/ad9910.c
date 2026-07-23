@@ -8,15 +8,15 @@
 #endif
 
 #define AD9910_SPI_TIMEOUT_MS      100U  /* 硬件SPI传输超时，单位ms。 */
-#define AD9910_REG_CFR1            0x00U /* 控制功能寄存器1地址。 */
-#define AD9910_REG_CFR2            0x01U /* 控制功能寄存器2地址。 */
-#define AD9910_REG_CFR3            0x02U /* 控制功能寄存器3地址。 */
-#define AD9910_REG_FTW             0x07U /* 频率调谐字寄存器地址。 */
+#define AD9910_REG_CFR1            0x00U /* CFR1寄存器地址。 */
+#define AD9910_REG_CFR2            0x01U /* CFR2寄存器地址。 */
+#define AD9910_REG_CFR3            0x02U /* CFR3寄存器地址。 */
+#define AD9910_REG_FTW             0x07U /* 频率控制字寄存器地址。 */
 #define AD9910_REG_DR_LIMIT        0x0BU /* 数字斜坡上下限寄存器地址。 */
 #define AD9910_REG_DR_STEP         0x0CU /* 数字斜坡步进寄存器地址。 */
 #define AD9910_REG_DR_RATE         0x0DU /* 数字斜坡速率寄存器地址。 */
-#define AD9910_REG_PROFILE0        0x0EU /* Profile 0寄存器首地址。 */
-#define AD9910_PROFILE_COUNT       8U    /* Profile寄存器数量。 */
+#define AD9910_REG_PROFILE0        0x0EU /* Profile 0寄存器地址。 */
+#define AD9910_PROFILE_COUNT       8U    /* AD9910硬件Profile数量。 */
 #define AD9910_REG_RAM             0x16U /* RAM数据寄存器地址。 */
 
 /*
@@ -24,76 +24,57 @@
  * 1: 使用GPIO模拟软件SPI，沿用原F103工程时序。
  * 0: 使用HAL硬件SPI外设。
  */
-#define AD9910_USE_SOFT_SPI        1U    /* 1使用GPIO软件SPI。 */
-#define AD9910_SOFT_SPI_DELAY_CYCLES 120U /* 软件SPI边沿延时周期数。 */
-#define AD9910_CTRL_DELAY_CYCLES   6000U /* 控制引脚保持延时周期数。 */
+#define AD9910_USE_SOFT_SPI        1U    /* 当前启用GPIO软件SPI。 */
+#define AD9910_SOFT_SPI_DELAY_CYCLES 120U /* 软件SPI半周期延时计数。 */
+#define AD9910_CTRL_DELAY_CYCLES   6000U /* 控制引脚建立/保持延时计数。 */
 
-#define AD9910_SCK_Pin             GPIO_PIN_2  /* 串行时钟引脚。 */
-#define AD9910_SCK_GPIO_Port       GPIOE       /* 串行时钟端口。 */
-#define AD9910_SDIO_Pin            GPIO_PIN_6  /* 串行数据引脚。 */
-#define AD9910_SDIO_GPIO_Port      GPIOE       /* 串行数据端口。 */
-#define AD9910_PWR_Pin             GPIO_PIN_13 /* 外部掉电引脚。 */
-#define AD9910_PWR_GPIO_Port       GPIOC       /* 外部掉电端口。 */
-#define AD9910_DROVER_Pin          GPIO_PIN_0  /* 扫频到端点指示引脚。 */
-#define AD9910_DROVER_GPIO_Port    GPIOA       /* 扫频到端点指示端口。 */
-#define AD9910_DRCTL_Pin           GPIO_PIN_8  /* 扫频方向控制引脚。 */
-#define AD9910_DRCTL_GPIO_Port     GPIOC       /* 扫频方向控制端口。 */
-#define AD9910_DRHOLD_Pin          GPIO_PIN_1  /* 扫频保持控制引脚。 */
-#define AD9910_DRHOLD_GPIO_Port    GPIOC       /* 扫频保持控制端口。 */
-#define AD9910_RESET_Pin           GPIO_PIN_6  /* 硬件复位引脚。 */
-#define AD9910_RESET_GPIO_Port     GPIOA       /* 硬件复位端口。 */
-#define AD9910_PF1_Pin             GPIO_PIN_6  /* Profile选择位1引脚。 */
-#define AD9910_PF1_GPIO_Port       GPIOC       /* Profile选择位1端口。 */
-#define AD9910_PF2_Pin             GPIO_PIN_7  /* Profile选择位2引脚。 */
-#define AD9910_PF2_GPIO_Port       GPIOC       /* Profile选择位2端口。 */
-#define AD9910_PF0_Pin             GPIO_PIN_5  /* Profile选择位0引脚。 */
-#define AD9910_PF0_GPIO_Port       GPIOB       /* Profile选择位0端口。 */
-#define AD9910_OSK_Pin             GPIO_PIN_7  /* 输出幅度键控引脚。 */
-#define AD9910_OSK_GPIO_Port       GPIOB       /* 输出幅度键控端口。 */
-#define AD9910_IO_UPDATE_Pin       GPIO_PIN_8  /* 寄存器更新引脚。 */
-#define AD9910_IO_UPDATE_GPIO_Port GPIOB       /* 寄存器更新端口。 */
-#define AD9910_CS_Pin              GPIO_PIN_9  /* 串行片选引脚。 */
-#define AD9910_CS_GPIO_Port        GPIOB       /* 串行片选端口。 */
+#define AD9910_SCK_Pin             GPIO_PIN_2  /* SCK虚拟引脚，TI映射到PB20。 */
+#define AD9910_SCK_GPIO_Port       GPIOE       /* SCK虚拟端口。 */
+#define AD9910_SDIO_Pin            GPIO_PIN_6  /* SDIO虚拟引脚，TI映射到PB2。 */
+#define AD9910_SDIO_GPIO_Port      GPIOE       /* SDIO虚拟端口。 */
+#define AD9910_PWR_Pin             GPIO_PIN_13 /* PWR虚拟引脚，TI映射到PB13。 */
+#define AD9910_PWR_GPIO_Port       GPIOC       /* PWR虚拟端口。 */
+#define AD9910_DROVER_Pin          GPIO_PIN_0  /* DROVER虚拟引脚，TI映射到PB1。 */
+#define AD9910_DROVER_GPIO_Port    GPIOA       /* DROVER虚拟端口。 */
+#define AD9910_DRCTL_Pin           GPIO_PIN_8  /* DRCTL虚拟引脚，TI映射到PA8。 */
+#define AD9910_DRCTL_GPIO_Port     GPIOC       /* DRCTL虚拟端口。 */
+#define AD9910_DRHOLD_Pin          GPIO_PIN_1  /* DRHOLD虚拟引脚，TI映射到PA16。 */
+#define AD9910_DRHOLD_GPIO_Port    GPIOC       /* DRHOLD虚拟端口。 */
+#define AD9910_RESET_Pin           GPIO_PIN_6  /* RESET虚拟引脚，TI映射到PB4。 */
+#define AD9910_RESET_GPIO_Port     GPIOA       /* RESET虚拟端口。 */
+#define AD9910_PF1_Pin             GPIO_PIN_6  /* PF1虚拟引脚，TI映射到PA17。 */
+#define AD9910_PF1_GPIO_Port       GPIOC       /* PF1虚拟端口。 */
+#define AD9910_PF2_Pin             GPIO_PIN_7  /* PF2虚拟引脚，TI映射到PA18。 */
+#define AD9910_PF2_GPIO_Port       GPIOC       /* PF2虚拟端口。 */
+#define AD9910_PF0_Pin             GPIO_PIN_5  /* PF0引脚，TI直连PB5。 */
+#define AD9910_PF0_GPIO_Port       GPIOB       /* PF0虚拟端口。 */
+#define AD9910_OSK_Pin             GPIO_PIN_7  /* OSK引脚，TI直连PB7。 */
+#define AD9910_OSK_GPIO_Port       GPIOB       /* OSK虚拟端口。 */
+#define AD9910_IO_UPDATE_Pin       GPIO_PIN_8  /* IO_UPDATE引脚，TI直连PB8。 */
+#define AD9910_IO_UPDATE_GPIO_Port GPIOB       /* IO_UPDATE虚拟端口。 */
+#define AD9910_CS_Pin              GPIO_PIN_9  /* 低有效片选，TI直连PB9。 */
+#define AD9910_CS_GPIO_Port        GPIOB       /* 片选虚拟端口。 */
 
-/* 写入指定AD9910控制引脚。 */
+/* 通过虚拟端口映射写入AD9910控制引脚。 */
 #define AD9910_PIN_WRITE(name, state) \
   HAL_GPIO_WritePin(AD9910_##name##_GPIO_Port, AD9910_##name##_Pin, (state))
 
-/* RAM波形数据的写入目标。 */
+/* AD9910 RAM数据目标类型。 */
 typedef enum
 {
-  AD9910_RAM_DEST_AMPLITUDE = 0, /* 仅控制幅度。 */
-  AD9910_RAM_DEST_POLAR           /* 同时控制幅度和极性。 */
+  AD9910_RAM_DEST_AMPLITUDE = 0, /* RAM控制幅度。 */
+  AD9910_RAM_DEST_POLAR           /* RAM控制极坐标数据。 */
 } AD9910_RamDestination;
 
 #if (AD9910_USE_SOFT_SPI == 0U)
-static SPI_HandleTypeDef *s_hspi; /* AD9910硬件SPI句柄。 */
+static SPI_HandleTypeDef *s_hspi; /* 硬件SPI句柄。 */
 #endif
+static uint8_t s_profile0[8] = {0xFFU, 0xFCU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}; /* Profile 0缓存。 */
+static uint16_t s_ram_scaled_samples[AD9910_RAM_POINTS]; /* RAM幅度缩放缓存。 */
 
-/* 单频Profile寄存器缓存。 */
-static uint8_t s_profile0[8] =
-{
-  0x3FU, 0xFFU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U
-};
-
-/* RAM波形幅度缩放缓存。 */
-static uint16_t s_ram_scaled_samples[AD9910_RAM_POINTS];
-
-/* 单频模式CFR1默认配置。 */
-static uint8_t s_cfr1_single_tone[4] = {0x00U, 0x40U, 0x00U, 0x00U};
-
-/* 单频模式CFR2默认配置。 */
-static uint8_t s_cfr2_single_tone[4] = {0x01U, 0x00U, 0x00U, 0x00U};
-
-/* 1GHz系统时钟对应的CFR3配置。 */
-static uint8_t s_cfr3_pll_1ghz[4] = {0x05U, 0x0FU, 0x41U, 0x32U};
-
-/* 将14位幅度字写入单频Profile的Bit61~Bit48。 */
-static void AD9910_StoreProfileAmplitude(uint16_t amplitude)
-{
-  s_profile0[0] = (uint8_t)((amplitude >> 8) & 0x3FU);
-  s_profile0[1] = (uint8_t)amplitude;
-}
+static uint8_t s_cfr1_single_tone[4] = {0x00U, 0x40U, 0x00U, 0x00U}; /* 单频CFR1配置。 */
+static uint8_t s_cfr2_single_tone[4] = {0x01U, 0x00U, 0x00U, 0x00U}; /* 单频CFR2配置。 */
+static uint8_t s_cfr3_pll_1ghz[4]    = {0x05U, 0x0FU, 0x41U, 0x32U}; /* 1GHz PLL配置。 */
 
 /************************************************************
  * Function :       AD9910_DelayCycles
@@ -979,19 +960,21 @@ AD9910_Status AD9910_SetPhaseOffsetWord(uint16_t phase_word)
 ************************************************************/
 AD9910_Status AD9910_SetAmplitude(uint16_t amplitude)
 {
-  if (amplitude > AD9910_MAX_AMPLITUDE)
-  {
-    return AD9910_BAD_PARAM;
-  }
+  uint16_t asf_word;
 
-  AD9910_StoreProfileAmplitude(amplitude);
+  amplitude &= 0x3FFFU;
+
+  /* AD9910 Profile uses bits [15:2] as the 14-bit ASF amplitude field. */
+  asf_word = (uint16_t)(amplitude << 2);
+  s_profile0[0] = (uint8_t)(asf_word >> 8);
+  s_profile0[1] = (uint8_t)asf_word;
 
   return AD9910_WriteAllProfiles();
 }
 
 /************************************************************
  * Function :       AD9910_SetRamWaveform
- * Comment  :       使用默认1024点RAM输出内置波形
+ * Comment  :       使用AD9910_RAM_POINTS点RAM输出内置波形
  * Parameter:       wave: 内置波形类型; playback_step: RAM播放步进
  * Return   :       AD9910_OK表示成功, 其他值表示参数或通信错误
  * Date     :       2026-06-10 V1
@@ -1057,6 +1040,7 @@ AD9910_Status AD9910_SetRamCustomWaveformCarrier(const uint16_t *samples,
 {
   AD9910_RamDestination destination = AD9910_RAM_DEST_POLAR;
   AD9910_Status status;
+  uint16_t asf;
   uint32_t ftw;
 
   /* Reset pins to known state */
@@ -1077,7 +1061,9 @@ AD9910_Status AD9910_SetRamCustomWaveformCarrier(const uint16_t *samples,
   if (status != AD9910_OK) return status;
 
   /* ASF = full scale, FTW = carrier_hz (usually 0) */
-  AD9910_StoreProfileAmplitude(AD9910_MAX_AMPLITUDE);
+  asf = (uint16_t)(AD9910_MAX_AMPLITUDE << 2);
+  s_profile0[0] = (uint8_t)(asf >> 8);
+  s_profile0[1] = (uint8_t)asf;
   ftw = AD9910_FrequencyToTuningWord(carrier_hz);
   s_profile0[4] = (uint8_t)(ftw >> 24);
   s_profile0[5] = (uint8_t)(ftw >> 16);
@@ -1110,6 +1096,7 @@ static AD9910_Status AD9910_SetRamCustomWaveformCarrierEx(const uint16_t *sample
                                                           AD9910_RamDestination destination)
 {
   AD9910_Status status; /* AD9910通信状态 */
+  uint16_t asf;         /* AD9910幅度比例控制字 */
   uint32_t ftw;         /* AD9910频率调谐字 */
 
   AD9910_PIN_WRITE(DRCTL, GPIO_PIN_RESET);
@@ -1131,7 +1118,9 @@ static AD9910_Status AD9910_SetRamCustomWaveformCarrierEx(const uint16_t *sample
     return status;
   }
 
-  AD9910_StoreProfileAmplitude(AD9910_MAX_AMPLITUDE);
+  asf = (uint16_t)(AD9910_MAX_AMPLITUDE << 2);
+  s_profile0[0] = (uint8_t)(asf >> 8);
+  s_profile0[1] = (uint8_t)asf;
   ftw = AD9910_FrequencyToTuningWord(carrier_hz);
   s_profile0[4] = (uint8_t)(ftw >> 24);
   s_profile0[5] = (uint8_t)(ftw >> 16);
@@ -1428,7 +1417,7 @@ AD9910_Status AD9910_SetRamPlaybackStep(uint16_t playback_step, uint16_t points)
 
 /************************************************************
  * Function :       AD9910_CalcRamOutputHz
- * Comment  :       按默认1024点RAM计算波形输出频率
+ * Comment  :       按AD9910_RAM_POINTS点RAM计算波形输出频率
  * Parameter:       playback_step: RAM播放步进
  * Return   :       估算输出频率(Hz)
  * Date     :       2026-06-10 V1

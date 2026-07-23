@@ -1,55 +1,41 @@
 #include "ADS8363.h"
 
-#define ADS8363_CFG_C_SHIFT              14U    /* 差分通道字段位移。 */
-#define ADS8363_CFG_R_SHIFT              12U    /* 寄存器更新字段位移。 */
-#define ADS8363_CFG_PD_SHIFT             10U    /* 电源模式字段位移。 */
-#define ADS8363_CFG_R_UPDATE_CHANNEL     (0U << ADS8363_CFG_R_SHIFT) /* 仅更新当前通道。 */
-#define ADS8363_CFG_R_UPDATE_ALL         (1U << ADS8363_CFG_R_SHIFT) /* 更新全部通道。 */
-#define ADS8363_CFG_NORMAL_POWER         (0U << ADS8363_CFG_PD_SHIFT) /* 正常工作模式。 */
-#define ADS8363_CFG_CID                  (1U << 5) /* 启用通道标识输出。 */
-#define ADS8363_ACCESS_CONFIG_ONLY       0x0U   /* 仅访问配置寄存器。 */
-#define ADS8363_ACCESS_WRITE_REFDAC1     0x2U   /* 写参考DAC1访问码。 */
-#define ADS8363_ACCESS_WRITE_REFDAC2     0x5U   /* 写参考DAC2访问码。 */
-#define ADS8363_ACCESS_RESET             0x4U   /* 软件复位访问码。 */
-#define ADS8363_REFDAC_2V5_ENABLE        0x03FFU /* 内部2.5V参考使能值。 */
-#define ADS8363_REFDAC_2V5_DISABLE       0x07FFU /* 内部参考关闭值。 */
-#define ADS8363_FRAME_TRAILING_BITS      4U     /* SPI帧尾部空位数。 */
+#define ADS8363_CFG_C_SHIFT              14U
+#define ADS8363_CFG_R_SHIFT              12U
+#define ADS8363_CFG_PD_SHIFT             10U
+#define ADS8363_CFG_R_UPDATE_CHANNEL     (0U << ADS8363_CFG_R_SHIFT)
+#define ADS8363_CFG_R_UPDATE_ALL         (1U << ADS8363_CFG_R_SHIFT)
+#define ADS8363_CFG_NORMAL_POWER         (0U << ADS8363_CFG_PD_SHIFT)
+#define ADS8363_CFG_CID                  (1U << 5)
+#define ADS8363_ACCESS_CONFIG_ONLY       0x0U
+#define ADS8363_ACCESS_WRITE_REFDAC1     0x2U
+#define ADS8363_ACCESS_WRITE_REFDAC2     0x5U
+#define ADS8363_ACCESS_RESET             0x4U
+#define ADS8363_REFDAC_2V5_ENABLE        0x03FFU
+#define ADS8363_REFDAC_2V5_DISABLE       0x07FFU
+#define ADS8363_FRAME_TRAILING_BITS      4U
 
-/* 检查ADS8363句柄配置。 */
 static ADS8363_StatusTypeDef ADS8363_CheckConfig(ADS8363_HandleTypeDef *dev);
-/* 检查SPI外设配置是否满足ADS8363时序。 */
 static ADS8363_StatusTypeDef ADS8363_CheckSpiConfig(SPI_HandleTypeDef *hspi);
-/* 写入ADS8363配置字。 */
 static ADS8363_StatusTypeDef ADS8363_WriteConfig(ADS8363_HandleTypeDef *dev,
                                                  ADS8363_DiffChannelTypeDef channel,
                                                  uint16_t access);
-/* 写入ADS8363内部寄存器。 */
 static ADS8363_StatusTypeDef ADS8363_WriteRegister(ADS8363_HandleTypeDef *dev,
                                                    uint16_t access,
                                                    uint16_t value);
-/* 预填充ADS8363转换流水线。 */
-static ADS8363_StatusTypeDef ADS8363_PrimePipeline(ADS8363_HandleTypeDef *dev);
-/* 完成一次32位SPI帧交换。 */
 static ADS8363_StatusTypeDef ADS8363_TransferFrame(ADS8363_HandleTypeDef *dev,
                                                    uint16_t tx_word,
                                                    uint16_t *rx_word);
-/* 等待BUSY达到指定电平。 */
 static ADS8363_StatusTypeDef ADS8363_WaitBusyState(ADS8363_HandleTypeDef *dev,
                                                    GPIO_PinState state);
-/* 将16位命令字对齐到32位SPI帧。 */
 static uint32_t ADS8363_WordToFrame(uint16_t word);
-/* 从32位SPI帧提取16位数据字。 */
 static uint16_t ADS8363_FrameToWord(uint32_t frame);
-/* 组装ADS8363配置字。 */
 static uint16_t ADS8363_BuildConfigWord(ADS8363_DiffChannelTypeDef channel,
                                         uint16_t r_bits,
                                         uint16_t access);
-/* 提供转换启动脉冲短延时。 */
 static void ADS8363_DelayCycles(uint16_t cycles);
-/* 启用DWT周期计数器。 */
 static void ADS8363_EnableCycleCounter(void);
 
-/* 填充ADS8363默认配置。 */
 void ADS8363_GetDefaultConfig(ADS8363_ConfigTypeDef *cfg)
 {
   if (cfg == NULL)
@@ -70,11 +56,11 @@ void ADS8363_GetDefaultConfig(ADS8363_ConfigTypeDef *cfg)
   cfg->vref_mv = ADS8363_DEFAULT_VREF_MV;
 }
 
-/* 初始化ADS8363并预填充转换流水线。 */
 ADS8363_StatusTypeDef ADS8363_Init(ADS8363_HandleTypeDef *dev,
                                    const ADS8363_ConfigTypeDef *cfg)
 {
   ADS8363_StatusTypeDef status;
+  uint16_t dummy;
 
   if ((dev == NULL) || (cfg == NULL))
   {
@@ -107,16 +93,23 @@ ADS8363_StatusTypeDef ADS8363_Init(ADS8363_HandleTypeDef *dev,
     return status;
   }
 
-  status = ADS8363_PrimePipeline(dev);
-  if (status != ADS8363_OK)
+  for (uint32_t i = 0U; i < 2U; i++)
   {
-    return status;
+    status = ADS8363_TransferFrame(dev,
+                                   ADS8363_BuildConfigWord(ADS8363_DIFF_CH0,
+                                                           ADS8363_CFG_R_UPDATE_CHANNEL,
+                                                           ADS8363_ACCESS_CONFIG_ONLY),
+                                   &dummy);
+    if (status != ADS8363_OK)
+    {
+      return status;
+    }
   }
 
+  dev->pipeline_valid_frames = 2U;
   return ADS8363_OK;
 }
 
-/* 发送ADS8363软件复位命令。 */
 ADS8363_StatusTypeDef ADS8363_Reset(ADS8363_HandleTypeDef *dev)
 {
   ADS8363_StatusTypeDef status;
@@ -143,11 +136,9 @@ ADS8363_StatusTypeDef ADS8363_Reset(ADS8363_HandleTypeDef *dev)
   return ADS8363_OK;
 }
 
-/* 设置ADS8363 A侧差分通道。 */
 ADS8363_StatusTypeDef ADS8363_SetDiffChannel(ADS8363_HandleTypeDef *dev,
                                              ADS8363_DiffChannelTypeDef channel)
 {
-  ADS8363_StatusTypeDef status;
   uint16_t dummy;
 
   if ((dev == NULL) ||
@@ -156,22 +147,16 @@ ADS8363_StatusTypeDef ADS8363_SetDiffChannel(ADS8363_HandleTypeDef *dev,
     return ADS8363_ERROR_PARAM;
   }
 
-  status = ADS8363_TransferFrame(dev,
-                                 ADS8363_BuildConfigWord(channel,
-                                                         ADS8363_CFG_R_UPDATE_CHANNEL,
-                                                         ADS8363_ACCESS_CONFIG_ONLY),
-                                 &dummy);
-  if (status != ADS8363_OK)
-  {
-    return status;
-  }
-
   dev->channel = channel;
   dev->pipeline_valid_frames = 0U;
-  return ADS8363_OK;
+
+  return ADS8363_TransferFrame(dev,
+                               ADS8363_BuildConfigWord(channel,
+                                                       ADS8363_CFG_R_UPDATE_CHANNEL,
+                                                       ADS8363_ACCESS_CONFIG_ONLY),
+                               &dummy);
 }
 
-/* 使能或关闭ADS8363内部参考源。 */
 ADS8363_StatusTypeDef ADS8363_EnableInternalReference(ADS8363_HandleTypeDef *dev,
                                                       uint8_t enable)
 {
@@ -205,15 +190,14 @@ ADS8363_StatusTypeDef ADS8363_EnableInternalReference(ADS8363_HandleTypeDef *dev
   return ADS8363_OK;
 }
 
-/* 切换通道并读取一帧有效采样。 */
 ADS8363_StatusTypeDef ADS8363_ReadPair(ADS8363_HandleTypeDef *dev,
                                        ADS8363_DiffChannelTypeDef channel,
                                        ADS8363_SamplePairTypeDef *sample)
 {
   ADS8363_StatusTypeDef status;
+  uint16_t dummy;
 
-  if ((dev == NULL) || (sample == NULL) ||
-      ((channel != ADS8363_DIFF_CH0) && (channel != ADS8363_DIFF_CH1)))
+  if ((dev == NULL) || (sample == NULL))
   {
     return ADS8363_ERROR_PARAM;
   }
@@ -227,16 +211,23 @@ ADS8363_StatusTypeDef ADS8363_ReadPair(ADS8363_HandleTypeDef *dev,
     }
   }
 
-  status = ADS8363_PrimePipeline(dev);
-  if (status != ADS8363_OK)
+  while (dev->pipeline_valid_frames < 2U)
   {
-    return status;
+    status = ADS8363_TransferFrame(dev,
+                                   ADS8363_BuildConfigWord(channel,
+                                                           ADS8363_CFG_R_UPDATE_CHANNEL,
+                                                           ADS8363_ACCESS_CONFIG_ONLY),
+                                   &dummy);
+    if (status != ADS8363_OK)
+    {
+      return status;
+    }
+    dev->pipeline_valid_frames++;
   }
 
   return ADS8363_ReadPairContinuous(dev, sample);
 }
 
-/* 连续读取当前通道采样。 */
 ADS8363_StatusTypeDef ADS8363_ReadPairContinuous(ADS8363_HandleTypeDef *dev,
                                                  ADS8363_SamplePairTypeDef *sample)
 {
@@ -246,17 +237,6 @@ ADS8363_StatusTypeDef ADS8363_ReadPairContinuous(ADS8363_HandleTypeDef *dev,
   if ((dev == NULL) || (sample == NULL))
   {
     return ADS8363_ERROR_PARAM;
-  }
-
-  if ((dev->channel != ADS8363_DIFF_CH0) && (dev->channel != ADS8363_DIFF_CH1))
-  {
-    return ADS8363_ERROR_PARAM;
-  }
-
-  status = ADS8363_PrimePipeline(dev);
-  if (status != ADS8363_OK)
-  {
-    return status;
   }
 
   status = ADS8363_TransferFrame(dev,
@@ -277,13 +257,11 @@ ADS8363_StatusTypeDef ADS8363_ReadPairContinuous(ADS8363_HandleTypeDef *dev,
   return ADS8363_OK;
 }
 
-/* 将ADS8363有符号码换算为差分电压。 */
 float ADS8363_CodeToVoltageMv(int16_t code, float vref_mv)
 {
   return ((float)code * vref_mv) / 32768.0f;
 }
 
-/* 检查ADS8363句柄配置。 */
 static ADS8363_StatusTypeDef ADS8363_CheckConfig(ADS8363_HandleTypeDef *dev)
 {
   if ((dev->cfg.hspi == NULL) ||
@@ -292,11 +270,7 @@ static ADS8363_StatusTypeDef ADS8363_CheckConfig(ADS8363_HandleTypeDef *dev)
       (dev->cfg.rd_port == NULL) ||
       (dev->cfg.rd_pin == 0U) ||
       (dev->cfg.busy_port == NULL) ||
-      (dev->cfg.busy_pin == 0U) ||
-      (dev->cfg.spi_timeout_ms == 0U) ||
-      (dev->cfg.busy_timeout_us == 0U) ||
-      (dev->cfg.pulse_cycles == 0U) ||
-      (dev->cfg.vref_mv <= 0.0f))
+      (dev->cfg.busy_pin == 0U))
   {
     return ADS8363_ERROR_PARAM;
   }
@@ -304,7 +278,6 @@ static ADS8363_StatusTypeDef ADS8363_CheckConfig(ADS8363_HandleTypeDef *dev)
   return ADS8363_CheckSpiConfig(dev->cfg.hspi);
 }
 
-/* 检查SPI外设配置是否满足ADS8363时序。 */
 static ADS8363_StatusTypeDef ADS8363_CheckSpiConfig(SPI_HandleTypeDef *hspi)
 {
   if (hspi == NULL)
@@ -325,7 +298,6 @@ static ADS8363_StatusTypeDef ADS8363_CheckSpiConfig(SPI_HandleTypeDef *hspi)
   return ADS8363_OK;
 }
 
-/* 写入ADS8363配置字。 */
 static ADS8363_StatusTypeDef ADS8363_WriteConfig(ADS8363_HandleTypeDef *dev,
                                                  ADS8363_DiffChannelTypeDef channel,
                                                  uint16_t access)
@@ -347,7 +319,6 @@ static ADS8363_StatusTypeDef ADS8363_WriteConfig(ADS8363_HandleTypeDef *dev,
   return status;
 }
 
-/* 写入ADS8363内部寄存器。 */
 static ADS8363_StatusTypeDef ADS8363_WriteRegister(ADS8363_HandleTypeDef *dev,
                                                    uint16_t access,
                                                    uint16_t value)
@@ -371,36 +342,6 @@ static ADS8363_StatusTypeDef ADS8363_WriteRegister(ADS8363_HandleTypeDef *dev,
   return ADS8363_OK;
 }
 
-/* 预填充ADS8363转换流水线。 */
-static ADS8363_StatusTypeDef ADS8363_PrimePipeline(ADS8363_HandleTypeDef *dev)
-{
-  ADS8363_StatusTypeDef status;
-  uint16_t dummy;
-
-  if (dev == NULL)
-  {
-    return ADS8363_ERROR_PARAM;
-  }
-
-  while (dev->pipeline_valid_frames < 2U)
-  {
-    status = ADS8363_TransferFrame(dev,
-                                   ADS8363_BuildConfigWord(dev->channel,
-                                                           ADS8363_CFG_R_UPDATE_CHANNEL,
-                                                           ADS8363_ACCESS_CONFIG_ONLY),
-                                   &dummy);
-    if (status != ADS8363_OK)
-    {
-      return status;
-    }
-
-    dev->pipeline_valid_frames++;
-  }
-
-  return ADS8363_OK;
-}
-
-/* 完成一次32位SPI帧交换。 */
 static ADS8363_StatusTypeDef ADS8363_TransferFrame(ADS8363_HandleTypeDef *dev,
                                                    uint16_t tx_word,
                                                    uint16_t *rx_word)
@@ -412,11 +353,6 @@ static ADS8363_StatusTypeDef ADS8363_TransferFrame(ADS8363_HandleTypeDef *dev,
   if ((dev == NULL) || (rx_word == NULL))
   {
     return ADS8363_ERROR_PARAM;
-  }
-
-  if (ADS8363_WaitBusyState(dev, GPIO_PIN_RESET) != ADS8363_OK)
-  {
-    return ADS8363_ERROR_BUSY_TIMEOUT;
   }
 
   tx_frame = ADS8363_WordToFrame(tx_word);
@@ -455,11 +391,9 @@ static ADS8363_StatusTypeDef ADS8363_TransferFrame(ADS8363_HandleTypeDef *dev,
   return ADS8363_OK;
 }
 
-/* 等待BUSY达到指定电平。 */
 static ADS8363_StatusTypeDef ADS8363_WaitBusyState(ADS8363_HandleTypeDef *dev,
                                                    GPIO_PinState state)
 {
-  uint32_t start_cycles;
   uint32_t timeout_cycles;
 
   if (dev == NULL)
@@ -467,33 +401,31 @@ static ADS8363_StatusTypeDef ADS8363_WaitBusyState(ADS8363_HandleTypeDef *dev,
     return ADS8363_ERROR_PARAM;
   }
 
-  start_cycles = DWT->CYCCNT;
   timeout_cycles = (HAL_RCC_GetSysClockFreq() / 1000000U) * dev->cfg.busy_timeout_us;
 
   while (HAL_GPIO_ReadPin(dev->cfg.busy_port, dev->cfg.busy_pin) != state)
   {
-    if ((DWT->CYCCNT - start_cycles) > timeout_cycles)
+    if (timeout_cycles == 0U)
     {
       return ADS8363_ERROR_BUSY_TIMEOUT;
     }
+    timeout_cycles--;
+    __NOP();
   }
 
   return ADS8363_OK;
 }
 
-/* 将16位命令字对齐到32位SPI帧。 */
 static uint32_t ADS8363_WordToFrame(uint16_t word)
 {
   return ((uint32_t)word << ADS8363_FRAME_TRAILING_BITS) & 0x000FFFF0U;
 }
 
-/* 从32位SPI帧提取16位数据字。 */
 static uint16_t ADS8363_FrameToWord(uint32_t frame)
 {
   return (uint16_t)((frame >> ADS8363_FRAME_TRAILING_BITS) & 0xFFFFU);
 }
 
-/* 组装ADS8363配置字。 */
 static uint16_t ADS8363_BuildConfigWord(ADS8363_DiffChannelTypeDef channel,
                                         uint16_t r_bits,
                                         uint16_t access)
@@ -509,7 +441,6 @@ static uint16_t ADS8363_BuildConfigWord(ADS8363_DiffChannelTypeDef channel,
                     (access & 0xFU));
 }
 
-/* 提供转换启动脉冲短延时。 */
 static void ADS8363_DelayCycles(uint16_t cycles)
 {
   while (cycles > 0U)
@@ -519,10 +450,7 @@ static void ADS8363_DelayCycles(uint16_t cycles)
   }
 }
 
-/* 启用DWT周期计数器。 */
 static void ADS8363_EnableCycleCounter(void)
 {
-  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
-  DWT->CYCCNT = 0U;
-  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+  /* Cortex-M0+ has no DWT cycle counter. Keep the API as a no-op. */
 }

@@ -4,32 +4,28 @@
  */
 
 #include "SoftPll.h"
-#include <math.h>
 #include <stddef.h>
-#include <string.h>
 
-#define SOFTPLL_DEFAULT_PHASE_KP              0.35f  /* 默认相位比例增益。 */
-#define SOFTPLL_DEFAULT_PHASE_KI              0.0f   /* 默认相位积分增益。 */
-#define SOFTPLL_DEFAULT_MAX_PHASE_STEP_DEG    20.0f  /* 默认单次最大相位步进。 */
-#define SOFTPLL_DEFAULT_MAX_INTEGRAL_DEG      2.0f   /* 默认相位积分限幅。 */
-#define SOFTPLL_DEFAULT_PHASE_DEADBAND_DEG    6.0f   /* 默认相位调节死区。 */
-#define SOFTPLL_DEFAULT_FREQ_KP_HZ_PER_DEG    0.0f   /* 默认相差到频率的比例增益。 */
-#define SOFTPLL_DEFAULT_FREQ_KD               0.08f  /* 默认相位漂移频率增益。 */
-#define SOFTPLL_DEFAULT_RATE_ALPHA            0.20f  /* 默认相位漂移低通系数。 */
-#define SOFTPLL_DEFAULT_MAX_FREQ_STEP_HZ      0.010f /* 默认单次最大频率步进。 */
-#define SOFTPLL_DEFAULT_FREQ_DEADBAND_HZ      0.006f /* 默认频率步进死区。 */
-#define SOFTPLL_DEFAULT_HOLD_ERROR_DEG        30.0f  /* 启用频率死区的相差上限。 */
-#define SOFTPLL_DEFAULT_MAX_FREQ_OFFSET_HZ    10.0f  /* 默认最大频率偏移。 */
-#define SOFTPLL_DEFAULT_MIN_REFERENCE_AMP     0.05f  /* 默认参考信号幅值门限。 */
-#define SOFTPLL_DEFAULT_MIN_FEEDBACK_AMP      0.03f  /* 默认反馈信号幅值门限。 */
+#define SOFTPLL_DEFAULT_PHASE_KP              0.35f
+#define SOFTPLL_DEFAULT_PHASE_KI              0.0f
+#define SOFTPLL_DEFAULT_MAX_PHASE_STEP_DEG    20.0f
+#define SOFTPLL_DEFAULT_MAX_INTEGRAL_DEG      2.0f
+#define SOFTPLL_DEFAULT_PHASE_DEADBAND_DEG    6.0f
+#define SOFTPLL_DEFAULT_FREQ_KP_HZ_PER_DEG    0.0f
+#define SOFTPLL_DEFAULT_FREQ_KD               0.08f
+#define SOFTPLL_DEFAULT_RATE_ALPHA            0.20f
+#define SOFTPLL_DEFAULT_MAX_FREQ_STEP_HZ      0.010f
+#define SOFTPLL_DEFAULT_FREQ_DEADBAND_HZ      0.006f
+#define SOFTPLL_DEFAULT_HOLD_ERROR_DEG        30.0f
+#define SOFTPLL_DEFAULT_MAX_FREQ_OFFSET_HZ    10.0f
+#define SOFTPLL_DEFAULT_MIN_REFERENCE_AMP     0.05f
+#define SOFTPLL_DEFAULT_MIN_FEEDBACK_AMP      0.03f
 
-/* 计算单精度数的绝对值。 */
 static float SoftPll_Abs(float x)
 {
     return (x < 0.0f) ? -x : x;
 }
 
-/* 将数值限制到给定闭区间。 */
 static float SoftPll_Clamp(float x, float lo, float hi)
 {
     if (x > hi) return hi;
@@ -37,63 +33,36 @@ static float SoftPll_Clamp(float x, float lo, float hi)
     return x;
 }
 
-/* 按正负对称范围限制数值，非正限值表示不限幅。 */
 static float SoftPll_LimitSym(float x, float limit)
 {
     if (limit <= 0.0f) return x;
     return SoftPll_Clamp(x, -limit, limit);
 }
 
-/* 检查配置指针及全部浮点参数是否有效。 */
-static uint8_t SoftPll_ConfigIsFinite(const SoftPll_Config_t *cfg)
-{
-    return (cfg != NULL) &&
-           isfinite(cfg->nominal_freq_hz) && isfinite(cfg->initial_phase_deg) &&
-           isfinite(cfg->freq_cal_hz) && isfinite(cfg->max_freq_offset_hz) &&
-           isfinite(cfg->min_reference_amp) && isfinite(cfg->min_feedback_amp) &&
-           isfinite(cfg->phase_kp) && isfinite(cfg->phase_ki) &&
-           isfinite(cfg->max_phase_step_deg) && isfinite(cfg->max_integral_deg) &&
-           isfinite(cfg->phase_deadband_deg) &&
-           isfinite(cfg->freq_kp_hz_per_deg) && isfinite(cfg->freq_kd) &&
-           isfinite(cfg->phase_rate_alpha) && isfinite(cfg->max_freq_step_hz) &&
-           isfinite(cfg->freq_step_deadband_hz) && isfinite(cfg->hold_error_deg) &&
-           isfinite(cfg->freq_direction) && isfinite(cfg->phase_direction);
-}
-
-/* 将角度折返到 [0, 360) 度。 */
 float SoftPll_Wrap360Deg(float phase_deg)
 {
-    if (!isfinite(phase_deg)) return 0.0f;
-    if ((phase_deg >= 360.0f) || (phase_deg < 0.0f)) {
-        phase_deg = fmodf(phase_deg, 360.0f);
-        if (phase_deg < 0.0f) phase_deg += 360.0f;
-    }
+    while (phase_deg >= 360.0f) phase_deg -= 360.0f;
+    while (phase_deg < 0.0f) phase_deg += 360.0f;
     return phase_deg;
 }
 
-/* 将角度归一化到 (-180, 180] 度。 */
 float SoftPll_Normalize180Deg(float phase_deg)
 {
-    if (!isfinite(phase_deg)) return 0.0f;
-    phase_deg = fmodf(phase_deg, 360.0f);
-    if (phase_deg > 180.0f) phase_deg -= 360.0f;
-    if (phase_deg <= -180.0f) phase_deg += 360.0f;
+    while (phase_deg > 180.0f) phase_deg -= 360.0f;
+    while (phase_deg <= -180.0f) phase_deg += 360.0f;
     return phase_deg;
 }
 
-/* 将弧度转换为度。 */
 float SoftPll_RadToDeg(float phase_rad)
 {
     return phase_rad * (180.0f / SOFTPLL_PI);
 }
 
-/* 将度转换为弧度。 */
 float SoftPll_DegToRad(float phase_deg)
 {
     return phase_deg * (SOFTPLL_PI / 180.0f);
 }
 
-/* 填充适合 DDS 频率和相位微调的保守默认配置。 */
 void SoftPll_DefaultConfig(SoftPll_Config_t *cfg, float nominal_freq_hz)
 {
     if (cfg == NULL) return;
@@ -123,32 +92,17 @@ void SoftPll_DefaultConfig(SoftPll_Config_t *cfg, float nominal_freq_hz)
     cfg->phase_direction = 1.0f;
 }
 
-/* 按配置初始化锁相环状态。 */
 void SoftPll_Init(SoftPll_t *pll, const SoftPll_Config_t *cfg)
 {
     if ((pll == NULL) || (cfg == NULL)) return;
 
-    if (SoftPll_ConfigIsFinite(cfg) == 0U) {
-        memset(pll, 0, sizeof(*pll));
-        return;
-    }
-
     pll->cfg = *cfg;
-    pll->cfg.phase_rate_alpha = SoftPll_Clamp(pll->cfg.phase_rate_alpha, 0.0f, 1.0f);
     SoftPll_Reset(pll, cfg->initial_phase_deg, cfg->nominal_freq_hz);
 }
 
-/* 保留配置并复位频率与相位指令状态。 */
 void SoftPll_Reset(SoftPll_t *pll, float initial_phase_deg, float nominal_freq_hz)
 {
     if (pll == NULL) return;
-    if (!isfinite(initial_phase_deg) || !isfinite(nominal_freq_hz) ||
-        !isfinite(pll->cfg.freq_cal_hz)) {
-        pll->ready = 0U;
-        pll->feedback_valid = 0U;
-        pll->last_error_valid = 0U;
-        return;
-    }
 
     pll->cfg.initial_phase_deg = initial_phase_deg;
     pll->cfg.nominal_freq_hz = nominal_freq_hz;
@@ -170,7 +124,6 @@ void SoftPll_Reset(SoftPll_t *pll, float initial_phase_deg, float nominal_freq_h
     pll->feedback_valid = 0U;
 }
 
-/* 使用相位输入更新频率与相位指令。 */
 uint8_t SoftPll_UpdatePhase(SoftPll_t *pll,
                             const SoftPll_PhaseInput_t *input,
                             SoftPll_PhaseUnit_t unit)
@@ -188,16 +141,6 @@ uint8_t SoftPll_UpdatePhase(SoftPll_t *pll,
     float phase_step_deg;
 
     if ((pll == NULL) || (input == NULL) || (pll->ready == 0U) || (input->dt_s <= 0.0f)) {
-        return 0U;
-    }
-
-    if ((unit != SOFTPLL_UNIT_RAD && unit != SOFTPLL_UNIT_DEG) ||
-        !isfinite(input->reference_phase) || !isfinite(input->feedback_phase) ||
-        !isfinite(input->dt_s) || !isfinite(input->reference_amp) ||
-        !isfinite(input->feedback_amp) || !isfinite(input->target_offset) ||
-        !isfinite(input->fixed_cal) || SoftPll_ConfigIsFinite(&pll->cfg) == 0U) {
-        pll->feedback_valid = 0U;
-        pll->last_error_valid = 0U;
         return 0U;
     }
 
@@ -276,7 +219,6 @@ uint8_t SoftPll_UpdatePhase(SoftPll_t *pll,
     return 1U;
 }
 
-/* 将 IQ 解调结果转换为相位输入并更新锁相环。 */
 uint8_t SoftPll_UpdateIq(SoftPll_t *pll,
                          const IQ_Result_t *reference,
                          const IQ_Result_t *feedback,

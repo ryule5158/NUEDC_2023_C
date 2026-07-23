@@ -6,12 +6,11 @@
 #include <math.h>
 #include <stddef.h>
 
-#define MODEL_FIT_ORDER          5u       /* 线性方程未知量个数。 */
-#define MODEL_FIT_MIN_PIVOT      1.0e-18  /* 高斯消元允许的最小主元。 */
-#define MODEL_FIT_MAG_FLOOR_REL  0.03f    /* 相位低信噪比加权的相对幅值基准。 */
-#define MODEL_FIT_WEIGHT_MIN     0.08f    /* 测量点的最小拟合权重。 */
+#define MODEL_FIT_ORDER          5u
+#define MODEL_FIT_MIN_PIVOT      1.0e-18
+#define MODEL_FIT_MAG_FLOOR_REL  0.03f
+#define MODEL_FIT_WEIGHT_MIN     0.08f
 
-/* 将数值限制到给定闭区间。 */
 static float ModelFit_ClampF(float x, float lo, float hi)
 {
     if (x < lo) return lo;
@@ -19,7 +18,6 @@ static float ModelFit_ClampF(float x, float lo, float hi)
     return x;
 }
 
-/* 使用全主元行选择求解五元线性方程组。 */
 static int ModelFit_Solve5(double a[MODEL_FIT_ORDER][MODEL_FIT_ORDER + 1u],
                            double x[MODEL_FIT_ORDER])
 {
@@ -63,7 +61,6 @@ static int ModelFit_Solve5(double a[MODEL_FIT_ORDER][MODEL_FIT_ORDER + 1u],
     return 0;
 }
 
-/* 将一行加权观测累加到正规方程。 */
 static void ModelFit_AccumulateRow(double normal[MODEL_FIT_ORDER][MODEL_FIT_ORDER + 1u],
                                    const double row[MODEL_FIT_ORDER],
                                    double rhs,
@@ -78,7 +75,6 @@ static void ModelFit_AccumulateRow(double normal[MODEL_FIT_ORDER][MODEL_FIT_ORDE
     }
 }
 
-/* 根据幅频和相频测量值拟合归一化二阶模型。 */
 int ModelFit_FitSecondOrder(const float *freq_hz,
                             const float *gain_mag,
                             const float *phase_rad,
@@ -87,18 +83,17 @@ int ModelFit_FitSecondOrder(const float *freq_hz,
                             ModelFit_SecondOrder_t *model)
 {
     if (freq_hz == NULL || gain_mag == NULL || phase_rad == NULL ||
-        model == NULL || n < 5u || !isfinite(norm_hz) || norm_hz <= 0.0f) {
+        model == NULL || n < 5u || norm_hz <= 0.0f) {
         return -1;
     }
 
     float max_mag = 0.0f;
     uint32_t valid_count = 0u;
     for (uint32_t k = 0u; k < n; k++) {
-        if (isfinite(freq_hz[k]) && isfinite(gain_mag[k]) &&
-            isfinite(phase_rad[k]) && freq_hz[k] > 0.0f && gain_mag[k] > 0.0f) {
+        if (freq_hz[k] > 0.0f && gain_mag[k] > 0.0f) {
             valid_count++;
         }
-        if (isfinite(gain_mag[k]) && gain_mag[k] > max_mag) {
+        if (gain_mag[k] > max_mag) {
             max_mag = gain_mag[k];
         }
     }
@@ -111,8 +106,7 @@ int ModelFit_FitSecondOrder(const float *freq_hz,
 
     for (uint32_t k = 0u; k < n; k++) {
         const float mag = gain_mag[k];
-        if (!isfinite(freq_hz[k]) || !isfinite(mag) || !isfinite(phase_rad[k]) ||
-            freq_hz[k] <= 0.0f || mag <= 0.0f) {
+        if (freq_hz[k] <= 0.0f || mag <= 0.0f) {
             continue;
         }
 
@@ -156,18 +150,13 @@ int ModelFit_FitSecondOrder(const float *freq_hz,
     model->c2 = (float)sol[2];
     model->d1 = (float)sol[3];
     model->d2 = (float)sol[4];
-    if (!isfinite(model->c0) || !isfinite(model->c1) || !isfinite(model->c2) ||
-        !isfinite(model->d1) || !isfinite(model->d2)) {
-        return -1;
-    }
     model->norm_hz = norm_hz;
     model->type = 0u;
 
     double err2 = 0.0;
     uint32_t used = 0u;
     for (uint32_t k = 0u; k < n; k++) {
-        if (!isfinite(freq_hz[k]) || !isfinite(gain_mag[k]) ||
-            !isfinite(phase_rad[k]) || freq_hz[k] <= 0.0f || gain_mag[k] <= 0.0f) {
+        if (freq_hz[k] <= 0.0f || gain_mag[k] <= 0.0f) {
             continue;
         }
         ModelFit_Complex_t h = ModelFit_EvalComplex(model, freq_hz[k]);
@@ -183,14 +172,11 @@ int ModelFit_FitSecondOrder(const float *freq_hz,
     return 0;
 }
 
-/* 计算模型在指定频率处的复数响应。 */
 ModelFit_Complex_t ModelFit_EvalComplex(const ModelFit_SecondOrder_t *model,
                                         float freq_hz)
 {
     ModelFit_Complex_t out = {0.0f, 0.0f};
-    if (model == NULL || !isfinite(model->norm_hz) || !isfinite(freq_hz) ||
-        !isfinite(model->c0) || !isfinite(model->c1) || !isfinite(model->c2) ||
-        !isfinite(model->d1) || !isfinite(model->d2) || model->norm_hz <= 0.0f) {
+    if (model == NULL || model->norm_hz <= 0.0f) {
         return out;
     }
 
@@ -212,7 +198,6 @@ ModelFit_Complex_t ModelFit_EvalComplex(const ModelFit_SecondOrder_t *model,
     return out;
 }
 
-/* 计算模型在指定频率处的幅值响应。 */
 float ModelFit_EvalMag(const ModelFit_SecondOrder_t *model, float freq_hz)
 {
     ModelFit_Complex_t h = ModelFit_EvalComplex(model, freq_hz);

@@ -2,9 +2,8 @@
  * @file    ModelFit.h
  * @brief   Unknown RLC model fitting from measured frequency response.
  */
-/* 模型拟合模块头文件保护宏。 */
 #ifndef __MODEL_FIT_H
-#define __MODEL_FIT_H /* 模型拟合模块头文件保护宏。 */
+#define __MODEL_FIT_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,12 +11,10 @@ extern "C" {
 
 #include <stdint.h>
 
-/* 模型识别结果类型。 */
 typedef enum {
     MODEL_FILTER_INVALID = 255
 } ModelFit_FilterType_t;
 
-/* 归一化二阶连续系统模型及拟合质量。 */
 typedef struct {
     /*
      * Normalized continuous model:
@@ -38,13 +35,11 @@ typedef struct {
     uint8_t type;
 } ModelFit_SecondOrder_t;
 
-/* 单精度复数。 */
 typedef struct {
     float real;
     float imag;
 } ModelFit_Complex_t;
 
-/* 根据幅频和相频测量值拟合归一化二阶模型。 */
 int ModelFit_FitSecondOrder(const float *freq_hz,
                             const float *gain_mag,
                             const float *phase_rad,
@@ -52,11 +47,9 @@ int ModelFit_FitSecondOrder(const float *freq_hz,
                             float norm_hz,
                             ModelFit_SecondOrder_t *model);
 
-/* 计算模型在指定频率处的复数响应。 */
 ModelFit_Complex_t ModelFit_EvalComplex(const ModelFit_SecondOrder_t *model,
                                         float freq_hz);
 
-/* 计算模型在指定频率处的幅值响应。 */
 float ModelFit_EvalMag(const ModelFit_SecondOrder_t *model, float freq_hz);
 
 

@@ -5,8 +5,8 @@
 #include "IQ.h"
 #include <math.h>
 
-#define IQ_2PI 6.28318530717958647692f /* 两倍圆周率。 */
-#define IQ_PI 3.14159265358979323846f  /* 圆周率。 */
+#define IQ_2PI   6.28318530717958647692f
+#define IQ_PI    3.14159265358979323846f
 
 /**
  * @brief  内部：在频率 freq 处计算 I、Q 两分量（已扣除直流）。
@@ -18,9 +18,7 @@
 static void IQ_ComputeIQ(const float *data, uint32_t len, float fs, float freq,
                          float *outI, float *outQ)
 {
-    if (outI == NULL || outQ == NULL) return;
-    if (data == NULL || len == 0u || !isfinite(fs) || !isfinite(freq) ||
-        fs <= 0.0f || freq < 0.0f || freq > 0.5f * fs) {
+    if (data == NULL || len == 0u || fs <= 0.0f) {
         if (outI) *outI = 0.0f;
         if (outQ) *outQ = 0.0f;
         return;
@@ -29,11 +27,6 @@ static void IQ_ComputeIQ(const float *data, uint32_t len, float fs, float freq,
     /* 先求直流分量并扣除，避免直流污染解调结果 */
     float mean = 0.0f;
     for (uint32_t i = 0; i < len; i++) {
-        if (!isfinite(data[i])) {
-            *outI = 0.0f;
-            *outQ = 0.0f;
-            return;
-        }
         mean += data[i];
     }
     mean /= (float)len;
@@ -66,7 +59,6 @@ static void IQ_ComputeIQ(const float *data, uint32_t len, float fs, float freq,
     *outQ = -accQ * scale;   /* 负号使 phase=atan2(Q,I) 等于信号相位 φ */
 }
 
-/* 提取指定频率的IQ分量、幅度和相位。 */
 void IQ_Demodulate(const float *data, uint32_t len, float fs, float freq,
                    IQ_Result_t *res)
 {
@@ -81,7 +73,6 @@ void IQ_Demodulate(const float *data, uint32_t len, float fs, float freq,
     res->phase = atan2f(Q, I);
 }
 
-/* 计算同频参考信号与待测信号的相位差。 */
 float IQ_PhaseDiff(const float *ref, const float *sig, uint32_t len,
                    float fs, float freq)
 {
@@ -97,7 +88,6 @@ float IQ_PhaseDiff(const float *ref, const float *sig, uint32_t len,
     return diff;
 }
 
-/* 将弧度转换为角度。 */
 float IQ_Rad2Deg(float rad)
 {
     return rad * (180.0f / IQ_PI);

@@ -2,27 +2,19 @@
 #include "spi.h"
 #include <stdio.h>
 
-static ADS8363_HandleTypeDef s_ads8363;                  /* ADS8363应用层驱动句柄。 */
-static uint32_t s_ads8363_frame_count;                   /* 已完成采样帧数。 */
-static uint32_t s_ads8363_print_tick;                    /* 上次打印的系统节拍。 */
-static uint32_t s_ads8363_print_interval_ms;             /* 打印间隔，单位ms。 */
-static uint32_t s_ads8363_sample_period_cycles;          /* 采样周期的CPU周期数。 */
-static uint32_t s_ads8363_next_sample_cycle;             /* 下一采样时刻的周期计数。 */
-static float s_ads8363_vref_mv;                          /* 参考电压，单位mV。 */
-static uint8_t s_ads8363_app_channel;                    /* 应用层通道编号。 */
-static ADS8363_DiffChannelTypeDef s_ads8363_diff_channel; /* 底层差分通道。 */
-static ADS8363_StatusTypeDef s_ads8363_status;           /* 最近一次操作状态。 */
+static ADS8363_HandleTypeDef s_ads8363;
+static uint32_t s_ads8363_frame_count;
+static uint32_t s_ads8363_print_tick;
+static uint32_t s_ads8363_print_interval_ms;
+static uint32_t s_ads8363_sample_period_cycles;
+static uint32_t s_ads8363_next_sample_cycle;
+static float s_ads8363_vref_mv;
+static uint8_t s_ads8363_app_channel;
+static ADS8363_DiffChannelTypeDef s_ads8363_diff_channel;
+static ADS8363_StatusTypeDef s_ads8363_status;
 
-/* 将应用层通道编号映射到底层通道。 */
 static ADS8363_StatusTypeDef ADS8363_AppSelectChannel(uint8_t channel);
-/* 计算并保存采样周期。 */
 static ADS8363_StatusTypeDef ADS8363_AppSetSampleRate(float sample_rate_hz);
-/* 将浮点数按比例转换为定点整数。 */
-static int32_t ADS8363_AppScaleFloat(float value, float scale);
-/* 打印带小数位的定点数。 */
-static void ADS8363_AppPrintFixed(int32_t scaled_value, uint32_t decimals);
-/* 打印ADS8363错误状态。 */
-static void ADS8363_AppPrintError(const char *prefix, ADS8363_StatusTypeDef status);
 
 /************************************************************
  * Function :       ADS8363_AppInit
@@ -70,20 +62,24 @@ ADS8363_StatusTypeDef ADS8363_AppInit(uint8_t channel,
   if (s_ads8363_status == ADS8363_OK)
   {
     s_ads8363_status = ADS8363_SetDiffChannel(&s_ads8363, s_ads8363_diff_channel);
-    if (s_ads8363_status == ADS8363_OK)
-    {
-      s_ads8363_next_sample_cycle = DWT->CYCCNT;
-      printf("ADS8363 Init OK, CH%u, vref=", (unsigned int)s_ads8363_app_channel);
-      ADS8363_AppPrintFixed(ADS8363_AppScaleFloat(s_ads8363_vref_mv, 10.0f), 1U);
-      printf("mV, Fs=");
-      ADS8363_AppPrintFixed(ADS8363_AppScaleFloat(sample_rate_hz, 10.0f), 1U);
-      printf("Hz\r\n");
-    }
+    s_ads8363_next_sample_cycle = DWT->CYCCNT;
+    printf("ADS8363 Init OK, CH%u, vref=%.1fmV, Fs=%.1fHz\r\n",
+           (unsigned int)s_ads8363_app_channel,
+           s_ads8363_vref_mv,
+           sample_rate_hz);
   }
-
-  if (s_ads8363_status != ADS8363_OK)
+  else
   {
-    ADS8363_AppPrintError("ADS8363 Init Error", s_ads8363_status);
+    printf("ADS8363 Init Error, status=%d (", (int)s_ads8363_status);
+    switch (s_ads8363_status)
+    {
+      case ADS8363_ERROR_PARAM:        printf("Param"); break;
+      case ADS8363_ERROR_BUSY_TIMEOUT: printf("BUSY Timeout: check RD/CONVST and BUSY wiring"); break;
+      case ADS8363_ERROR_SPI_CONFIG:   printf("SPI Config: need 20-bit, CPOL=0, CPHA=1"); break;
+      case ADS8363_ERROR_SPI:          printf("SPI Transfer Failed"); break;
+      default:                         printf("Unknown"); break;
+    }
+    printf(")\r\n");
   }
 
   return s_ads8363_status;
@@ -124,7 +120,7 @@ void ADS8363_AppProcess(void)
                                       &sample);
   if (s_ads8363_status != ADS8363_OK)
   {
-    ADS8363_AppPrintError("ADS8363 Read Error", s_ads8363_status);
+    printf("ADS8363 Read Error, status=%d\r\n", (int)s_ads8363_status);
     return;
   }
 
@@ -135,15 +131,14 @@ void ADS8363_AppProcess(void)
       ((HAL_GetTick() - s_ads8363_print_tick) >= s_ads8363_print_interval_ms))
   {
     s_ads8363_print_tick = HAL_GetTick();
-    printf("ADS8363 CH%u: raw=%d, voltage=",
+    printf("ADS8363 CH%u: raw=%d, voltage=%.2fmV, frame=%lu\r\n",
            (unsigned int)s_ads8363_app_channel,
-           (int)sample.a);
-    ADS8363_AppPrintFixed(ADS8363_AppScaleFloat(voltage_mv, 100.0f), 2U);
-    printf("mV, frame=%lu\r\n", (unsigned long)s_ads8363_frame_count);
+           (int)sample.a,
+           voltage_mv,
+           (unsigned long)s_ads8363_frame_count);
   }
 }
 
-/* 将应用层通道编号映射到底层通道。 */
 static ADS8363_StatusTypeDef ADS8363_AppSelectChannel(uint8_t channel)
 {
   if (channel == ADS8363_APP_CHANNEL_0)
@@ -163,7 +158,6 @@ static ADS8363_StatusTypeDef ADS8363_AppSelectChannel(uint8_t channel)
   return ADS8363_ERROR_PARAM;
 }
 
-/* 计算并保存采样周期。 */
 static ADS8363_StatusTypeDef ADS8363_AppSetSampleRate(float sample_rate_hz)
 {
   float period_cycles;
@@ -186,89 +180,4 @@ static ADS8363_StatusTypeDef ADS8363_AppSetSampleRate(float sample_rate_hz)
   }
 
   return ADS8363_OK;
-}
-
-/* 将浮点数按比例转换为定点整数。 */
-static int32_t ADS8363_AppScaleFloat(float value, float scale)
-{
-  if (value >= 0.0f)
-  {
-    return (int32_t)(value * scale + 0.5f);
-  }
-
-  return (int32_t)(value * scale - 0.5f);
-}
-
-/* 打印带小数位的定点数。 */
-static void ADS8363_AppPrintFixed(int32_t scaled_value, uint32_t decimals)
-{
-  uint32_t divisor = 1U;
-  int32_t whole;
-  int32_t frac;
-
-  for (uint32_t i = 0U; i < decimals; i++)
-  {
-    divisor *= 10U;
-  }
-
-  whole = scaled_value / (int32_t)divisor;
-  frac = scaled_value % (int32_t)divisor;
-  if (frac < 0)
-  {
-    frac = -frac;
-  }
-
-  if ((scaled_value < 0) && (whole == 0))
-  {
-    printf("-0");
-  }
-  else
-  {
-    printf("%ld", (long)whole);
-  }
-
-  if (decimals == 0U)
-  {
-    return;
-  }
-
-  printf(".");
-  for (uint32_t pad = divisor / 10U; pad > 1U; pad /= 10U)
-  {
-    if ((uint32_t)frac >= pad)
-    {
-      break;
-    }
-    printf("0");
-  }
-  printf("%ld", (long)frac);
-}
-
-/* 打印ADS8363错误状态。 */
-static void ADS8363_AppPrintError(const char *prefix, ADS8363_StatusTypeDef status)
-{
-  printf("%s, status=%d (", prefix, (int)status);
-  switch (status)
-  {
-    case ADS8363_ERROR_PARAM:
-      printf("Param");
-      break;
-
-    case ADS8363_ERROR_BUSY_TIMEOUT:
-      printf("BUSY Timeout: check PH8/PH9 wiring & GPIO speed");
-      break;
-
-    case ADS8363_ERROR_SPI_CONFIG:
-      printf("SPI Config: need 20-bit, CPOL=0, CPHA=1");
-      break;
-
-    case ADS8363_ERROR_SPI:
-      printf("SPI Transfer Failed");
-      break;
-
-    default:
-      printf("Unknown");
-      break;
-  }
-  printf(")\r\n");
 }

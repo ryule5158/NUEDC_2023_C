@@ -16,7 +16,7 @@
  */
 
 #ifndef FILTER_H
-#define FILTER_H /* 数字滤波头文件包含保护。 */
+#define FILTER_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,15 +35,15 @@ extern "C" {
 extern const int   LP1;              /* FIR 抽头数 = 101 */
 extern const float LP1_Resource[];   /* FIR 系数表 */
 
-extern float fifo_data1_f[FIFO_SIZE]; /* FIR通用输入缓存。 */
-extern float testOutput[FIFO_SIZE]; /* FIR通用输出缓存。 */
+extern float fifo_data1_f[FIFO_SIZE];
+extern float testOutput[FIFO_SIZE];
 extern float firStateF32[BLOCK_SIZE + 101 - 1];  /* 使用实际数值，对应 LP1 */
 
 /**
  * @brief  对输入数据数组进行 FIR 低通滤波（101 阶）。
  * @param  input        输入采样数组，长度 = num_samples
  * @param  output       滤波后输出数组，长度 = num_samples
- * @param  num_samples  要处理的采样点数；末尾不足 BLOCK_SIZE 的数据也会安全处理
+ * @param  num_samples  要处理的采样点数，必须是 BLOCK_SIZE 的整数倍
  * @note   每次调用前会自动清零滤波器状态，保证独立调用之间无状态残留。
  *         如果需要连续流式滤波，请直接使用 arm_fir_f32 并自行管理状态。
  */
@@ -73,8 +73,8 @@ typedef struct {
 /* 级联滤波器 */
 #define IIR_MAX_STAGES   4              /* 最多级数(每级2阶，最高8阶) */
 typedef struct {
-    IIR_Biquad_t stage[IIR_MAX_STAGES]; /* 各级双二阶滤波器。 */
-    uint8_t num_stages; /* 当前有效级数。 */
+    IIR_Biquad_t stage[IIR_MAX_STAGES];
+    uint8_t      num_stages;
 } IIR_Cascade_t;
 
 /* ---- 设计接口 ---- */
@@ -164,8 +164,8 @@ void Filter_Median(const float *in, float *out, uint32_t len, uint32_t window);
  * @param  in      输入数组
  * @param  len     输入长度
  * @param  factor  抽取因子(>=2)，输出采样率 = 原采样率 / factor
- * @param  out     [out] 降采样结果，长度需 >= floor(len/factor)
- * @return 实际输出点数 = floor(len/factor)
+ * @param  out     [out] 降采样结果，长度需 >= len/factor
+ * @return 实际输出点数 = len / factor
  * @note   防混叠低通截止取 0.8*(新奈奎斯特)。若只需简单抽取可自行跳过本函数。
  */
 uint32_t Filter_Decimate(const float *in, uint32_t len, uint32_t factor, float *out);

@@ -5,7 +5,6 @@
 #include "Fit.h"
 #include <math.h>
 
-/* 用最小二乘法拟合直线并可选返回决定系数。 */
 int Fit_Linear(const float *x, const float *y, uint32_t n,
                float *a, float *b, float *r2)
 {
@@ -13,7 +12,6 @@ int Fit_Linear(const float *x, const float *y, uint32_t n,
 
     float sx = 0.0f, sy = 0.0f, sxx = 0.0f, sxy = 0.0f;
     for (uint32_t i = 0; i < n; i++) {
-        if (!isfinite(x[i]) || !isfinite(y[i])) return -1;
         sx  += x[i];
         sy  += y[i];
         sxx += x[i] * x[i];
@@ -41,7 +39,6 @@ int Fit_Linear(const float *x, const float *y, uint32_t n,
     return 0;
 }
 
-/* 用正规方程拟合指定次数的多项式。 */
 int Fit_Poly(const float *x, const float *y, uint32_t n, uint32_t degree,
              float *coeffs)
 {
@@ -60,7 +57,6 @@ int Fit_Poly(const float *x, const float *y, uint32_t n, uint32_t degree,
 
     for (uint32_t p = 0; p < n; p++) {
         float xv = x[p];
-        if (!isfinite(xv) || !isfinite(y[p])) return -1;
         float xp = 1.0f;                       /* x^k */
         for (uint32_t k = 0; k <= 2u * degree; k++) {
             powsum[k] += xp;
@@ -116,7 +112,6 @@ int Fit_Poly(const float *x, const float *y, uint32_t n, uint32_t degree,
     return 0;
 }
 
-/* 使用霍纳法计算多项式在指定横坐标处的值。 */
 float Fit_PolyEval(const float *coeffs, uint32_t degree, float x)
 {
     if (coeffs == NULL) return 0.0f;

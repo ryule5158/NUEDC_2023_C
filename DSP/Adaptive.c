@@ -1,14 +1,13 @@
 /**
  * @file    Adaptive.c
- * @brief   自适应滤波、在线统计和线性校准实现。
+ * @brief   Adaptive filtering (LMS, notch), online statistics, and linear calibration.
  */
 #include "Adaptive.h"
 #include <math.h>
 #include <stddef.h>
 
-#define CC_2PI 6.28318530717958647692f /* 两倍圆周率。 */
+#define CC_2PI 6.28318530717958647692f
 
-/* 清零在线统计量。 */
 void Contest_StatsInit(Contest_OnlineStats_t *s)
 {
     if (s == NULL) return;
@@ -19,10 +18,9 @@ void Contest_StatsInit(Contest_OnlineStats_t *s)
     s->max_v = 0.0f;
 }
 
-/* 向在线统计量加入一个样本。 */
 void Contest_StatsPush(Contest_OnlineStats_t *s, float x)
 {
-    if (s == NULL || !isfinite(x)) return;
+    if (s == NULL) return;
     if (s->n == 0u) {
         s->n = 1u;
         s->mean = x;
@@ -39,28 +37,24 @@ void Contest_StatsPush(Contest_OnlineStats_t *s, float x)
     if (x > s->max_v) s->max_v = x;
 }
 
-/* 返回样本方差。 */
 float Contest_StatsVariance(const Contest_OnlineStats_t *s)
 {
     if (s == NULL || s->n < 2u) return 0.0f;
     return s->m2 / (float)(s->n - 1u);
 }
 
-/* 返回样本标准差。 */
 float Contest_StatsStd(const Contest_OnlineStats_t *s)
 {
     float v = Contest_StatsVariance(s);
     return (v > 0.0f) ? sqrtf(v) : 0.0f;
 }
 
-/* 用参考值拟合一次线性校准参数。 */
 int Contest_CalibrateLine(const float *raw, const float *ref, uint32_t n,
                           Contest_LineCal_t *cal)
 {
     if (raw == NULL || ref == NULL || cal == NULL || n < 2u) return -1;
     float sx = 0.0f, sy = 0.0f, sxx = 0.0f, sxy = 0.0f;
     for (uint32_t i = 0; i < n; i++) {
-        if (!isfinite(raw[i]) || !isfinite(ref[i])) return -1;
         sx += raw[i];
         sy += ref[i];
         sxx += raw[i] * raw[i];
@@ -85,14 +79,12 @@ int Contest_CalibrateLine(const float *raw, const float *ref, uint32_t n,
     return 0;
 }
 
-/* 对原始值应用一次线性校准。 */
 float Contest_CalApply(const Contest_LineCal_t *cal, float raw)
 {
     if (cal == NULL) return raw;
     return cal->gain * raw + cal->offset;
 }
 
-/* 按标准差阈值剔除异常样本并返回有效点数。 */
 uint32_t Contest_RejectOutliers(const float *in, float *out, uint32_t len,
                                 float sigma_limit)
 {
@@ -102,14 +94,10 @@ uint32_t Contest_RejectOutliers(const float *in, float *out, uint32_t len,
     Contest_OnlineStats_t s;
     Contest_StatsInit(&s);
     for (uint32_t i = 0; i < len; i++) Contest_StatsPush(&s, in[i]);
-    if (s.n == 0u) return 0u;
     float sd = Contest_StatsStd(&s);
     if (sd <= 1.0e-12f) {
-        uint32_t nout = 0u;
-        for (uint32_t i = 0; i < len; i++) {
-            if (isfinite(in[i])) out[nout++] = in[i];
-        }
-        return nout;
+        for (uint32_t i = 0; i < len; i++) out[i] = in[i];
+        return len;
     }
 
     uint32_t nout = 0u;
@@ -122,12 +110,10 @@ uint32_t Contest_RejectOutliers(const float *in, float *out, uint32_t len,
     return nout;
 }
 
-/* 初始化通用归一化LMS滤波器。 */
 int Contest_LMSInit(Contest_LMS_t *lms, float *w, float *state,
                     uint32_t taps, float mu, float leak)
 {
-    if (lms == NULL || w == NULL || state == NULL || taps == 0u ||
-        !isfinite(mu) || !isfinite(leak)) return -1;
+    if (lms == NULL || w == NULL || state == NULL || taps == 0u) return -1;
     if (mu < 0.0f) mu = 0.0f;
     if (leak < 0.0f) leak = 0.0f;
     if (leak > 1.0f) leak = 1.0f;
@@ -143,16 +129,11 @@ int Contest_LMSInit(Contest_LMS_t *lms, float *w, float *state,
     return 0;
 }
 
-/* 处理一个LMS样本并返回滤波输出。 */
 float Contest_LMSProcess(Contest_LMS_t *lms, float x, float desired,
                          float *err_out)
 {
     if (lms == NULL || lms->w == NULL || lms->state == NULL || lms->taps == 0u) {
         if (err_out) *err_out = desired;
-        return 0.0f;
-    }
-    if (!isfinite(x) || !isfinite(desired)) {
-        if (err_out) *err_out = 0.0f;
         return 0.0f;
     }
 
@@ -178,15 +159,13 @@ float Contest_LMSProcess(Contest_LMS_t *lms, float x, float desired,
 }
 
 /* ==================================================================== */
-/*  双权重LMS正弦分量分离。                                               */
+/*  LMS Sinusoidal Separation — 2-tap basis-expansion LMS                */
 /* ==================================================================== */
 
-/* 初始化LMS正弦分量分离器。 */
 int Contest_LMS_SineSepInit(Contest_LMS_SineSep_t *lms, float fs,
                             float freq, float mu)
 {
-    if (lms == NULL || !isfinite(fs) || !isfinite(freq) || !isfinite(mu) ||
-        fs <= 0.0f || freq <= 0.0f || freq >= 0.5f * fs) {
+    if (lms == NULL || fs <= 0.0f || freq <= 0.0f || freq >= 0.5f * fs) {
         return -1;
     }
     if (mu <= 0.0f)  mu = 0.01f;
@@ -206,16 +185,11 @@ int Contest_LMS_SineSepInit(Contest_LMS_SineSep_t *lms, float fs,
     return 0;
 }
 
-/* 处理一个混合样本并返回目标频率分量。 */
 float Contest_LMS_SineSepProcess(Contest_LMS_SineSep_t *lms, float mixture,
                                  float *err_out)
 {
     if (lms == NULL) {
         if (err_out) *err_out = mixture;
-        return 0.0f;
-    }
-    if (!isfinite(mixture)) {
-        if (err_out) *err_out = 0.0f;
         return 0.0f;
     }
 
@@ -246,7 +220,6 @@ float Contest_LMS_SineSepProcess(Contest_LMS_SineSep_t *lms, float mixture,
     return y;
 }
 
-/* 从收敛权重读取幅度和相位。 */
 void Contest_LMS_SineSepGetParams(const Contest_LMS_SineSep_t *lms,
                                   float *amplitude, float *phase_rad)
 {
@@ -264,7 +237,6 @@ void Contest_LMS_SineSepGetParams(const Contest_LMS_SineSep_t *lms,
     }
 }
 
-/* 清零正弦分离权重并复位参考相位。 */
 void Contest_LMS_SineSepReset(Contest_LMS_SineSep_t *lms)
 {
     if (lms == NULL) return;
@@ -274,11 +246,9 @@ void Contest_LMS_SineSepReset(Contest_LMS_SineSep_t *lms)
     lms->s     = 0.0f;
 }
 
-/* 初始化二阶陷波器。 */
 int Contest_NotchInit(Contest_Notch_t *n, float fs, float freq, float radius)
 {
-    if (n == NULL || !isfinite(fs) || !isfinite(freq) || !isfinite(radius) ||
-        fs <= 0.0f || freq <= 0.0f || freq >= 0.5f * fs) return -1;
+    if (n == NULL || fs <= 0.0f || freq <= 0.0f || freq >= 0.5f * fs) return -1;
     if (radius < 0.80f) radius = 0.80f;
     if (radius > 0.9999f) radius = 0.9999f;
     float w = CC_2PI * freq / fs;
@@ -296,17 +266,15 @@ int Contest_NotchInit(Contest_Notch_t *n, float fs, float freq, float radius)
     return 0;
 }
 
-/* 处理一个陷波滤波样本。 */
 float Contest_NotchProcess(Contest_Notch_t *n, float x)
 {
-    if (n == NULL || !isfinite(x)) return x;
+    if (n == NULL) return x;
     float y = n->b0 * x + n->z1;
     n->z1 = n->b1 * x - n->a1 * y + n->z2;
     n->z2 = n->b2 * x - n->a2 * y;
     return y;
 }
 
-/* 清零陷波器状态。 */
 void Contest_NotchReset(Contest_Notch_t *n)
 {
     if (n == NULL) return;

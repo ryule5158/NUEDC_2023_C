@@ -1,18 +1,17 @@
 #include "ad5687_app.h"
 
-#define AD5687_APP_SCK_GPIO_PORT   GPIOA       /* 两片AD5687共用软件SPI时钟端口 */
-#define AD5687_APP_SCK_PIN         GPIO_PIN_5  /* 两片AD5687共用软件SPI时钟引脚 */
-#define AD5687_APP_MOSI_GPIO_PORT  GPIOA       /* 两片AD5687共用软件SPI数据端口 */
-#define AD5687_APP_MOSI_PIN        GPIO_PIN_7  /* 两片AD5687共用软件SPI数据引脚 */
-#define AD5687_APP_CS_GPIO_PORT    GPIOE       /* 两片AD5687共用片选端口，PC4已改作ADC输入 */
-#define AD5687_APP_CS_PIN          GPIO_PIN_8  /* 两片AD5687共用片选引脚 */
+#define AD5687_APP_SCK_GPIO_PORT   GPIOA       /* 软件SPI时钟虚拟端口，TI映射到PB6。 */
+#define AD5687_APP_SCK_PIN         GPIO_PIN_5  /* 软件SPI时钟虚拟引脚。 */
+#define AD5687_APP_MOSI_GPIO_PORT  GPIOA       /* 软件SPI数据虚拟端口，TI映射到PA7。 */
+#define AD5687_APP_MOSI_PIN        GPIO_PIN_7  /* 软件SPI数据虚拟引脚。 */
+#define AD5687_APP_CS_GPIO_PORT    GPIOE       /* 片选虚拟端口，TI映射到PB22。 */
+#define AD5687_APP_CS_PIN          GPIO_PIN_8  /* 低有效片选虚拟引脚。 */
 
 /*
  * AD5687波形由主循环软件送点产生, 必须持续调用AD5687_AppProcess()。
- * output_hz越高需要越高送点速率，当前上限16000点/秒，16点表最高1000Hz。
+ * output_hz越高需要越高送点速率，当前默认1000点/秒，16点表最高约62Hz。
  */
 
-/* AD5687软件波形和扫频任务状态。 */
 typedef struct
 {
   const uint16_t *table;
@@ -33,11 +32,10 @@ typedef struct
   uint8_t sweep_running;
 } AD5687_AppWaveTaskTypeDef;
 
-static AD5687_HandleTypeDef s_ad5687;          /* AD5687应用层驱动句柄。 */
-static AD5687_AppWaveTaskTypeDef s_wave_task;  /* 当前软件波形任务。 */
-static uint8_t s_ad5687_initialized;           /* 应用层初始化标志。 */
+static AD5687_HandleTypeDef s_ad5687;
+static AD5687_AppWaveTaskTypeDef s_wave_task;
+static uint8_t s_ad5687_initialized;
 
-/* AD5687内置正弦波表。 */
 const uint16_t AD5687_AppSineTable[AD5687_APP_WAVE_TABLE_SIZE] =
 {
   2048U, 2831U, 3495U, 3939U,
@@ -46,7 +44,6 @@ const uint16_t AD5687_AppSineTable[AD5687_APP_WAVE_TABLE_SIZE] =
      0U,  156U,  600U, 1264U
 };
 
-/* AD5687内置三角波表。 */
 const uint16_t AD5687_AppTriangleTable[AD5687_APP_WAVE_TABLE_SIZE] =
 {
      0U,  512U, 1024U, 1536U,
@@ -55,7 +52,6 @@ const uint16_t AD5687_AppTriangleTable[AD5687_APP_WAVE_TABLE_SIZE] =
   2048U, 1536U, 1024U,  512U
 };
 
-/* AD5687内置方波表。 */
 const uint16_t AD5687_AppSquareTable[AD5687_APP_WAVE_TABLE_SIZE] =
 {
      0U,    0U,    0U,    0U,
@@ -64,7 +60,6 @@ const uint16_t AD5687_AppSquareTable[AD5687_APP_WAVE_TABLE_SIZE] =
   4095U, 4095U, 4095U, 4095U
 };
 
-/* AD5687内置锯齿波表。 */
 const uint16_t AD5687_AppSawtoothTable[AD5687_APP_WAVE_TABLE_SIZE] =
 {
      0U,  273U,  546U,  819U,
@@ -73,7 +68,6 @@ const uint16_t AD5687_AppSawtoothTable[AD5687_APP_WAVE_TABLE_SIZE] =
   3276U, 3549U, 3822U, 4095U
 };
 
-/* AD5687用户可编辑任意波表。 */
 uint16_t AD5687_AppArbitraryTable[AD5687_APP_WAVE_TABLE_SIZE] =
 {
      0U,  512U, 1024U, 1536U,
@@ -82,19 +76,15 @@ uint16_t AD5687_AppArbitraryTable[AD5687_APP_WAVE_TABLE_SIZE] =
   2048U, 1536U, 1024U,  512U
 };
 
-/* 按需初始化AD5687应用层。 */
 static HAL_StatusTypeDef EnsureInit(void);
-/* 将CV输出编号映射到级联器件和通道。 */
 static HAL_StatusTypeDef GetOutputAddress(AD5687_OutputTypeDef output,
                                           AD5687_DeviceTypeDef *device,
                                           AD5687_ChannelTypeDef *channel);
-/* 启动指定波表的周期输出。 */
 static HAL_StatusTypeDef StartWave(AD5687_OutputTypeDef output,
                                    const uint16_t *wave_table,
                                    uint16_t table_size,
                                    uint32_t output_hz,
                                    uint16_t amplitude);
-/* 启动指定波表的往返扫频。 */
 static HAL_StatusTypeDef StartSweep(AD5687_OutputTypeDef output,
                                     const uint16_t *wave_table,
                                     uint16_t table_size,
@@ -103,11 +93,8 @@ static HAL_StatusTypeDef StartSweep(AD5687_OutputTypeDef output,
                                     uint32_t frequency_step_hz,
                                     uint16_t amplitude,
                                     uint32_t dwell_ms);
-/* 按经过时间输出应送波形点。 */
 static HAL_StatusTypeDef StepWave(uint8_t force);
-/* 更新扫频方向和当前频率。 */
 static void UpdateSweep(void);
-/* 按目标幅度缩放波表码值。 */
 static uint16_t ScaleCode(uint16_t code, uint16_t amplitude);
 static void AD5687_AppTimebaseInit(void);  /* 初始化CPU周期计数器 */
 static uint32_t AD5687_AppGetCycle(void);  /* 获取当前CPU周期计数 */
@@ -240,7 +227,7 @@ HAL_StatusTypeDef AD5687_AppOutputFourVoltageMv(uint32_t cv1_mv,
 /************************************************************
  * Function :       AD5687_AppOutputSine
  * Comment  :       启动AD5687正弦波输出任务
- * Parameter:       output: CV1~CV4输出口; output_hz: 波形频率, 范围1~1000Hz; amplitude: 12位幅度, 范围0~4095
+ * Parameter:       output: CV1~CV4输出口; output_hz: 1~62Hz; amplitude: 0~4095
  * Return   :       HAL_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -258,7 +245,7 @@ HAL_StatusTypeDef AD5687_AppOutputSine(AD5687_OutputTypeDef output,
 /************************************************************
  * Function :       AD5687_AppOutputTriangle
  * Comment  :       启动AD5687三角波输出任务
- * Parameter:       output: CV1~CV4输出口; output_hz: 波形频率, 范围1~1000Hz; amplitude: 12位幅度, 范围0~4095
+ * Parameter:       output: CV1~CV4输出口; output_hz: 1~62Hz; amplitude: 0~4095
  * Return   :       HAL_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -276,7 +263,7 @@ HAL_StatusTypeDef AD5687_AppOutputTriangle(AD5687_OutputTypeDef output,
 /************************************************************
  * Function :       AD5687_AppOutputSquare
  * Comment  :       启动AD5687方波输出任务
- * Parameter:       output: CV1~CV4输出口; output_hz: 波形频率, 范围1~1000Hz; amplitude: 12位幅度, 范围0~4095
+ * Parameter:       output: CV1~CV4输出口; output_hz: 1~62Hz; amplitude: 0~4095
  * Return   :       HAL_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -294,7 +281,7 @@ HAL_StatusTypeDef AD5687_AppOutputSquare(AD5687_OutputTypeDef output,
 /************************************************************
  * Function :       AD5687_AppOutputSawtooth
  * Comment  :       启动AD5687锯齿波输出任务
- * Parameter:       output: CV1~CV4输出口; output_hz: 波形频率, 范围1~1000Hz; amplitude: 12位幅度, 范围0~4095
+ * Parameter:       output: CV1~CV4输出口; output_hz: 1~62Hz; amplitude: 0~4095
  * Return   :       HAL_OK表示成功, 其他值表示失败
  * Date     :       2026-06-12 V1
 ************************************************************/
@@ -494,7 +481,6 @@ void AD5687_AppProcess(void)
   }
 }
 
-/* 按需初始化AD5687应用层。 */
 static HAL_StatusTypeDef EnsureInit(void)
 {
   if (s_ad5687_initialized != 0U)
@@ -505,7 +491,6 @@ static HAL_StatusTypeDef EnsureInit(void)
   return AD5687_AppInit();
 }
 
-/* 将CV输出编号映射到级联器件和通道。 */
 static HAL_StatusTypeDef GetOutputAddress(AD5687_OutputTypeDef output,
                                           AD5687_DeviceTypeDef *device,
                                           AD5687_ChannelTypeDef *channel)
@@ -544,7 +529,6 @@ static HAL_StatusTypeDef GetOutputAddress(AD5687_OutputTypeDef output,
   return HAL_OK;
 }
 
-/* 启动指定波表的周期输出。 */
 static HAL_StatusTypeDef StartWave(AD5687_OutputTypeDef output,
                                    const uint16_t *wave_table,
                                    uint16_t table_size,
@@ -597,7 +581,6 @@ static HAL_StatusTypeDef StartWave(AD5687_OutputTypeDef output,
   return StepWave(1U);
 }
 
-/* 启动指定波表的往返扫频。 */
 static HAL_StatusTypeDef StartSweep(AD5687_OutputTypeDef output,
                                     const uint16_t *wave_table,
                                     uint16_t table_size,
@@ -640,7 +623,6 @@ static HAL_StatusTypeDef StartSweep(AD5687_OutputTypeDef output,
   return HAL_OK;
 }
 
-/* 按经过时间输出应送波形点。 */
 static HAL_StatusTypeDef StepWave(uint8_t force)
 {
   uint32_t now_cycle;
@@ -728,7 +710,6 @@ static HAL_StatusTypeDef StepWave(uint8_t force)
   return HAL_OK;
 }
 
-/* 更新扫频方向和当前频率。 */
 static void UpdateSweep(void)
 {
   uint32_t now_tick;
@@ -779,7 +760,6 @@ static void UpdateSweep(void)
   s_wave_task.frequency_hz = next_hz;
 }
 
-/* 按目标幅度缩放波表码值。 */
 static uint16_t ScaleCode(uint16_t code, uint16_t amplitude)
 {
   uint32_t value;
@@ -795,7 +775,6 @@ static uint16_t ScaleCode(uint16_t code, uint16_t amplitude)
   return (uint16_t)(value / AD5687_MAX_CODE);
 }
 
-/* 初始化DWT周期计数时基。 */
 static void AD5687_AppTimebaseInit(void)
 {
   SystemCoreClockUpdate();
@@ -804,7 +783,6 @@ static void AD5687_AppTimebaseInit(void)
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
-/* 获取当前DWT周期计数。 */
 static uint32_t AD5687_AppGetCycle(void)
 {
   return DWT->CYCCNT;

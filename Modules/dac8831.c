@@ -1,16 +1,11 @@
 #include "dac8831.h"
 #include <stddef.h>
 
-/* 检查DAC8831配置是否完整。 */
 static bool DAC8831_ConfigIsValid(const DAC8831_ConfigTypeDef *cfg);
-/* 提供软件SPI短延时。 */
 static void DAC8831_DelayCycles(uint16_t cycles);
-/* 发送一位软件SPI数据。 */
 static void DAC8831_WriteBit(const DAC8831_HandleTypeDef *dev,
                              GPIO_PinState bit);
-/* 拉低DAC8831片选。 */
 static void DAC8831_Select(const DAC8831_HandleTypeDef *dev);
-/* 拉高DAC8831片选。 */
 static void DAC8831_Deselect(const DAC8831_HandleTypeDef *dev);
 
 /************************************************************
@@ -280,7 +275,6 @@ float DAC8831_CodeToBipolarMv(uint16_t code, float vref_mv)
   return (((float)code - 32768.0f) * vref_mv) / 32768.0f;
 }
 
-/* 检查DAC8831配置是否完整。 */
 static bool DAC8831_ConfigIsValid(const DAC8831_ConfigTypeDef *cfg)
 {
   if ((cfg == NULL) ||
@@ -303,7 +297,6 @@ static bool DAC8831_ConfigIsValid(const DAC8831_ConfigTypeDef *cfg)
   return true;
 }
 
-/* 发送一位软件SPI数据。 */
 static void DAC8831_WriteBit(const DAC8831_HandleTypeDef *dev,
                              GPIO_PinState bit)
 {
@@ -315,7 +308,6 @@ static void DAC8831_WriteBit(const DAC8831_HandleTypeDef *dev,
   DAC8831_DelayCycles(dev->cfg.spi_delay_cycles);
 }
 
-/* 提供软件SPI短延时。 */
 static void DAC8831_DelayCycles(uint16_t cycles)
 {
   while (cycles-- > 0U)
@@ -324,13 +316,11 @@ static void DAC8831_DelayCycles(uint16_t cycles)
   }
 }
 
-/* 拉低DAC8831片选。 */
 static void DAC8831_Select(const DAC8831_HandleTypeDef *dev)
 {
   HAL_GPIO_WritePin(dev->cfg.cs_port, dev->cfg.cs_pin, GPIO_PIN_RESET);
 }
 
-/* 拉高DAC8831片选。 */
 static void DAC8831_Deselect(const DAC8831_HandleTypeDef *dev)
 {
   HAL_GPIO_WritePin(dev->cfg.cs_port, dev->cfg.cs_pin, GPIO_PIN_SET);

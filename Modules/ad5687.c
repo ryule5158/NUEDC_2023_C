@@ -1,29 +1,22 @@
 #include "ad5687.h"
 
-#define AD5687_CMD_WRITE_INPUT       0x1U /* 写输入寄存器命令。 */
-#define AD5687_CMD_UPDATE_DAC        0x2U /* 更新DAC输出命令。 */
-#define AD5687_CMD_WRITE_UPDATE_DAC  0x3U /* 写入并更新DAC命令。 */
-#define AD5687_CMD_POWER_DOWN_UP     0x4U /* 掉电控制命令。 */
-#define AD5687_CMD_SOFTWARE_RESET    0x6U /* 软件复位命令。 */
-#define AD5687_CMD_DAISY_CHAIN       0x8U /* 级联模式控制命令。 */
-#define AD5687_CMD_DAISY_NOP         0xFU /* 级联空操作命令。 */
+#define AD5687_CMD_WRITE_INPUT       0x1U
+#define AD5687_CMD_UPDATE_DAC        0x2U
+#define AD5687_CMD_WRITE_UPDATE_DAC  0x3U
+#define AD5687_CMD_POWER_DOWN_UP     0x4U
+#define AD5687_CMD_SOFTWARE_RESET    0x6U
+#define AD5687_CMD_DAISY_CHAIN       0x8U
+#define AD5687_CMD_DAISY_NOP         0xFU
 
-/* 检查AD5687通道选择是否有效。 */
 static uint8_t AD5687_IsValidChannel(AD5687_ChannelTypeDef channel);
-/* 检查AD5687器件选择是否有效。 */
 static uint8_t AD5687_IsValidDevice(AD5687_DeviceTypeDef device);
-/* 提供软件SPI短延时。 */
 static void AD5687_DelayCycles(uint16_t cycles);
-/* 发送一位软件SPI数据。 */
 static void AD5687_WriteBit(AD5687_HandleTypeDef *dev, GPIO_PinState bit);
-/* 向近端器件发送24位帧。 */
 static HAL_StatusTypeDef AD5687_WriteFrame24(AD5687_HandleTypeDef *dev,
                                              uint32_t frame);
-/* 向级联器件发送48位帧。 */
 static HAL_StatusTypeDef AD5687_WriteFrame48(AD5687_HandleTypeDef *dev,
                                              AD5687_DeviceTypeDef device,
                                              uint32_t frame);
-/* 组装并发送DAC控制命令。 */
 static HAL_StatusTypeDef AD5687_WriteDacCommand(AD5687_HandleTypeDef *dev,
                                                 AD5687_DeviceTypeDef device,
                                                 uint8_t command,
@@ -299,7 +292,6 @@ uint32_t AD5687_CodeToVoltageMv(const AD5687_HandleTypeDef *dev,
                     AD5687_MAX_CODE);
 }
 
-/* 检查AD5687通道选择是否有效。 */
 static uint8_t AD5687_IsValidChannel(AD5687_ChannelTypeDef channel)
 {
   return (uint8_t)((channel == AD5687_CHANNEL_A) ||
@@ -307,7 +299,6 @@ static uint8_t AD5687_IsValidChannel(AD5687_ChannelTypeDef channel)
                    (channel == AD5687_CHANNEL_ALL));
 }
 
-/* 检查AD5687器件选择是否有效。 */
 static uint8_t AD5687_IsValidDevice(AD5687_DeviceTypeDef device)
 {
   return (uint8_t)((device == AD5687_DEVICE_CV1_CV2) ||
@@ -315,7 +306,6 @@ static uint8_t AD5687_IsValidDevice(AD5687_DeviceTypeDef device)
                    (device == AD5687_DEVICE_ALL));
 }
 
-/* 提供软件SPI短延时。 */
 static void AD5687_DelayCycles(uint16_t cycles)
 {
   while (cycles-- > 0U)
@@ -324,7 +314,6 @@ static void AD5687_DelayCycles(uint16_t cycles)
   }
 }
 
-/* 发送一位软件SPI数据。 */
 static void AD5687_WriteBit(AD5687_HandleTypeDef *dev, GPIO_PinState bit)
 {
   HAL_GPIO_WritePin(dev->mosi_port, dev->mosi_pin, bit);
@@ -335,7 +324,6 @@ static void AD5687_WriteBit(AD5687_HandleTypeDef *dev, GPIO_PinState bit)
   AD5687_DelayCycles(dev->spi_delay_cycles);
 }
 
-/* 向近端器件发送24位帧。 */
 static HAL_StatusTypeDef AD5687_WriteFrame24(AD5687_HandleTypeDef *dev,
                                              uint32_t frame)
 {
@@ -359,7 +347,6 @@ static HAL_StatusTypeDef AD5687_WriteFrame24(AD5687_HandleTypeDef *dev,
   return HAL_OK;
 }
 
-/* 向级联器件发送48位帧。 */
 static HAL_StatusTypeDef AD5687_WriteFrame48(AD5687_HandleTypeDef *dev,
                                              AD5687_DeviceTypeDef device,
                                              uint32_t frame)
@@ -405,7 +392,6 @@ static HAL_StatusTypeDef AD5687_WriteFrame48(AD5687_HandleTypeDef *dev,
   return HAL_OK;
 }
 
-/* 组装并发送DAC控制命令。 */
 static HAL_StatusTypeDef AD5687_WriteDacCommand(AD5687_HandleTypeDef *dev,
                                                 AD5687_DeviceTypeDef device,
                                                 uint8_t command,
