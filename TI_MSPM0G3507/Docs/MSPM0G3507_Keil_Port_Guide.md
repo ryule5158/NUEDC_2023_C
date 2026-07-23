@@ -17,8 +17,8 @@
 | TI配置 | `Inc/ti_msp_dl_config.h`、`Src/ti_msp_dl_config.c` | 时钟、GPIO、UART0、ADC0、SPI0 |
 | HAL兼容 | `Port/stm32h7xx_hal.h`、`Port/nuedc_hal_compat.c` | GPIO映射、SysTick、UART、ADS8363软件SPI |
 | FPGA链路 | `Port/fpga_link_ti.c` | TI DriverLib SPI0、6字节帧、ACK与超时 |
-| FPGA ProMax | `../Keil/Modules/fpga_promax*`、`Port/fpga_promax_link_ti.c` | 8路DDC与4×32匹配滤波控制、压缩结果读取 |
-| 高速AD/DA | `../Keil/Modules/ad9708*`、`ad9280*` | 与STM32共用的协议和APP接口 |
+| FPGA ProMax | `../Modules/fpga_promax*`、`Port/fpga_promax_link_ti.c` | 8路DDC与4×32匹配滤波控制、压缩结果读取 |
+| 高速AD/DA | `../Modules/ad9708*`、`ad9280*` | TI工程内独立保存的协议和APP接口 |
 | TI入口 | `Src/nuedc_port.c` | 初始化开关和非阻塞主循环调度 |
 | 片上ADC | `BSP/adc_app.c` | PB25单次定时采样 |
 

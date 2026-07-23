@@ -990,7 +990,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9708.c</PathWithFileName>
+      <PathWithFileName>../Modules/ad9708.c</PathWithFileName>
       <FilenameWithoutPath>ad9708.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1002,7 +1002,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9708.h</PathWithFileName>
+      <PathWithFileName>../Modules/ad9708.h</PathWithFileName>
       <FilenameWithoutPath>ad9708.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1014,7 +1014,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9708_app.c</PathWithFileName>
+      <PathWithFileName>../Modules/ad9708_app.c</PathWithFileName>
       <FilenameWithoutPath>ad9708_app.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1026,7 +1026,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9708_app.h</PathWithFileName>
+      <PathWithFileName>../Modules/ad9708_app.h</PathWithFileName>
       <FilenameWithoutPath>ad9708_app.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1038,7 +1038,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9280.c</PathWithFileName>
+      <PathWithFileName>../Modules/ad9280.c</PathWithFileName>
       <FilenameWithoutPath>ad9280.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1050,7 +1050,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9280.h</PathWithFileName>
+      <PathWithFileName>../Modules/ad9280.h</PathWithFileName>
       <FilenameWithoutPath>ad9280.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1062,7 +1062,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9280_app.c</PathWithFileName>
+      <PathWithFileName>../Modules/ad9280_app.c</PathWithFileName>
       <FilenameWithoutPath>ad9280_app.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1074,7 +1074,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/ad9280_app.h</PathWithFileName>
+      <PathWithFileName>../Modules/ad9280_app.h</PathWithFileName>
       <FilenameWithoutPath>ad9280_app.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1086,7 +1086,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/fpga_link.h</PathWithFileName>
+      <PathWithFileName>../Modules/fpga_link.h</PathWithFileName>
       <FilenameWithoutPath>fpga_link.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1098,7 +1098,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/fpga_promax.c</PathWithFileName>
+      <PathWithFileName>../Modules/fpga_promax.c</PathWithFileName>
       <FilenameWithoutPath>fpga_promax.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1110,7 +1110,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/fpga_promax.h</PathWithFileName>
+      <PathWithFileName>../Modules/fpga_promax.h</PathWithFileName>
       <FilenameWithoutPath>fpga_promax.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1122,7 +1122,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/fpga_promax_link.h</PathWithFileName>
+      <PathWithFileName>../Modules/fpga_promax_link.h</PathWithFileName>
       <FilenameWithoutPath>fpga_promax_link.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1134,7 +1134,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>../../Keil/Modules/fpga_promax_link_map.h</PathWithFileName>
+      <PathWithFileName>../Modules/fpga_promax_link_map.h</PathWithFileName>
       <FilenameWithoutPath>fpga_promax_link_map.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
