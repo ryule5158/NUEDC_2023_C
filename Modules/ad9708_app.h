@@ -40,6 +40,14 @@ AD9708_StatusTypeDef AD9708_AppOutputConstant(float voltage_v);
 AD9708_StatusTypeDef AD9708_AppOutputCalibrationCode(uint8_t code);
 
 /*
+ * 按原始码输出正弦波，不读取或修改电压校准参数。
+ * amplitude_code为峰值码，范围0~128；offset_code为中心码，范围0~255。
+ */
+AD9708_StatusTypeDef AD9708_AppOutputSineCode(float output_hz,
+                                              uint8_t amplitude_code,
+                                              uint8_t offset_code);
+
+/*
  * 输出2~1024点用户任意波，幅度为Vpp、偏置为中心电压，单位V。
  * 波表应覆盖0~255才能得到完整的amplitude_vpp。
  */

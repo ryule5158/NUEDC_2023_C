@@ -7,7 +7,12 @@ if (-not (Test-Path -LiteralPath $compiler)) {
 }
 
 $root = Split-Path -Parent $PSScriptRoot
-$sharedModules = [IO.Path]::GetFullPath((Join-Path $root '..\Keil\Modules'))
+$sharedModules = Join-Path $root 'Modules'
+if (-not (Test-Path -LiteralPath $sharedModules)) {
+    # 兼容尚未把公共驱动复制进仓库的旧集成目录。
+    $sharedModules = [IO.Path]::GetFullPath(
+        (Join-Path $root '..\Keil\Modules'))
+}
 $buildRoot = Join-Path ([IO.Path]::GetTempPath()) `
     ("nuedc_fpga_promax_ti_test_{0}" -f $PID)
 $resolvedTemp = [IO.Path]::GetFullPath([IO.Path]::GetTempPath())

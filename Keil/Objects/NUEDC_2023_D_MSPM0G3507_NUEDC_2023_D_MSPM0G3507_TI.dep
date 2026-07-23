@@ -1,627 +1,847 @@
 Dependencies for Project 'NUEDC_2023_D_MSPM0G3507', Target 'NUEDC_2023_D_MSPM0G3507_TI': (DO NOT MODIFY !)
-CompilerVersion: 6240000::V6.24::ARMCLANG
-F (../Src/main.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/main.o -MMD)
-I (..\Inc\ti_msp_dl_config.h)(0x6A61E034)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A61E039)
-I (..\Inc\nuedc_port.h)(0x6A61E034)
-F (../Src/nuedc_port.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/nuedc_port.o -MMD)
-I (..\Inc\nuedc_port.h)(0x6A61E034)
-I (..\BSP\adc_app.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Modules\ad5687_app.h)(0x6A61E035)
-I (..\Modules\ad5687.h)(0x6A61E035)
-I (..\Modules\ad9910_app.h)(0x6A61E035)
-I (..\Modules\ad9910.h)(0x6A61E035)
-I (..\Modules\ad9708_app.h)(0x6A621014)
-I (..\Modules\ad9708.h)(0x6A621014)
-I (..\Modules\fpga_link.h)(0x6A621014)
-I (..\Modules\ad9280_app.h)(0x6A621014)
-I (..\Modules\ad9280.h)(0x6A621014)
-I (..\Modules\ads8363_app.h)(0x6A61E035)
-I (..\Modules\ADS8363.h)(0x6A61E035)
-I (..\Modules\dac8831_app.h)(0x6A61E035)
-I (..\Modules\dac8831.h)(0x6A61E035)
-I (..\Modules\screen_test.h)(0x6A61E035)
-F (../Src/ti_msp_dl_config.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ti_msp_dl_config.o -MMD)
-I (..\Inc\ti_msp_dl_config.h)(0x6A61E034)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A61E039)
-F (../Inc/ti_msp_dl_config.h)(0x6A61E034)()
-F (../Port/adc.h)(0x6A61E035)()
-F (../Port/arm_const_structs.h)(0x6A61E035)()
-F (../Port/arm_math.h)(0x6A61E035)()
-F (../Port/arm_math_lite.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/arm_math_lite.o -MMD)
-I (..\Port\arm_const_structs.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-F (../Port/gpio.h)(0x6A61E035)()
-F (../Port/main.h)(0x6A61E035)()
-F (../Port/nuedc_hal_compat.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/nuedc_hal_compat.o -MMD)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Inc\ti_msp_dl_config.h)(0x6A61E034)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A61E039)
-F (../Port/fpga_link_ti.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fpga_link_ti.o -MMD)
-I (..\Inc\ti_msp_dl_config.h)(0x6A61E034)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A61E039)
-I (..\Modules\fpga_link.h)(0x6A621014)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Port/fpga_promax_link_ti.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fpga_promax_link_ti.o -MMD)
-I (..\Modules\fpga_promax_link.h)(0x6A621014)
-I (..\Modules\fpga_promax.h)(0x6A621014)
-I (..\Modules\fpga_promax_link_map.h)(0x6A621014)
-I (..\Modules\fpga_link.h)(0x6A621014)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Port/nuedc_retarget.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/nuedc_retarget.o -MMD)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Port/spi.h)(0x6A61E035)()
-F (../Port/stm32h7xx_hal.h)(0x6A61E035)()
-F (../Port/tim.h)(0x6A61E035)()
-F (../Port/usart.h)(0x6A61E035)()
-F (../BSP/adc_app.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/adc_app.o -MMD)
-I (..\BSP\adc_app.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Inc\ti_msp_dl_config.h)(0x6A61E034)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E038)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A61E03A)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A61E039)
-I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A61E039)
-F (../BSP/adc_app.h)(0x6A61E034)()
-F (../BSP/BSP_Header.h)(0x6A61E034)()
-F (../BSP/Serial_Buffer.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/serial_buffer.o -MMD)
-I (..\BSP\Serial_Buffer.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../BSP/Serial_Buffer.h)(0x6A61E034)()
-F (../DSP/Adaptive.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/adaptive.o -MMD)
-I (..\DSP\Adaptive.h)(0x6A61E034)
-F (../DSP/Adaptive.h)(0x6A61E034)()
-F (../DSP/ADC_FFT.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/adc_fft.o -MMD)
-I (..\DSP\ADC_FFT.h)(0x6A61E034)
-I (..\DSP\FFT.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-I (..\Port\arm_const_structs.h)(0x6A61E035)
-I (..\BSP\adc_app.h)(0x6A61E034)
-F (../DSP/ADC_FFT.h)(0x6A61E034)()
-F (../DSP/Correlate.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/correlate.o -MMD)
-I (..\DSP\Correlate.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../DSP/Correlate.h)(0x6A61E034)()
-F (../DSP/Demod.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/demod.o -MMD)
-I (..\DSP\Demod.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-I (..\DSP\Filter.h)(0x6A61E034)
-I (..\Port\arm_const_structs.h)(0x6A61E035)
-F (../DSP/Demod.h)(0x6A61E034)()
-F (../DSP/DSP_Header.h)(0x6A61E034)()
-F (../DSP/FFT.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fft.o -MMD)
-I (..\DSP\FFT.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-I (..\Port\arm_const_structs.h)(0x6A61E035)
-F (../DSP/FFT.h)(0x6A61E034)()
-F (../DSP/Filter.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/filter.o -MMD)
-I (..\DSP\Filter.h)(0x6A61E034)
-I (..\Port\arm_math.h)(0x6A61E035)
-F (../DSP/Filter.h)(0x6A61E034)()
-F (../DSP/Fit.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fit.o -MMD)
-I (..\DSP\Fit.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../DSP/Fit.h)(0x6A61E034)()
-F (../DSP/IQ.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/iq.o -MMD)
-I (..\DSP\IQ.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-F (../DSP/IQ.h)(0x6A61E034)()
-F (../DSP/Measure.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/measure.o -MMD)
-I (..\DSP\Measure.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-F (../DSP/Measure.h)(0x6A61E034)()
-F (../DSP/ModelFit.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/modelfit.o -MMD)
-I (..\DSP\ModelFit.h)(0x6A61E034)
-F (../DSP/ModelFit.h)(0x6A61E034)()
-F (../DSP/SoftPll.c)(0x6A61E034)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/softpll.o -MMD)
-I (..\DSP\SoftPll.h)(0x6A61E034)
-I (..\DSP\IQ.h)(0x6A61E034)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-F (../DSP/SoftPll.h)(0x6A61E034)()
-F (../Modules/ad5687.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad5687.o -MMD)
-I (..\Modules\ad5687.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/ad5687.h)(0x6A61E035)()
-F (../Modules/ad5687_app.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad5687_app.o -MMD)
-I (..\Modules\ad5687_app.h)(0x6A61E035)
-I (..\Modules\ad5687.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/ad5687_app.h)(0x6A61E035)()
-F (../Modules/ad9910.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9910.o -MMD)
-I (..\Modules\ad9910.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/ad9910.h)(0x6A61E035)()
-F (../Modules/ad9910_app.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9910_app.o -MMD)
-I (..\Modules\ad9910_app.h)(0x6A61E035)
-I (..\Modules\ad9910.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/ad9910_app.h)(0x6A61E035)()
-F (../Modules/ADS8363.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ads8363.o -MMD)
-I (..\Modules\ADS8363.h)(0x6A61E035)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/ADS8363.h)(0x6A61E035)()
-F (../Modules/ads8363_app.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ads8363_app.o -MMD)
-I (..\Modules\ads8363_app.h)(0x6A61E035)
-I (..\Modules\ADS8363.h)(0x6A61E035)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\spi.h)(0x6A61E035)
-F (../Modules/ads8363_app.h)(0x6A61E035)()
-F (../Modules/dac8831.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/dac8831.o -MMD)
-I (..\Modules\dac8831.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/dac8831.h)(0x6A61E035)()
-F (../Modules/dac8831_app.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/dac8831_app.o -MMD)
-I (..\Modules\dac8831_app.h)(0x6A61E035)
-I (..\Modules\dac8831.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../Modules/dac8831_app.h)(0x6A61E035)()
-F (../Modules/Modules_Header.h)(0x6A61E035)()
-F (../../Keil/Modules/ad9708.c)(0x00000000)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9708.o -MMD)
-I (..\..\Keil\Modules\ad9708.h)(0x00000000)
-I (..\..\Keil\Modules\fpga_link.h)(0x00000000)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\arm_math.h)(0x6A61E035)
-F (../../Keil/Modules/ad9708.h)(0x00000000)()
-F (../../Keil/Modules/ad9708_app.c)(0x00000000)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9708_app.o -MMD)
-I (..\..\Keil\Modules\ad9708_app.h)(0x00000000)
-I (..\..\Keil\Modules\ad9708.h)(0x00000000)
-I (..\..\Keil\Modules\fpga_link.h)(0x00000000)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\spi.h)(0x6A61E035)
-F (../../Keil/Modules/ad9708_app.h)(0x00000000)()
-F (../../Keil/Modules/ad9280.c)(0x00000000)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9280.o -MMD)
-I (..\..\Keil\Modules\ad9280.h)(0x00000000)
-I (..\..\Keil\Modules\fpga_link.h)(0x00000000)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-F (../../Keil/Modules/ad9280.h)(0x00000000)()
-F (../../Keil/Modules/ad9280_app.c)(0x00000000)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9280_app.o -MMD)
-I (..\..\Keil\Modules\ad9280_app.h)(0x00000000)
-I (..\..\Keil\Modules\ad9280.h)(0x00000000)
-I (..\..\Keil\Modules\fpga_link.h)(0x00000000)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Port\spi.h)(0x6A61E035)
-F (../../Keil/Modules/ad9280_app.h)(0x00000000)()
-F (../../Keil/Modules/fpga_link.h)(0x00000000)()
-F (../../Keil/Modules/fpga_promax.c)(0x00000000)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fpga_promax.o -MMD)
-I (..\..\Keil\Modules\fpga_promax.h)(0x00000000)
-F (../../Keil/Modules/fpga_promax.h)(0x00000000)()
-F (../../Keil/Modules/fpga_promax_link.h)(0x00000000)()
-F (../../Keil/Modules/fpga_promax_link_map.h)(0x00000000)()
-F (../Modules/screen_test.c)(0x6A61E035)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../../Keil/Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="543" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/screen_test.o -MMD)
-I (..\Modules\screen_test.h)(0x6A61E035)
-I (..\Port\main.h)(0x6A61E035)
-I (..\Port\stm32h7xx_hal.h)(0x6A61E035)
-I (..\Modules\ad9910_app.h)(0x6A61E035)
-I (..\Modules\ad9910.h)(0x6A61E035)
-I (..\BSP\Serial_Buffer.h)(0x6A61E034)
-I (..\Port\usart.h)(0x6A61E035)
-F (../Modules/screen_test.h)(0x6A61E035)()
-F (startup_mspm0g350x_uvision.s)(0x6A61E034)(--target=arm-arm-none-eabi -mcpu=cortex-m0plus -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4-Wa,armasm,--pd,"__UVISION_VERSION SETA 543" -Wa,armasm,--pd,"__MSPM0G3507__ SETA 1"-o ./objects/startup_mspm0g350x_uvision.o)
+CompilerVersion: 6230000::V6.23::ARMCLANG
+F (../Src/main.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/main.o -MD)
+I (..\Inc\ti_msp_dl_config.h)(0x6A621116)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h)(0x6A4A8538)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x671F28E6)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x671F28E0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A4A8089)
+I (..\Modules\Modules_Header.h)(0x6A604419)
+I (..\Modules\ad9910_app.h)(0x6A621116)
+I (..\Modules\ad9910.h)(0x6A621116)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (..\Modules\ad9708_app.h)(0x6A621116)
+I (..\Modules\ad9708.h)(0x6A5F67B7)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Modules\ad9280_app.h)(0x6A599FE8)
+I (..\Modules\ad9280.h)(0x6A599FE8)
+I (..\Modules\ad5687_app.h)(0x6A603310)
+I (..\Modules\ad5687.h)(0x6A4A8AD0)
+I (..\Modules\dac8831_app.h)(0x6A60345D)
+I (..\Modules\dac8831.h)(0x6A4A8AD0)
+I (..\Modules\ads8363_app.h)(0x6A4A8AD0)
+I (..\Modules\ADS8363.h)(0x6A4A8AD0)
+I (..\Modules\screen_test.h)(0x6A4A8AD0)
+I (..\Modules\fpga_promax_link.h)(0x6A604498)
+I (..\Modules\fpga_promax.h)(0x6A6042AC)
+F (../Src/nuedc_port.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/nuedc_port.o -MD)
+I (..\Inc\nuedc_port.h)(0x6A621116)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (..\BSP\adc_app.h)(0x6A603949)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Modules\ad5687_app.h)(0x6A603310)
+I (..\Modules\ad5687.h)(0x6A4A8AD0)
+I (..\Modules\ad9910_app.h)(0x6A621116)
+I (..\Modules\ad9910.h)(0x6A621116)
+I (..\Modules\ad9708_app.h)(0x6A621116)
+I (..\Modules\ad9708.h)(0x6A5F67B7)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Modules\ad9280_app.h)(0x6A599FE8)
+I (..\Modules\ad9280.h)(0x6A599FE8)
+I (..\Modules\ads8363_app.h)(0x6A4A8AD0)
+I (..\Modules\ADS8363.h)(0x6A4A8AD0)
+I (..\Modules\dac8831_app.h)(0x6A60345D)
+I (..\Modules\dac8831.h)(0x6A4A8AD0)
+I (..\Modules\screen_test.h)(0x6A4A8AD0)
+F (../Src/ti_msp_dl_config.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ti_msp_dl_config.o -MD)
+I (..\Inc\ti_msp_dl_config.h)(0x6A621116)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h)(0x6A4A8538)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x671F28E6)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x671F28E0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A4A8089)
+F (../Inc/ti_msp_dl_config.h)(0x6A621116)()
+F (../Port/adc.h)(0x6A4A8D25)()
+F (../Port/arm_const_structs.h)(0x6A60396A)()
+F (../Port/arm_math.h)(0x6A6039EE)()
+F (../Port/arm_math_lite.c)(0x6A603B06)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/arm_math_lite.o -MD)
+I (..\Port\arm_const_structs.h)(0x6A60396A)
+I (..\Port\arm_math.h)(0x6A6039EE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../Port/gpio.h)(0x6A4A8D25)()
+F (../Port/main.h)(0x6A603A51)()
+F (../Port/nuedc_hal_compat.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/nuedc_hal_compat.o -MD)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (..\Inc\ti_msp_dl_config.h)(0x6A621116)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h)(0x6A4A8538)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x671F28E6)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x671F28E0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A4A8089)
+F (../Port/fpga_link_ti.c)(0x6A6031B5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fpga_link_ti.o -MD)
+I (..\Inc\ti_msp_dl_config.h)(0x6A621116)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h)(0x6A4A8538)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x671F28E6)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x671F28E0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A4A8088)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A4A8089)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../Port/fpga_promax_link_ti.c)(0x6A6044B5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fpga_promax_link_ti.o -MD)
+I (..\Modules\fpga_promax_link.h)(0x6A604498)
+I (..\Modules\fpga_promax.h)(0x6A6042AC)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (..\Modules\fpga_promax_link_map.h)(0x6A604498)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../Port/nuedc_retarget.c)(0x6A60398A)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/nuedc_retarget.o -MD)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+F (../Port/spi.h)(0x6A4A8D25)()
+F (../Port/stm32h7xx_hal.h)(0x6A603A7B)()
+F (../Port/tim.h)(0x6A4A8D25)()
+F (../Port/usart.h)(0x6A4A8D25)()
+F (../BSP/adc_app.c)(0x6A603949)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/adc_app.o -MD)
+I (..\BSP\adc_app.h)(0x6A603949)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Inc\ti_msp_dl_config.h)(0x6A621116)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h)(0x6A4A8538)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_compat.h)(0x671F28E6)
+I (C:\Keil_v5\ARM\ARMCLANG\include\arm_acle.h)(0x671F28E0)
+I (..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h)(0x6A4A8538)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_crc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dac12.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_dma.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_flashctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gpio.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_gptimer.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_i2c.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_iomux.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mathacl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_mcan.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_oa.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_rtc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_spi.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_trng.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_uart.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_vref.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wuc.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_wwdt.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_factoryregion.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_cpuss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_debugss.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\hw_sysctl.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A861B)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crcp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dac12.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_dma.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_flashctl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_sysctl.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\sysctl\dl_sysctl_mspm0g1x0x_g3x0x.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpamp.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_gpio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2c.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_i2s.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_iwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lfss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_keystorectl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_lcd.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mathacl.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_mcan.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_npu.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_opa.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_common.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_a.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_rtc_b.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_scratchpad.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spgss.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_spi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_tamperio.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timera.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timer.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerb.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_timerg.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_trng.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_extend.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_uart_main.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicomm.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2cc.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommi2ct.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommspi.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_unicommuart.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_vref.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h)(0x6A4A8088)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h)(0x6A4A8089)
+I (..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h)(0x6A4A8089)
+F (../BSP/adc_app.h)(0x6A603949)()
+F (../BSP/BSP_Header.h)(0x6A4A8AD0)()
+F (../BSP/Serial_Buffer.c)(0x6A603A51)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/serial_buffer.o -MD)
+I (..\BSP\Serial_Buffer.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../BSP/Serial_Buffer.h)(0x6A4A8AD0)()
+F (../DSP/Adaptive.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/adaptive.o -MD)
+I (..\DSP\Adaptive.h)(0x6A4A8AD0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+F (../DSP/Adaptive.h)(0x6A4A8AD0)()
+F (../DSP/ADC_FFT.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/adc_fft.o -MD)
+I (..\DSP\ADC_FFT.h)(0x6A4A8AD0)
+I (..\DSP\FFT.h)(0x6A4A8E00)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+I (..\Port\arm_const_structs.h)(0x6A60396A)
+I (..\BSP\adc_app.h)(0x6A603949)
+F (../DSP/ADC_FFT.h)(0x6A4A8AD0)()
+F (../DSP/Correlate.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/correlate.o -MD)
+I (..\DSP\Correlate.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../DSP/Correlate.h)(0x6A4A8AD0)()
+F (../DSP/Demod.c)(0x6A4A8E00)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/demod.o -MD)
+I (..\DSP\Demod.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+I (..\DSP\Filter.h)(0x6A4A8AD0)
+I (..\Port\arm_const_structs.h)(0x6A60396A)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x671F28E8)
+F (../DSP/Demod.h)(0x6A4A8AD0)()
+F (../DSP/DSP_Header.h)(0x6A4A8AD0)()
+F (../DSP/FFT.c)(0x6A4A8E00)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fft.o -MD)
+I (..\DSP\FFT.h)(0x6A4A8E00)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+I (..\Port\arm_const_structs.h)(0x6A60396A)
+F (../DSP/FFT.h)(0x6A4A8E00)()
+F (../DSP/Filter.c)(0x6A4A8EC5)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/filter.o -MD)
+I (..\DSP\Filter.h)(0x6A4A8AD0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+F (../DSP/Filter.h)(0x6A4A8AD0)()
+F (../DSP/Fit.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fit.o -MD)
+I (..\DSP\Fit.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../DSP/Fit.h)(0x6A4A8AD0)()
+F (../DSP/IQ.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/iq.o -MD)
+I (..\DSP\IQ.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+F (../DSP/IQ.h)(0x6A4A8AD0)()
+F (../DSP/Measure.c)(0x6A4A8E00)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/measure.o -MD)
+I (..\DSP\Measure.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+F (../DSP/Measure.h)(0x6A4A8AD0)()
+F (../DSP/ModelFit.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/modelfit.o -MD)
+I (..\DSP\ModelFit.h)(0x6A4A8AD0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+F (../DSP/ModelFit.h)(0x6A4A8AD0)()
+F (../DSP/SoftPll.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/softpll.o -MD)
+I (..\DSP\SoftPll.h)(0x6A4A8AD0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (..\DSP\IQ.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+F (../DSP/SoftPll.h)(0x6A4A8AD0)()
+F (../Modules/ad5687.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad5687.o -MD)
+I (..\Modules\ad5687.h)(0x6A4A8AD0)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+F (../Modules/ad5687.h)(0x6A4A8AD0)()
+F (../Modules/ad5687_app.c)(0x6A605297)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad5687_app.o -MD)
+I (..\Modules\ad5687_app.h)(0x6A603310)
+I (..\Modules\ad5687.h)(0x6A4A8AD0)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+F (../Modules/ad5687_app.h)(0x6A603310)()
+F (../Modules/ad9910.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9910.o -MD)
+I (..\Modules\ad9910.h)(0x6A621116)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+F (../Modules/ad9910.h)(0x6A621116)()
+F (../Modules/ad9910_app.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9910_app.o -MD)
+I (..\Modules\ad9910_app.h)(0x6A621116)
+I (..\Modules\ad9910.h)(0x6A621116)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+F (../Modules/ad9910_app.h)(0x6A621116)()
+F (../Modules/ADS8363.c)(0x6A4A8E0C)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ads8363.o -MD)
+I (..\Modules\ADS8363.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../Modules/ADS8363.h)(0x6A4A8AD0)()
+F (../Modules/ads8363_app.c)(0x6A605196)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ads8363_app.o -MD)
+I (..\Modules\ads8363_app.h)(0x6A4A8AD0)
+I (..\Modules\ADS8363.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\spi.h)(0x6A4A8D25)
+F (../Modules/ads8363_app.h)(0x6A4A8AD0)()
+F (../Modules/dac8831.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/dac8831.o -MD)
+I (..\Modules\dac8831.h)(0x6A4A8AD0)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+F (../Modules/dac8831.h)(0x6A4A8AD0)()
+F (../Modules/dac8831_app.c)(0x6A605297)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/dac8831_app.o -MD)
+I (..\Modules\dac8831_app.h)(0x6A60345D)
+I (..\Modules\dac8831.h)(0x6A4A8AD0)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+F (../Modules/dac8831_app.h)(0x6A60345D)()
+F (../Modules/Modules_Header.h)(0x6A604419)()
+F (../Modules/ad9708.c)(0x6A58FABC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9708.o -MD)
+I (..\Modules\ad9708.h)(0x6A5F67B7)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\arm_math.h)(0x6A6039EE)
+F (../Modules/ad9708.h)(0x6A5F67B7)()
+F (../Modules/ad9708_app.c)(0x6A621116)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9708_app.o -MD)
+I (..\Modules\ad9708_app.h)(0x6A621116)
+I (..\Modules\ad9708.h)(0x6A5F67B7)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\spi.h)(0x6A4A8D25)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x671F28E8)
+F (../Modules/ad9708_app.h)(0x6A621116)()
+F (../Modules/ad9280.c)(0x6A599FE8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9280.o -MD)
+I (..\Modules\ad9280.h)(0x6A599FE8)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../Modules/ad9280.h)(0x6A599FE8)()
+F (../Modules/ad9280_app.c)(0x6A60313E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/ad9280_app.o -MD)
+I (..\Modules\ad9280_app.h)(0x6A599FE8)
+I (..\Modules\ad9280.h)(0x6A599FE8)
+I (..\Modules\fpga_link.h)(0x6A6031B5)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Port\spi.h)(0x6A4A8D25)
+I (C:\Keil_v5\ARM\ARMCLANG\include\float.h)(0x671F28E8)
+F (../Modules/ad9280_app.h)(0x6A599FE8)()
+F (../Modules/fpga_link.h)(0x6A6031B5)()
+F (../Modules/fpga_promax.c)(0x6A6043D2)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/fpga_promax.o -MD)
+I (..\Modules\fpga_promax.h)(0x6A6042AC)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+F (../Modules/fpga_promax.h)(0x6A6042AC)()
+F (../Modules/fpga_promax_link.h)(0x6A604498)()
+F (../Modules/fpga_promax_link_map.h)(0x6A604498)()
+F (../Modules/screen_test.c)(0x6A4A8AD0)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m0plus -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O2 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -Wno-covered-switch-default -Wno-unreachable-code-break -I ../Port -I ../Inc -I ../BSP -I ../DSP -I ../Modules -I ../Modules -I ../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include -I ../third_party/mspm0-sdk-min/source-D__UVISION_VERSION="538" -D__MSPM0G3507__ -D__MSPM0G3507__-o ./objects/screen_test.o -MD)
+I (..\Modules\screen_test.h)(0x6A4A8AD0)
+I (..\Port\main.h)(0x6A603A51)
+I (..\Port\stm32h7xx_hal.h)(0x6A603A7B)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stddef.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\math.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x671F28F0)
+I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x671F28F0)
+I (..\Modules\ad9910_app.h)(0x6A621116)
+I (..\Modules\ad9910.h)(0x6A621116)
+I (..\BSP\Serial_Buffer.h)(0x6A4A8AD0)
+I (..\Port\usart.h)(0x6A4A8D25)
+I (C:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x671F28F0)
+F (../Modules/screen_test.h)(0x6A4A8AD0)()
+F (startup_mspm0g350x_uvision.s)(0x6A60300B)(--target=arm-arm-none-eabi -mcpu=cortex-m0plus -masm=auto  -Wa,armasm,--diag_suppress=A1950W -c-gdwarf-4-Wa,armasm,--pd,"__UVISION_VERSION SETA 538" -Wa,armasm,--pd,"__MSPM0G3507__ SETA 1"-o ./objects/startup_mspm0g350x_uvision.o)

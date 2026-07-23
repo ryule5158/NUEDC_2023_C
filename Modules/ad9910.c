@@ -44,7 +44,7 @@
 #define AD9910_RESET_GPIO_Port     GPIOA       /* RESET虚拟端口。 */
 #define AD9910_PF1_Pin             GPIO_PIN_6  /* PF1虚拟引脚，TI映射到PA17。 */
 #define AD9910_PF1_GPIO_Port       GPIOC       /* PF1虚拟端口。 */
-#define AD9910_PF2_Pin             GPIO_PIN_7  /* PF2虚拟引脚，TI映射到PA18。 */
+#define AD9910_PF2_Pin             GPIO_PIN_7  /* PF2虚拟引脚，TI映射到PA9。 */
 #define AD9910_PF2_GPIO_Port       GPIOC       /* PF2虚拟端口。 */
 #define AD9910_PF0_Pin             GPIO_PIN_5  /* PF0引脚，TI直连PB5。 */
 #define AD9910_PF0_GPIO_Port       GPIOB       /* PF0虚拟端口。 */
@@ -69,12 +69,12 @@ typedef enum
 #if (AD9910_USE_SOFT_SPI == 0U)
 static SPI_HandleTypeDef *s_hspi; /* 硬件SPI句柄。 */
 #endif
-static uint8_t s_profile0[8] = {0xFFU, 0xFCU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}; /* Profile 0缓存。 */
+static uint8_t s_profile0[8] = {0x3FU, 0xFFU, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U, 0x00U}; /* Profile 0缓存，默认满幅度。 */
 static uint16_t s_ram_scaled_samples[AD9910_RAM_POINTS]; /* RAM幅度缩放缓存。 */
 
 static uint8_t s_cfr1_single_tone[4] = {0x00U, 0x40U, 0x00U, 0x00U}; /* 单频CFR1配置。 */
 static uint8_t s_cfr2_single_tone[4] = {0x01U, 0x00U, 0x00U, 0x00U}; /* 单频CFR2配置。 */
-static uint8_t s_cfr3_pll_1ghz[4]    = {0x05U, 0x0FU, 0x41U, 0x32U}; /* 1GHz PLL配置。 */
+static uint8_t s_cfr3_pll_1ghz[4]    = {0x05U, 0x0FU, 0xC1U, 0x32U}; /* 40MHz直通并25倍频到1GHz。 */
 
 /************************************************************
  * Function :       AD9910_DelayCycles
@@ -952,6 +952,37 @@ AD9910_Status AD9910_SetPhaseOffsetWord(uint16_t phase_word)
 }
 
 /************************************************************
+ * Function :       AD9910_SetPhaseOffsetWordSync
+ * Comment  :       设置相位偏移并在IO_UPDATE时清零相位累加器
+ * Parameter:       phase_word: 16位相位字，0~65535对应0~360度
+ * Return   :       AD9910_OK表示成功，其他值表示通信错误
+ * Date     :       2026-07-23 V1
+************************************************************/
+AD9910_Status AD9910_SetPhaseOffsetWordSync(uint16_t phase_word)
+{
+  AD9910_Status status; /* AD9910通信状态。 */
+  uint8_t cfr1_sync[4]; /* 开启相位累加器自动清零的CFR1配置。 */
+
+  cfr1_sync[0] = s_cfr1_single_tone[0];
+  cfr1_sync[1] = s_cfr1_single_tone[1];
+  cfr1_sync[2] = (uint8_t)(s_cfr1_single_tone[2] | 0x20U);
+  cfr1_sync[3] = s_cfr1_single_tone[3];
+
+  status = AD9910_WriteRegister(AD9910_REG_CFR1,
+                                cfr1_sync,
+                                sizeof(cfr1_sync));
+  if (status != AD9910_OK)
+  {
+    return status;
+  }
+
+  s_profile0[2] = (uint8_t)(phase_word >> 8);
+  s_profile0[3] = (uint8_t)phase_word;
+
+  return AD9910_WriteAllProfiles();
+}
+
+/************************************************************
  * Function :       AD9910_SetAmplitude
  * Comment  :       设置AD9910当前单频输出幅度
  * Parameter:       amplitude: 14位幅度控制值
@@ -960,14 +991,11 @@ AD9910_Status AD9910_SetPhaseOffsetWord(uint16_t phase_word)
 ************************************************************/
 AD9910_Status AD9910_SetAmplitude(uint16_t amplitude)
 {
-  uint16_t asf_word;
-
   amplitude &= 0x3FFFU;
 
-  /* AD9910 Profile uses bits [15:2] as the 14-bit ASF amplitude field. */
-  asf_word = (uint16_t)(amplitude << 2);
-  s_profile0[0] = (uint8_t)(asf_word >> 8);
-  s_profile0[1] = (uint8_t)asf_word;
+  /* 单频Profile的bit61~48直接存放14位ASF，最高两位必须保持0。 */
+  s_profile0[0] = (uint8_t)(amplitude >> 8);
+  s_profile0[1] = (uint8_t)amplitude;
 
   return AD9910_WriteAllProfiles();
 }
@@ -1040,7 +1068,6 @@ AD9910_Status AD9910_SetRamCustomWaveformCarrier(const uint16_t *samples,
 {
   AD9910_RamDestination destination = AD9910_RAM_DEST_POLAR;
   AD9910_Status status;
-  uint16_t asf;
   uint32_t ftw;
 
   /* Reset pins to known state */
@@ -1061,9 +1088,8 @@ AD9910_Status AD9910_SetRamCustomWaveformCarrier(const uint16_t *samples,
   if (status != AD9910_OK) return status;
 
   /* ASF = full scale, FTW = carrier_hz (usually 0) */
-  asf = (uint16_t)(AD9910_MAX_AMPLITUDE << 2);
-  s_profile0[0] = (uint8_t)(asf >> 8);
-  s_profile0[1] = (uint8_t)asf;
+  s_profile0[0] = (uint8_t)(AD9910_MAX_AMPLITUDE >> 8);
+  s_profile0[1] = (uint8_t)AD9910_MAX_AMPLITUDE;
   ftw = AD9910_FrequencyToTuningWord(carrier_hz);
   s_profile0[4] = (uint8_t)(ftw >> 24);
   s_profile0[5] = (uint8_t)(ftw >> 16);
@@ -1096,7 +1122,6 @@ static AD9910_Status AD9910_SetRamCustomWaveformCarrierEx(const uint16_t *sample
                                                           AD9910_RamDestination destination)
 {
   AD9910_Status status; /* AD9910通信状态 */
-  uint16_t asf;         /* AD9910幅度比例控制字 */
   uint32_t ftw;         /* AD9910频率调谐字 */
 
   AD9910_PIN_WRITE(DRCTL, GPIO_PIN_RESET);
@@ -1118,9 +1143,8 @@ static AD9910_Status AD9910_SetRamCustomWaveformCarrierEx(const uint16_t *sample
     return status;
   }
 
-  asf = (uint16_t)(AD9910_MAX_AMPLITUDE << 2);
-  s_profile0[0] = (uint8_t)(asf >> 8);
-  s_profile0[1] = (uint8_t)asf;
+  s_profile0[0] = (uint8_t)(AD9910_MAX_AMPLITUDE >> 8);
+  s_profile0[1] = (uint8_t)AD9910_MAX_AMPLITUDE;
   ftw = AD9910_FrequencyToTuningWord(carrier_hz);
   s_profile0[4] = (uint8_t)(ftw >> 24);
   s_profile0[5] = (uint8_t)(ftw >> 16);

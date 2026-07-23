@@ -1,9 +1,22 @@
 ./objects/adc_app.o: ..\BSP\adc_app.c ..\BSP\adc_app.h ..\Port\main.h \
-  ..\Port\stm32h7xx_hal.h ..\Inc\ti_msp_dl_config.h \
+  ..\Port\stm32h7xx_hal.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\math.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdbool.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdio.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\string.h \
+  ..\Inc\ti_msp_dl_config.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h \
   ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h \

@@ -8,6 +8,15 @@
 #endif
 #include <float.h>
 
+/* 32点满量程正弦波表，供不依赖电压校准的链路测试使用。 */
+static const uint8_t s_ad9708_app_sine_code[32] =
+{
+  128U, 152U, 176U, 198U, 218U, 234U, 246U, 253U,
+  255U, 253U, 246U, 234U, 218U, 198U, 176U, 152U,
+  128U, 103U,  79U,  57U,  37U,  21U,   9U,   2U,
+    0U,   2U,   9U,  21U,  37U,  57U,  79U, 103U
+};
+
 /************************************************************
  * Function :       AD9708_AppInit
  * Comment  :       初始化高速DAC应用层并核验FPGA固件
@@ -136,6 +145,27 @@ AD9708_StatusTypeDef AD9708_AppOutputConstant(float voltage_v)
 AD9708_StatusTypeDef AD9708_AppOutputCalibrationCode(uint8_t code)
 {
   return AD9708_OutputConstant(code);
+}
+
+/************************************************************
+ * Function :       AD9708_AppOutputSineCode
+ * Comment  :       按原始峰值码和中心码输出正弦波，不改变校准参数
+ * Parameter:       output_hz: 频率; amplitude_code: 峰值码;
+ *                  offset_code: 中心码
+ * Return   :       AD9708状态
+ ************************************************************/
+AD9708_StatusTypeDef AD9708_AppOutputSineCode(float output_hz,
+                                              uint8_t amplitude_code,
+                                              uint8_t offset_code)
+{
+  return AD9708_InternalOutputArbitraryCode(
+      s_ad9708_app_sine_code,
+      (uint16_t)(sizeof(s_ad9708_app_sine_code) /
+                 sizeof(s_ad9708_app_sine_code[0])),
+      output_hz,
+      (uint16_t)amplitude_code << 8,
+      (uint16_t)offset_code << 8,
+      0U);
 }
 
 /************************************************************

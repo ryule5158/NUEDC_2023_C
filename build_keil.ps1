@@ -4,6 +4,7 @@ $projectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $uv4 = "C:\Keil_v5\UV4\UV4.exe"
 $project = Join-Path $projectRoot "Keil\NUEDC_2023_D_MSPM0G3507.uvprojx"
 $log = Join-Path $projectRoot "Keil\build.log"
+$output = Join-Path $projectRoot "output"
 
 if (-not (Test-Path $uv4)) {
     throw "Keil uVision not found: $uv4"
@@ -29,3 +30,20 @@ try {
 } finally {
     Pop-Location
 }
+
+# 保存可直接烧录和复核的最终产物。
+New-Item -ItemType Directory -Path $output -Force | Out-Null
+$artifacts = @(
+    @{ Source = "Keil\Objects\NUEDC_2023_D_MSPM0G3507_TI.axf"; Name = "NUEDC_2023_D_MSPM0G3507_TI.axf" },
+    @{ Source = "Keil\Objects\NUEDC_2023_D_MSPM0G3507_TI.hex"; Name = "NUEDC_2023_D_MSPM0G3507_TI.hex" },
+    @{ Source = "Keil\NUEDC_2023_D_MSPM0G3507_TI.map"; Name = "NUEDC_2023_D_MSPM0G3507_TI.map" },
+    @{ Source = "Keil\build.log"; Name = "build.log" }
+)
+$hashLines = foreach ($artifact in $artifacts) {
+    $source = Join-Path $projectRoot $artifact.Source
+    $target = Join-Path $output $artifact.Name
+    Copy-Item -LiteralPath $source -Destination $target -Force
+    $hash = (Get-FileHash -LiteralPath $target -Algorithm SHA256).Hash
+    "$hash  $($artifact.Name)"
+}
+$hashLines | Set-Content -LiteralPath (Join-Path $output "SHA256SUMS.txt") -Encoding ASCII

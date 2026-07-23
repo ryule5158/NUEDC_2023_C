@@ -37,6 +37,8 @@ AD9910_Status AD9910_AppOutputSine(uint32_t freq_hz,
 
 /* 设置AD9910当前正弦输出相位偏移，phase_deg单位为度 */
 AD9910_Status AD9910_AppSetSinePhaseOffsetDeg(float phase_deg);
+/* 设置正弦相位并同步清零相位累加器，用于确定性启动和相位验收。 */
+AD9910_Status AD9910_AppSetSinePhaseOffsetDegSync(float phase_deg);
 /* 输出AD9910三角波, output_hz为目标频率, points建议用AD9910_APP_DEFAULT_RAM_POINTS, amplitude范围0~16383 */
 /* 按相位索引输出AD9910内置RAM波形, 支持三角波、方波、锯齿波和SINC */
 AD9910_Status AD9910_AppOutputRamWavePhaseIndex(AD9910_Waveform wave,

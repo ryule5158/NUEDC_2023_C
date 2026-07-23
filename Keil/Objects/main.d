@@ -2,7 +2,15 @@
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdbool.h \
   ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h \
@@ -31,10 +39,12 @@
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\math.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aes.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_aesadv.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_comp.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_crc.h \
@@ -81,4 +91,12 @@
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_wwdt.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_interrupt.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_systick.h \
-  ..\Inc\nuedc_port.h
+  ..\Modules\Modules_Header.h ..\Modules\ad9910_app.h \
+  ..\Modules\ad9910.h ..\Port\stm32h7xx_hal.h ..\Modules\ad9708_app.h \
+  ..\Modules\ad9708.h ..\Modules\fpga_link.h ..\Port\main.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdio.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\string.h \
+  ..\Modules\ad9280_app.h ..\Modules\ad9280.h ..\Modules\ad5687_app.h \
+  ..\Modules\ad5687.h ..\Modules\dac8831_app.h ..\Modules\dac8831.h \
+  ..\Modules\ads8363_app.h ..\Modules\ADS8363.h ..\Modules\screen_test.h \
+  ..\Modules\fpga_promax_link.h ..\Modules\fpga_promax.h

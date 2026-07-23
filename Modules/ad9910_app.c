@@ -225,6 +225,41 @@ AD9910_Status AD9910_AppSetSinePhaseOffsetDeg(float phase_deg)
 }
 
 /************************************************************
+ * Function :       AD9910_AppSetSinePhaseOffsetDegSync
+ * Comment  :       设置正弦相位并同步清零相位累加器
+ * Parameter:       phase_deg: 相位偏移角度，单位度
+ * Return   :       AD9910_OK表示成功，其他值表示失败
+ * Date     :       2026-07-23 V1
+************************************************************/
+AD9910_Status AD9910_AppSetSinePhaseOffsetDegSync(float phase_deg)
+{
+  AD9910_Status status; /* AD9910应用层初始化状态。 */
+  uint16_t phase_word; /* AD9910 16位相位偏移字。 */
+
+  if (s_ad9910_initialized == 0U)
+  {
+    status = AD9910_AppInit();
+    if (status != AD9910_OK)
+    {
+      return status;
+    }
+  }
+
+  while (phase_deg >= 360.0f)
+  {
+    phase_deg -= 360.0f;
+  }
+
+  while (phase_deg < 0.0f)
+  {
+    phase_deg += 360.0f;
+  }
+
+  phase_word = (uint16_t)((phase_deg * 65536.0f) / 360.0f);
+  return AD9910_SetPhaseOffsetWordSync(phase_word);
+}
+
+/************************************************************
  * Function :       AD9910_AppOutputRamWavePhaseIndex
  * Comment  :       按RAM相位索引输出AD9910内置RAM波形，用改变采样起点实现相位偏移
  * Parameter:       wave: RAM波形类型; output_hz: 目标波形频率; points: 点数，范围16～AD9910_RAM_POINTS; amplitude: 14位幅度; phase_index: 相位索引，0～points-1对应0～360度; retry_delay_ms: 重写等待时间

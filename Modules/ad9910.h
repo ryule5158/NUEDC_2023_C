@@ -87,6 +87,8 @@ AD9910_Status AD9910_SetFrequencyFineHz(float freq_hz);
 
 /* 设置AD9910当前单频输出相位偏移字，0~65535对应0~360度 */
 AD9910_Status AD9910_SetPhaseOffsetWord(uint16_t phase_word);
+/* 设置相位偏移并在同一次IO_UPDATE时清零相位累加器，用于确定性同步启动。 */
+AD9910_Status AD9910_SetPhaseOffsetWordSync(uint16_t phase_word);
 
 /**
   * @brief  只更新当前单频输出的幅度。

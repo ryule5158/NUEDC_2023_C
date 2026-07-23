@@ -1,9 +1,19 @@
 ./objects/nuedc_hal_compat.o: ..\Port\nuedc_hal_compat.c \
-  ..\Port\stm32h7xx_hal.h ..\Inc\ti_msp_dl_config.h \
+  ..\Port\stm32h7xx_hal.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stddef.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdint.h \
+  ..\Inc\ti_msp_dl_config.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\msp.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\DeviceFamily.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\m0p\mspm0g350x.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\stdbool.h \
   ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\core_cm0plus.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_version.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_compiler.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\cmsis_armclang.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\arm_acle.h \
+  ..\third_party\mspm0-sdk-min\source\third_party\CMSIS\Core\Include\mpu_armv7.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_adc12.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_aes.h \
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\hw_comp.h \
@@ -32,6 +42,7 @@
   ..\third_party\mspm0-sdk-min\source\ti\devices\msp\peripherals\m0p\sysctl\hw_sysctl_mspm0g1x0x_g3x0x.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\driverlib.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_adc12.h \
+  C:\Keil_v5\ARM\ARMCLANG\bin\..\include\math.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\dl_common.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_factoryregion.h \
   ..\third_party\mspm0-sdk-min\source\ti\driverlib\m0p\dl_core.h \

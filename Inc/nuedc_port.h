@@ -11,6 +11,10 @@ void NUEDC_PortInit(void);           /* 初始化TI板集成端口。 */
 void NUEDC_PortProcess(void);        /* 调度TI板集成端口任务。 */
 uint32_t NUEDC_PortGetTick(void);    /* 返回系统毫秒节拍。 */
 
+#ifndef NUEDC_ENABLE_BOARD_ADC
+#define NUEDC_ENABLE_BOARD_ADC 0U /* 片上ADC后台采集开关。 */
+#endif
+
 #ifndef NUEDC_ENABLE_EXTERNAL_MODULE_INIT
 #define NUEDC_ENABLE_EXTERNAL_MODULE_INIT 0U /* 兼容用总开关，默认不初始化未接模块。 */
 #endif
@@ -36,7 +40,7 @@ uint32_t NUEDC_PortGetTick(void);    /* 返回系统毫秒节拍。 */
 #endif
 
 #ifndef NUEDC_ENABLE_FPGA_MODULE_INIT
-#define NUEDC_ENABLE_FPGA_MODULE_INIT 1U /* 上电时核验高速AD/DA的FPGA链路。 */
+#define NUEDC_ENABLE_FPGA_MODULE_INIT 0U /* 测试主函数按项目初始化FPGA，避免未接线误报。 */
 #endif
 
 #ifdef __cplusplus

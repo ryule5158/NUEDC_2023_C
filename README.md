@@ -15,20 +15,29 @@ powershell -ExecutionPolicy Bypass -File .\build_keil.ps1
 
 构建脚本会等待 uVision 完整结束；任何错误或警告都会使脚本返回失败。当前 ARMClang 6.23 结果为 `0 Error(s), 0 Warning(s)`。
 
-## 默认运行行为
+## 当前实板测试入口
 
-- PB26 状态灯每 500 ms 翻转一次，主循环没有阻塞延时。
-- UART0 使用 PA10/PA11、115200-8-N-1。
-- MSPM0 ADC0_CH4 使用 PB25，实板默认从 P1/Analog_In 经 OPA2365 缓冲输入；未断开缓冲链路时禁止从板底排针直接驱动 PB25。默认执行 512 点、20 kSPS 单次采集。
-- `NUEDC_ENABLE_FPGA_MODULE_INIT=1`，上电核验 AD9708 与 AD9280 FPGA 标识。
-- ProMax DSP 接口已编入工程，但默认不初始化、不启动数据面，避免改变现有功能。
-- `NUEDC_ENABLE_EXTERNAL_MODULE_INIT=0`，默认不初始化未连接的 AD9910、AD5687、DAC8831、ADS8363 或串口屏协议；四个低有效片选保持安全高电平，不产生总线事务。
+- `Src/main.c` 当前用于TI与BX71、高速DAC、ADC和ProMax实板联测，不运行AD9910验相后台。
+- UART0使用PA10/PA11、115200-8-N-1；SPI0使用PA12/PA14/PA13和PA15低有效软件片选。
+- 上电只初始化UART和SPI等基础资源，不会在BX71尚未接线时自动访问FPGA。
+- AD9708测试使用原始码，不读取或修改用户电压校准参数；已验证的AD9910库继续保留。
 
-FPGA链路正确时串口输出：
+当前板载测试正确时串口输出格式：
 
 ```text
-FPGA AD9708=0, AD9280=0
+MSP-LITO-G3507 FPGA AD/DA TEST READY
+[SPI] CS POWER-UP=HIGH OK
+[ALIVE] MAIN LOOP OK, USE i FOR FPGA LINK
 ```
+
+串口命令：
+
+- `i`：读取AD9708、AD9280和ProMax的设备标识、固件版本与能力字。
+- `0/1/2`：AD9708输出恒定原始码0/128/255。
+- `s/x`：启动100 kHz正弦波或停止DAC。
+- `a`：AD9280立即采集1024点并打印统计与前32点。
+- `c`：S1连接S2后的DAC到ADC闭环采集。
+- `p/v`：读取ProMax状态或完成实时功率与匹配滤波测试。
 
 ## TI 与 FPGA 接口
 
@@ -61,4 +70,4 @@ ProMax 不应在中断中调用，也不能与 AD9708/AD9280 驱动并发访问 
 - AD9280：可读1～4096点、可抽取和触发，但不能连续接收32 MSPS，也没有预触发。
 - 2 KB栈；默认固件RAM占用远低于32 KB。按需链接ADC/DAC大缓存后仍在器件边界内。
 
-详细端口映射见 `Docs/MSPM0G3507_Keil_Port_Guide.md`，完整上板步骤和预期现象见上一级 `../硬件测试指南.md`。
+详细端口映射见 `Docs/MSPM0G3507_Keil_Port_Guide.md`，完整系统联测见上一级 `../硬件测试指南.md`。

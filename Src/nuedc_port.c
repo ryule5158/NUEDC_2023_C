@@ -14,11 +14,13 @@
 void NUEDC_PortInit(void)
 {
     NUEDC_HAL_Init();
+#if (NUEDC_ENABLE_BOARD_ADC != 0U)
     if (ADC_Sample_Init(3.3f, 20000.0f, 8000.0f,
                         ADC_APP_PRINT_RAW_OFF, ADC_MODE_ONESHOT) == HAL_OK)
     {
         (void)ADC_Sample_Start();
     }
+#endif
 
 #if (NUEDC_ENABLE_AD5687 != 0U)
     (void)AD5687_AppInit();
@@ -51,7 +53,9 @@ void NUEDC_PortInit(void)
 void NUEDC_PortProcess(void)
 {
     NUEDC_HAL_Service();
+#if (NUEDC_ENABLE_BOARD_ADC != 0U)
     ADC_Sample_Process();
+#endif
 
 #if (NUEDC_ENABLE_AD5687 != 0U)
     AD5687_AppProcess();

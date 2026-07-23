@@ -99,11 +99,11 @@ SYSCONFIG_WEAK void SYSCFG_DL_GPIO_init(void)
     DL_GPIO_initDigitalOutput(IOMUX_PINCM26);
     DL_GPIO_initDigitalOutput(IOMUX_PINCM29);
 
-    /* 虚拟GPIOC映射到PA8、PA16～PA18和PB13，避开SWD引脚。 */
+    /* 虚拟GPIOC映射到PA8、PA9、PA16、PA17和PB13，避开SWD与BSL。 */
     DL_GPIO_initDigitalOutput(IOMUX_PINCM19);
+    DL_GPIO_initDigitalOutput(IOMUX_PINCM20);
     DL_GPIO_initDigitalOutput(IOMUX_PINCM38);
     DL_GPIO_initDigitalOutput(IOMUX_PINCM39);
-    DL_GPIO_initDigitalOutput(IOMUX_PINCM40);
     DL_GPIO_initDigitalOutput(IOMUX_PINCM30);
 
     /* 虚拟GPIOE映射到PB20、PB2和PB22输出，避开板载按键PB21。 */

@@ -5,8 +5,8 @@
 #ifndef TI_MSP_DL_CONFIG_H
 #define TI_MSP_DL_CONFIG_H
 
-#define CONFIG_LP_MSPM0G3507 /* 目标板为LP-MSPM0G3507。 */
-#define CONFIG_MSPM0G3507    /* 目标器件为MSPM0G3507。 */
+#define CONFIG_MSP_LITO_G3507 /* 目标板为MSP-LITO-G3507。 */
+#define CONFIG_MSPM0G3507     /* 目标器件为MSPM0G3507。 */
 
 #if defined(__ti_version__) || defined(__TI_COMPILER_VERSION__)
 #define SYSCONFIG_WEAK __attribute__((weak)) /* TI编译器弱符号。 */
@@ -28,9 +28,9 @@ extern "C" {
 #define CPUCLK_FREQ         (32000000U) /* 系统主频，单位Hz。 */
 
 /* 板载状态GPIO定义。 */
-#define GPIO_LEDS_PORT             (GPIOB)         /* 状态灯所在端口。 */
-#define GPIO_LEDS_USER_LED_1_PIN   (DL_GPIO_PIN_26) /* 状态灯引脚。 */
-#define GPIO_LEDS_USER_LED_1_IOMUX (IOMUX_PINCM57) /* 状态灯复用号。 */
+#define GPIO_LEDS_PORT             ((GPIO_Regs *)GPIOB_BASE) /* 状态灯真实TI端口。 */
+#define GPIO_LEDS_USER_LED_1_PIN   (DL_GPIO_PIN_14) /* LITO板载D1引脚。 */
+#define GPIO_LEDS_USER_LED_1_IOMUX (IOMUX_PINCM31) /* LITO板载D1复用号。 */
 #define GPIO_LEDS_USER_TEST_PIN    (DL_GPIO_PIN_27) /* 用户测试引脚。 */
 #define GPIO_LEDS_USER_TEST_IOMUX  (IOMUX_PINCM58) /* 测试引脚复用号。 */
 
@@ -99,9 +99,9 @@ extern "C" {
 /* 虚拟GPIOB输出掩码。 */
 #define NUEDC_GPIO_OUT_B_MASK \
     (DL_GPIO_PIN_5 | DL_GPIO_PIN_7 | DL_GPIO_PIN_8 | DL_GPIO_PIN_9 | DL_GPIO_PIN_12)
-/* 映射到GPIOA的虚拟GPIOC输出掩码。 */
+/* 映射到GPIOA的虚拟GPIOC输出掩码，PA9替代BSL专用的PA18。 */
 #define NUEDC_GPIO_OUT_C_ON_A_MASK \
-    (DL_GPIO_PIN_8 | DL_GPIO_PIN_16 | DL_GPIO_PIN_17 | DL_GPIO_PIN_18)
+    (DL_GPIO_PIN_8 | DL_GPIO_PIN_9 | DL_GPIO_PIN_16 | DL_GPIO_PIN_17)
 #define NUEDC_GPIO_OUT_C_ON_B_MASK (DL_GPIO_PIN_13) /* 映射到GPIOB的虚拟GPIOC输出。 */
 /* 映射到GPIOB的虚拟GPIOE输出掩码。 */
 #define NUEDC_GPIO_OUT_E_ON_B_MASK \
