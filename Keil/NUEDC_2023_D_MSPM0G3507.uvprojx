@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>../Port,../Inc,../BSP,../DSP,../Modules,../../Keil/Modules,../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include,../third_party/mspm0-sdk-min/source</IncludePath>
+              <IncludePath>../Port,../Inc,../BSP,../DSP,../Modules,../Modules,../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include,../third_party/mspm0-sdk-min/source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -727,67 +727,67 @@
             <File>
               <FileName>ad9708.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../../Keil/Modules/ad9708.c</FilePath>
+              <FilePath>../Modules/ad9708.c</FilePath>
             </File>
             <File>
               <FileName>ad9708.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/ad9708.h</FilePath>
+              <FilePath>../Modules/ad9708.h</FilePath>
             </File>
             <File>
               <FileName>ad9708_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../../Keil/Modules/ad9708_app.c</FilePath>
+              <FilePath>../Modules/ad9708_app.c</FilePath>
             </File>
             <File>
               <FileName>ad9708_app.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/ad9708_app.h</FilePath>
+              <FilePath>../Modules/ad9708_app.h</FilePath>
             </File>
             <File>
               <FileName>ad9280.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../../Keil/Modules/ad9280.c</FilePath>
+              <FilePath>../Modules/ad9280.c</FilePath>
             </File>
             <File>
               <FileName>ad9280.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/ad9280.h</FilePath>
+              <FilePath>../Modules/ad9280.h</FilePath>
             </File>
             <File>
               <FileName>ad9280_app.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../../Keil/Modules/ad9280_app.c</FilePath>
+              <FilePath>../Modules/ad9280_app.c</FilePath>
             </File>
             <File>
               <FileName>ad9280_app.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/ad9280_app.h</FilePath>
+              <FilePath>../Modules/ad9280_app.h</FilePath>
             </File>
             <File>
               <FileName>fpga_link.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/fpga_link.h</FilePath>
+              <FilePath>../Modules/fpga_link.h</FilePath>
             </File>
             <File>
               <FileName>fpga_promax.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../../Keil/Modules/fpga_promax.c</FilePath>
+              <FilePath>../Modules/fpga_promax.c</FilePath>
             </File>
             <File>
               <FileName>fpga_promax.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/fpga_promax.h</FilePath>
+              <FilePath>../Modules/fpga_promax.h</FilePath>
             </File>
             <File>
               <FileName>fpga_promax_link.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/fpga_promax_link.h</FilePath>
+              <FilePath>../Modules/fpga_promax_link.h</FilePath>
             </File>
             <File>
               <FileName>fpga_promax_link_map.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../../Keil/Modules/fpga_promax_link_map.h</FilePath>
+              <FilePath>../Modules/fpga_promax_link_map.h</FilePath>
             </File>
             <File>
               <FileName>screen_test.c</FileName>
