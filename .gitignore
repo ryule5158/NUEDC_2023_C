@@ -1,0 +1,20 @@
+# Keil/ArmClang 可重建中间产物
+TI_MSPM0G3507/Keil/Objects/
+TI_MSPM0G3507/Keil/Listings/
+TI_MSPM0G3507/Keil/*.map
+TI_MSPM0G3507/Keil/build.log
+TI_MSPM0G3507/Keil/flash_*.log
+STM32H743/MDK-ARM/STM32H743/
+STM32H743/MDK-ARM/Listings/
+STM32H743/MDK-ARM/build.log
+*.uvguix.*
+*.uvgui.*
+*.bak
+
+# 编辑器和系统临时文件
+.vscode/
+Thumbs.db
+Desktop.ini
+*.tmp
+*.swp
+*~
