@@ -632,9 +632,10 @@ int main(void)
     UART_TestWriteString("SPI0 PA12/PA14/PA13, CS PA15 ACTIVE LOW\r\n");
     UART_TestWriteString("[SPI] CS POWER-UP=");
     UART_TestWriteString(
-        (DL_GPIO_readPins(FPGA_CS_REAL_PORT, GPIO_FPGA_CS_PIN) != 0U) ?
+        (((FPGA_CS_REAL_PORT->DOUT31_0 & GPIO_FPGA_CS_PIN) != 0U) &&
+         ((FPGA_CS_REAL_PORT->DOE31_0 & GPIO_FPGA_CS_PIN) != 0U)) ?
         "HIGH OK\r\n" :
-        "LOW ERROR\r\n");
+        "CONFIG ERROR\r\n");
     UART_TestWriteString("AD9910 BACKGROUND DISABLED\r\n");
     UART_TestPrintHelp();
 

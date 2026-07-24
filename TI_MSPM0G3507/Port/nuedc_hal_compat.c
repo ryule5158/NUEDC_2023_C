@@ -124,6 +124,10 @@ static bool NUEDC_MapGpioPin(const GPIO_TypeDef *port,
                 mapped_pin->port = GPIOA;
                 mapped_pin->pin = DL_GPIO_PIN_7;
                 break;
+            case 15U:
+                mapped_pin->port = GPIOA;
+                mapped_pin->pin = DL_GPIO_PIN_15;
+                break;
             default:
                 break;
         }

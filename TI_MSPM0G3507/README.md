@@ -1,6 +1,6 @@
 # MSPM0G3507 Keil 集成工程
 
-本工程把原 TI 板卡算法与外设库整理到 LP-MSPM0G3507，并增加了与 BX71 FPGA 高速 AD/DA 工程配套的控制链路。
+本工程把原 TI 板卡算法与外设库整理到 MSP-LITO-G3507，并增加了与 BX71 FPGA 高速 AD/DA 工程配套的控制链路。
 
 Keil 工程：
 
@@ -41,15 +41,15 @@ MSP-LITO-G3507 FPGA AD/DA TEST READY
 
 ## TI 与 FPGA 接口
 
-| MSPM0G3507 | LaunchPad位置 | BX71 P2 | 作用 |
+| MSPM0G3507 | MSP-LITO位置 | BX71 P2 | 作用 |
 |---|---|---:|---|
-| PA12 / SPI0_SCLK | BoosterPack 32 | 31 | SPI时钟 |
-| PA14 / SPI0_PICO | 板底J28-7 | 32 | MOSI |
-| PA13 / SPI0_POCI | BoosterPack 31 | 33 | MISO |
-| PA15 / GPIO | BoosterPack 30 | 34 | 低有效软件片选 |
+| PA12 / SPI0_SCLK | J1-30 | 31 | SPI时钟 |
+| PA14 / SPI0_PICO | J1-32 | 32 | MOSI |
+| PA13 / SPI0_POCI | J1-31 | 33 | MISO |
+| PA15 / GPIO | J2-32 | 34 | 低有效软件片选 |
 | GND | 任一GND | 30 或 12 | 共地 |
 
-SPI0 为独占硬件接口：模式0、8位、MSB优先、1 MHz。CS在完整6字节帧期间持续为低，响应头固定为 `A5 5A`。J28位于板底且无信号丝印，PA14必须按缺口和1脚方向定位。高速 DAC 的 125 MSPS 发生和高速 ADC 的 32 MSPS 采集均在 FPGA 内完成，TI只配置寄存器并读取BRAM。
+SPI0 为独占硬件接口：模式0、8位、MSB优先、1 MHz。CS在完整6字节帧期间持续为低，响应头固定为 `A5 5A`。以调试接口在上、按键在下的元件面观察：J1最下排左/右分别为PA13/PA14，J1倒数第二排右侧为PA12，J2最下排右侧为PA15。高速 DAC 的 125 MSPS 发生和高速 ADC 的 32 MSPS 采集均在 FPGA 内完成，TI只配置寄存器并读取BRAM。
 
 AD9708/AD9280及ProMax源码保存在本工程自己的 `Modules/`，TI工程不引用STM32工程目录。TI底层链路由 `Port/fpga_link_ti.c` 实现，两套MCU工程分别保存自身驱动副本，并使用相同的设备标识、寄存器和状态接口。
 
