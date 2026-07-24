@@ -231,36 +231,36 @@ static uint32_t NUEDC_Ads8363TransferBits(uint32_t tx_data, uint8_t bit_count)
 {
     uint32_t rx_data = 0U;
 
-    DL_GPIO_clearPins(NUEDC_ADS8363_SPI_PORT, NUEDC_ADS8363_SPI_SCLK_PIN);
+    DL_GPIO_clearPins(GPIO_ADS8363_PORT, GPIO_ADS8363_SW_SPI_SCLK_PIN);
     NUEDC_SpiDelay();
 
     for (uint8_t i = bit_count; i > 0U; i--) {
         uint32_t bit_mask = 1UL << (i - 1U);
 
         if ((tx_data & bit_mask) != 0U) {
-            DL_GPIO_setPins(NUEDC_ADS8363_SPI_PORT,
-                            NUEDC_ADS8363_SPI_MOSI_PIN);
+            DL_GPIO_setPins(GPIO_ADS8363_PORT,
+                            GPIO_ADS8363_SW_SPI_MOSI_PIN);
         } else {
-            DL_GPIO_clearPins(NUEDC_ADS8363_SPI_PORT,
-                              NUEDC_ADS8363_SPI_MOSI_PIN);
+            DL_GPIO_clearPins(GPIO_ADS8363_PORT,
+                              GPIO_ADS8363_SW_SPI_MOSI_PIN);
         }
 
         NUEDC_SpiDelay();
-        DL_GPIO_setPins(NUEDC_ADS8363_SPI_PORT, NUEDC_ADS8363_SPI_SCLK_PIN);
+        DL_GPIO_setPins(GPIO_ADS8363_PORT, GPIO_ADS8363_SW_SPI_SCLK_PIN);
         NUEDC_SpiDelay();
 
-        if ((DL_GPIO_readPins(NUEDC_ADS8363_SPI_PORT,
-                              NUEDC_ADS8363_SPI_MISO_PIN) &
-             NUEDC_ADS8363_SPI_MISO_PIN) != 0U) {
+        if ((DL_GPIO_readPins(GPIO_ADS8363_PORT,
+                              GPIO_ADS8363_SW_SPI_MISO_PIN) &
+             GPIO_ADS8363_SW_SPI_MISO_PIN) != 0U) {
             rx_data |= bit_mask;
         }
 
-        DL_GPIO_clearPins(NUEDC_ADS8363_SPI_PORT,
-                          NUEDC_ADS8363_SPI_SCLK_PIN);
+        DL_GPIO_clearPins(GPIO_ADS8363_PORT,
+                          GPIO_ADS8363_SW_SPI_SCLK_PIN);
         NUEDC_SpiDelay();
     }
 
-    DL_GPIO_clearPins(NUEDC_ADS8363_SPI_PORT, NUEDC_ADS8363_SPI_MOSI_PIN);
+    DL_GPIO_clearPins(GPIO_ADS8363_PORT, GPIO_ADS8363_SW_SPI_MOSI_PIN);
     return rx_data;
 }
 

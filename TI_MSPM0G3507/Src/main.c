@@ -1,4 +1,5 @@
 #include "ti_msp_dl_config.h"
+#include "MSP_LITO_G3507_RuntimeConfig.h"
 #include "Modules_Header.h"
 #include "stm32h7xx_hal.h"
 
@@ -13,10 +14,14 @@
 #define PROMAX_TEST_TIMEOUT_MS       (200U) /* ProMax结果等待超时时间。 */
 #define PROMAX_TEST_SAMPLE_RATE_HZ   (32000000U) /* ProMax输入采样率。 */
 #define PROMAX_TEST_DDC_STEP_HZ      (100000U) /* 相邻DDC测试通道频率间隔。 */
+#define AD9910_TEST_DEFAULT_HZ       (1000000U) /* AD9910默认单频验收频率。 */
+#define AD9910_TEST_SECOND_HZ        (5000000U) /* AD9910第二档频率，用于验证频率切换。 */
+#define AD9910_TEST_AMPLITUDE        (8192U) /* AD9910约50%满量程幅度控制字。 */
 #define FPGA_CS_REAL_PORT            ((GPIO_Regs *)GPIOA_BASE) /* PA15真实GPIO端口。 */
 
 static FpgaPromax s_promax; /* FPGA ProMax测试句柄。 */
 static uint8_t s_promax_ready; /* FPGA ProMax初始化成功标志。 */
+static uint8_t s_ad9910_ready; /* AD9910已完成本次上电初始化标志。 */
 static const int32_t s_promax_impulse[FPGA_PROMAX_MF_TAPS] = {
     65536
 }; /* ProMax匹配滤波测试使用的单位冲激模板。 */
@@ -176,10 +181,27 @@ static const char *AD9280_TestStatusName(AD9280_StatusTypeDef status)
     }
 }
 
+/* 返回AD9910写操作状态的简洁调试字符串。 */
+static const char *AD9910_TestStatusName(AD9910_Status status)
+{
+    switch (status)
+    {
+        case AD9910_OK:
+            return "WRITE OK";
+        case AD9910_BAD_PARAM:
+            return "PARAM";
+        case AD9910_ERROR:
+            return "WRITE ERROR";
+        default:
+            return "UNKNOWN";
+    }
+}
+
 /* 初始化UART、独占SPI0和工程所需基础资源。 */
 static void Board_TestInit(void)
 {
     SYSCFG_DL_init();
+    MSP_LITO_G3507_ApplyRuntimeConfig();
     NUEDC_HAL_Init();
 }
 
@@ -430,6 +452,65 @@ static void FPGA_TestLoopback(void)
     (void)AD9280_TestCapture();
 }
 
+/* 初始化AD9910并保持软件可控；无回读线，最终结果需由RF输出确认。 */
+static AD9910_Status AD9910_TestEnsureReady(void)
+{
+    AD9910_Status status;
+
+    if (s_ad9910_ready != 0U)
+    {
+        AD9910_PowerDown(GPIO_PIN_RESET);
+        return AD9910_OK;
+    }
+
+    status = AD9910_AppInit();
+    if (status == AD9910_OK)
+    {
+        s_ad9910_ready = 1U;
+        AD9910_PowerDown(GPIO_PIN_RESET);
+    }
+    return status;
+}
+
+/* 输出一档AD9910单频正弦波，并提示必须用示波器验证。 */
+static void AD9910_TestSine(uint32_t frequency_hz)
+{
+    AD9910_Status status;
+
+    status = AD9910_TestEnsureReady();
+    if (status == AD9910_OK)
+    {
+        status = AD9910_AppOutputSine(
+            frequency_hz,
+            AD9910_TEST_AMPLITUDE);
+    }
+
+    UART_TestWriteString("[AD9910] SINE ");
+    UART_TestWriteString(AD9910_TestStatusName(status));
+    UART_TestWriteString(" FREQ=");
+    UART_TestWriteUint32(frequency_hz);
+    UART_TestWriteString("Hz AMP=");
+    UART_TestWriteUint32(AD9910_TEST_AMPLITUDE);
+    UART_TestWriteString("/16383 VERIFY RF OUTPUT\r\n");
+}
+
+/* 停止AD9910软件任务、静音输出并拉高外部掉电控制。 */
+static void AD9910_TestPowerDown(void)
+{
+    AD9910_Status status = AD9910_OK;
+
+    AD9910_AppStop();
+    if (s_ad9910_ready != 0U)
+    {
+        status = AD9910_SetAmplitude(0U);
+    }
+    AD9910_PowerDown(GPIO_PIN_SET);
+
+    UART_TestWriteString("[AD9910] POWER DOWN ");
+    UART_TestWriteString(AD9910_TestStatusName(status));
+    UART_TestWriteString(" PWR=HIGH\r\n");
+}
+
 /* 读取ProMax当前运行状态。 */
 static void ProMax_TestStatus(void)
 {
@@ -560,6 +641,7 @@ static void UART_TestPrintHelp(void)
         "a=AD9280 IMMEDIATE CAPTURE 1024 POINTS\r\n"
         "c=DAC S1 TO ADC S2 LOOPBACK CAPTURE\r\n"
         "p=PROMAX STATUS, v=PROMAX REALTIME RESULTS\r\n"
+        "D/F=AD9910 1MHz/5MHz 50% SINE, P=AD9910 POWER DOWN\r\n"
         "h/?=HELP\r\n");
 }
 
@@ -614,6 +696,19 @@ static void UART_TestProcess(void)
         {
             ProMax_TestRealtime();
         }
+        else if (data == (uint8_t)'D')
+        {
+            s_ad9910_ready = 0U;
+            AD9910_TestSine(AD9910_TEST_DEFAULT_HZ);
+        }
+        else if (data == (uint8_t)'F')
+        {
+            AD9910_TestSine(AD9910_TEST_SECOND_HZ);
+        }
+        else if (data == (uint8_t)'P')
+        {
+            AD9910_TestPowerDown();
+        }
         else if ((data != (uint8_t)'\r') && (data != (uint8_t)'\n'))
         {
             UART_TestWriteString("[UART] UNKNOWN, USE h\r\n");
@@ -632,11 +727,18 @@ int main(void)
     UART_TestWriteString("SPI0 PA12/PA14/PA13, CS PA15 ACTIVE LOW\r\n");
     UART_TestWriteString("[SPI] CS POWER-UP=");
     UART_TestWriteString(
-        (((FPGA_CS_REAL_PORT->DOUT31_0 & GPIO_FPGA_CS_PIN) != 0U) &&
-         ((FPGA_CS_REAL_PORT->DOE31_0 & GPIO_FPGA_CS_PIN) != 0U)) ?
+        (((FPGA_CS_REAL_PORT->DOUT31_0 &
+           GPIO_FPGA_CONTROL_FPGA_CS_N_PIN) != 0U) &&
+         ((FPGA_CS_REAL_PORT->DOE31_0 &
+           GPIO_FPGA_CONTROL_FPGA_CS_N_PIN) != 0U)) ?
         "HIGH OK\r\n" :
         "CONFIG ERROR\r\n");
-    UART_TestWriteString("AD9910 BACKGROUND DISABLED\r\n");
+    UART_TestWriteString("[SPI] FORMAT=");
+    UART_TestWriteString(
+        MSP_LITO_G3507_IsFpgaSpiConfigValid() ?
+        "MOTO4 SOFTWARE-CS OK\r\n" :
+        "CONFIG ERROR\r\n");
+    UART_TestWriteString("AD9910 COMMAND TEST ENABLED, BACKGROUND OFF\r\n");
     UART_TestPrintHelp();
 
     while (1)

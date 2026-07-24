@@ -1,0 +1,229 @@
+/**
+ * MSP-LITO-G3507 graphical hardware configuration.
+ *
+ * The pin names describe their real board functions. Open this file with
+ * TI SysConfig to inspect or change the MSPM0G3507 pin multiplexing.
+ */
+//@cliArgs --device "MSPM0G350X" --package "LQFP-64(PM)" --part "Default"
+//@v2CliArgs --device "MSPM0G3507" --package "LQFP-64(PM)"
+
+const Board  = scripting.addModule("/ti/driverlib/Board", {}, false);
+const SYSCTL = scripting.addModule("/ti/driverlib/SYSCTL");
+const GPIO   = scripting.addModule("/ti/driverlib/GPIO", {}, false);
+const UART   = scripting.addModule("/ti/driverlib/UART", {}, false);
+const SPI    = scripting.addModule("/ti/driverlib/SPI", {}, false);
+const ADC12  = scripting.addModule("/ti/driverlib/ADC12", {}, false);
+
+/*
+ * Keep the validated clock tree: internal 32 MHz SYSOSC, no HFXT or PLL.
+ */
+SYSCTL.forceDefaultClkConfig = true;
+SYSCTL.clockTreeEn           = true;
+
+/*
+ * Debug UART: UART0, PA10 TX, PA11 RX, 115200-8-N-1.
+ */
+const UART0_DEBUG = UART.addInstance();
+UART0_DEBUG.$name                    = "UART_0";
+UART0_DEBUG.targetBaudRate           = 115200;
+UART0_DEBUG.enableFIFO               = true;
+UART0_DEBUG.enableDMARX              = false;
+UART0_DEBUG.enableDMATX              = false;
+UART0_DEBUG.direction                = "TX_RX";
+UART0_DEBUG.wordLength               = "8_BITS";
+UART0_DEBUG.parity                   = "NONE";
+UART0_DEBUG.stopBits                 = "ONE";
+UART0_DEBUG.flowControl              = "NONE";
+UART0_DEBUG.rxFifoThreshold          = "DL_UART_RX_FIFO_LEVEL_1_2_FULL";
+UART0_DEBUG.txFifoThreshold          = "DL_UART_TX_FIFO_LEVEL_1_2_EMPTY";
+UART0_DEBUG.peripheral.$assign       = "UART0";
+UART0_DEBUG.peripheral.txPin.$assign = "PA10";
+UART0_DEBUG.peripheral.rxPin.$assign = "PA11";
+
+/*
+ * FPGA register link: SPI0, PA12 SCLK, PA14 PICO/MOSI, PA13 POCI/MISO.
+ * PA15 is a software-controlled active-low chip select configured below.
+ */
+const FPGA_LINK_SPI = SPI.addInstance();
+FPGA_LINK_SPI.$name                      = "FPGA_SPI";
+FPGA_LINK_SPI.mode                       = "CONTROLLER";
+FPGA_LINK_SPI.spiClkSrc                  = "BUSCLK";
+FPGA_LINK_SPI.spiClkDiv                  = "1";
+FPGA_LINK_SPI.targetBitRate              = 1000000;
+FPGA_LINK_SPI.frameFormat                = "MOTO3";
+FPGA_LINK_SPI.polarity                   = "0";
+FPGA_LINK_SPI.phase                      = "0";
+FPGA_LINK_SPI.dataSize                   = 8;
+FPGA_LINK_SPI.bitOrder                   = "MSB";
+FPGA_LINK_SPI.chipSelect                 = [];
+FPGA_LINK_SPI.direction                  = "PICO_POCI";
+FPGA_LINK_SPI.rxFifoThreshold            = "DL_SPI_RX_FIFO_LEVEL_ONE_FRAME";
+FPGA_LINK_SPI.txFifoThreshold            = "DL_SPI_TX_FIFO_LEVEL_ONE_FRAME";
+FPGA_LINK_SPI.peripheral.$assign         = "SPI0";
+FPGA_LINK_SPI.peripheral.sclkPin.$assign = "PA12";
+FPGA_LINK_SPI.peripheral.mosiPin.$assign = "PA14";
+FPGA_LINK_SPI.peripheral.misoPin.$assign = "PA13";
+
+/*
+ * On-chip ADC input: ADC0 channel 4 on PB25, software-triggered single
+ * sample, 12-bit unsigned, VDDA reference, 8 SYSOSC cycles sample time.
+ */
+const BOARD_ADC = ADC12.addInstance();
+BOARD_ADC.$name                      = "ADC12_0";
+BOARD_ADC.sampClkSrc                 = "DL_ADC12_CLOCK_SYSOSC";
+BOARD_ADC.sampClkDiv                 = "DL_ADC12_CLOCK_DIVIDE_1";
+BOARD_ADC.samplingOperationMode      = "single";
+BOARD_ADC.repeatMode                 = false;
+BOARD_ADC.sampleMode                 = "DL_ADC12_SAMPLING_SOURCE_AUTO";
+BOARD_ADC.trigSrc                    = "DL_ADC12_TRIG_SRC_SOFTWARE";
+BOARD_ADC.resolution                 = "DL_ADC12_SAMP_CONV_RES_12_BIT";
+BOARD_ADC.dataFormat                 = "DL_ADC12_SAMP_CONV_DATA_FORMAT_UNSIGNED";
+BOARD_ADC.adcMem0chansel             = "DL_ADC12_INPUT_CHAN_4";
+BOARD_ADC.adcMem0vref                = "VDDA";
+BOARD_ADC.adcMem0stime               = "DL_ADC12_SAMPLE_TIMER_SOURCE_SCOMP0";
+BOARD_ADC.adcMem0avgen               = false;
+BOARD_ADC.enableFIFO                 = false;
+BOARD_ADC.configureDMA               = false;
+BOARD_ADC.powerDownMode              = "DL_ADC12_POWER_DOWN_MODE_MANUAL";
+BOARD_ADC.sampleTime0                = "250 ns";
+BOARD_ADC.peripheral.$assign         = "ADC0";
+BOARD_ADC.peripheral.adcPin4.$assign = "PB25";
+
+/*
+ * FPGA software chip select. It must be driven high before output enable.
+ */
+const FPGA_GPIO = GPIO.addInstance();
+FPGA_GPIO.$name                          = "GPIO_FPGA_CONTROL";
+FPGA_GPIO.port                           = "PORTA";
+FPGA_GPIO.associatedPins.create(1);
+FPGA_GPIO.associatedPins[0].$name        = "FPGA_CS_N";
+FPGA_GPIO.associatedPins[0].direction    = "OUTPUT";
+FPGA_GPIO.associatedPins[0].initialValue = "SET";
+FPGA_GPIO.associatedPins[0].assignedPin  = "15";
+
+/*
+ * MSP-LITO status pins.
+ */
+const BOARD_GPIO = GPIO.addInstance();
+BOARD_GPIO.$name                          = "GPIO_BOARD";
+BOARD_GPIO.port                           = "PORTB";
+BOARD_GPIO.associatedPins.create(2);
+BOARD_GPIO.associatedPins[0].$name        = "STATUS_LED";
+BOARD_GPIO.associatedPins[0].direction    = "OUTPUT";
+BOARD_GPIO.associatedPins[0].initialValue = "CLEARED";
+BOARD_GPIO.associatedPins[0].assignedPin  = "14";
+BOARD_GPIO.associatedPins[1].$name        = "USER_TEST";
+BOARD_GPIO.associatedPins[1].direction    = "OUTPUT";
+BOARD_GPIO.associatedPins[1].initialValue = "CLEARED";
+BOARD_GPIO.associatedPins[1].assignedPin  = "27";
+
+/*
+ * Shared software SPI used by AD5687 and DAC8831.
+ */
+const DAC_GPIO = GPIO.addInstance();
+DAC_GPIO.$name                          = "GPIO_DAC_SHARED";
+DAC_GPIO.associatedPins.create(4);
+DAC_GPIO.associatedPins[0].$name        = "SERIAL_CLOCK";
+DAC_GPIO.associatedPins[0].direction    = "OUTPUT";
+DAC_GPIO.associatedPins[0].initialValue = "CLEARED";
+DAC_GPIO.associatedPins[0].pin.$assign  = "PB6";
+DAC_GPIO.associatedPins[1].$name        = "SERIAL_DATA";
+DAC_GPIO.associatedPins[1].direction    = "OUTPUT";
+DAC_GPIO.associatedPins[1].initialValue = "CLEARED";
+DAC_GPIO.associatedPins[1].pin.$assign  = "PA7";
+DAC_GPIO.associatedPins[2].$name        = "DAC8831_CS";
+DAC_GPIO.associatedPins[2].direction    = "OUTPUT";
+DAC_GPIO.associatedPins[2].initialValue = "SET";
+DAC_GPIO.associatedPins[2].pin.$assign  = "PB0";
+DAC_GPIO.associatedPins[3].$name        = "AD5687_CS";
+DAC_GPIO.associatedPins[3].direction    = "OUTPUT";
+DAC_GPIO.associatedPins[3].initialValue = "SET";
+DAC_GPIO.associatedPins[3].pin.$assign  = "PB22";
+
+/*
+ * AD9910 parallel control and software serial interface.
+ */
+const AD9910_GPIO = GPIO.addInstance();
+AD9910_GPIO.$name                           = "GPIO_AD9910";
+AD9910_GPIO.associatedPins.create(13);
+AD9910_GPIO.associatedPins[0].$name         = "SCK";
+AD9910_GPIO.associatedPins[0].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[0].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[0].pin.$assign   = "PB20";
+AD9910_GPIO.associatedPins[1].$name         = "SDIO";
+AD9910_GPIO.associatedPins[1].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[1].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[1].pin.$assign   = "PB2";
+AD9910_GPIO.associatedPins[2].$name         = "PWR";
+AD9910_GPIO.associatedPins[2].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[2].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[2].pin.$assign   = "PB13";
+AD9910_GPIO.associatedPins[3].$name         = "DROVER";
+AD9910_GPIO.associatedPins[3].direction     = "INPUT";
+AD9910_GPIO.associatedPins[3].pin.$assign   = "PB1";
+AD9910_GPIO.associatedPins[4].$name         = "DRCTL";
+AD9910_GPIO.associatedPins[4].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[4].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[4].pin.$assign   = "PA8";
+AD9910_GPIO.associatedPins[5].$name         = "DRHOLD";
+AD9910_GPIO.associatedPins[5].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[5].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[5].pin.$assign   = "PA16";
+AD9910_GPIO.associatedPins[6].$name         = "RESET";
+AD9910_GPIO.associatedPins[6].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[6].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[6].pin.$assign   = "PB4";
+AD9910_GPIO.associatedPins[7].$name         = "PROFILE_1";
+AD9910_GPIO.associatedPins[7].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[7].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[7].pin.$assign   = "PA17";
+AD9910_GPIO.associatedPins[8].$name         = "PROFILE_2";
+AD9910_GPIO.associatedPins[8].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[8].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[8].pin.$assign   = "PA9";
+AD9910_GPIO.associatedPins[9].$name         = "PROFILE_0";
+AD9910_GPIO.associatedPins[9].direction     = "OUTPUT";
+AD9910_GPIO.associatedPins[9].initialValue  = "CLEARED";
+AD9910_GPIO.associatedPins[9].pin.$assign   = "PB5";
+AD9910_GPIO.associatedPins[10].$name        = "OSK";
+AD9910_GPIO.associatedPins[10].direction    = "OUTPUT";
+AD9910_GPIO.associatedPins[10].initialValue = "CLEARED";
+AD9910_GPIO.associatedPins[10].pin.$assign  = "PB7";
+AD9910_GPIO.associatedPins[11].$name        = "IO_UPDATE";
+AD9910_GPIO.associatedPins[11].direction    = "OUTPUT";
+AD9910_GPIO.associatedPins[11].initialValue = "CLEARED";
+AD9910_GPIO.associatedPins[11].pin.$assign  = "PB8";
+AD9910_GPIO.associatedPins[12].$name        = "AD9910_CS_N";
+AD9910_GPIO.associatedPins[12].direction    = "OUTPUT";
+AD9910_GPIO.associatedPins[12].initialValue = "SET";
+AD9910_GPIO.associatedPins[12].pin.$assign  = "PB9";
+
+/*
+ * ADS8363 control pins and its 20-bit software SPI bus.
+ */
+const ADS8363_GPIO = GPIO.addInstance();
+ADS8363_GPIO.$name                          = "GPIO_ADS8363";
+ADS8363_GPIO.port                           = "PORTB";
+ADS8363_GPIO.associatedPins.create(6);
+ADS8363_GPIO.associatedPins[0].$name        = "ADS8363_CS_N";
+ADS8363_GPIO.associatedPins[0].direction    = "OUTPUT";
+ADS8363_GPIO.associatedPins[0].initialValue = "SET";
+ADS8363_GPIO.associatedPins[0].assignedPin  = "12";
+ADS8363_GPIO.associatedPins[1].$name        = "RD_CONVST";
+ADS8363_GPIO.associatedPins[1].direction    = "OUTPUT";
+ADS8363_GPIO.associatedPins[1].initialValue = "CLEARED";
+ADS8363_GPIO.associatedPins[1].assignedPin  = "23";
+ADS8363_GPIO.associatedPins[2].$name        = "BUSY";
+ADS8363_GPIO.associatedPins[2].direction    = "INPUT";
+ADS8363_GPIO.associatedPins[2].assignedPin  = "24";
+ADS8363_GPIO.associatedPins[3].$name        = "SW_SPI_SCLK";
+ADS8363_GPIO.associatedPins[3].direction    = "OUTPUT";
+ADS8363_GPIO.associatedPins[3].initialValue = "CLEARED";
+ADS8363_GPIO.associatedPins[3].assignedPin  = "17";
+ADS8363_GPIO.associatedPins[4].$name        = "SW_SPI_MOSI";
+ADS8363_GPIO.associatedPins[4].direction    = "OUTPUT";
+ADS8363_GPIO.associatedPins[4].initialValue = "CLEARED";
+ADS8363_GPIO.associatedPins[4].assignedPin  = "18";
+ADS8363_GPIO.associatedPins[5].$name        = "SW_SPI_MISO";
+ADS8363_GPIO.associatedPins[5].direction    = "INPUT";
+ADS8363_GPIO.associatedPins[5].assignedPin  = "19";

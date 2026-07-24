@@ -70,9 +70,9 @@
             <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$P..\generate_sysconfig.ps1"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>__MSPM0G3507__</Define>
               <Undefine></Undefine>
-              <IncludePath>../Port,../Inc,../BSP,../DSP,../Modules,../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include,../third_party/mspm0-sdk-min/source</IncludePath>
+              <IncludePath>../SysConfig/Generated,../Board,../Port,../Inc,../BSP,../DSP,../Modules,../third_party/mspm0-sdk-min/source/third_party/CMSIS/Core/Include,../third_party/mspm0-sdk-min/source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -397,17 +397,32 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>TI Config</GroupName>
+          <GroupName>TI SysConfig</GroupName>
           <Files>
+            <File>
+              <FileName>MSP_LITO_G3507_Board.syscfg</FileName>
+              <FileType>5</FileType>
+              <FilePath>../SysConfig/MSP_LITO_G3507_Board.syscfg</FilePath>
+            </File>
             <File>
               <FileName>ti_msp_dl_config.c</FileName>
               <FileType>1</FileType>
-              <FilePath>../Src/ti_msp_dl_config.c</FilePath>
+              <FilePath>../SysConfig/Generated/ti_msp_dl_config.c</FilePath>
             </File>
             <File>
               <FileName>ti_msp_dl_config.h</FileName>
               <FileType>5</FileType>
-              <FilePath>../Inc/ti_msp_dl_config.h</FilePath>
+              <FilePath>../SysConfig/Generated/ti_msp_dl_config.h</FilePath>
+            </File>
+            <File>
+              <FileName>MSP_LITO_G3507_RuntimeConfig.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Board/MSP_LITO_G3507_RuntimeConfig.c</FilePath>
+            </File>
+            <File>
+              <FileName>MSP_LITO_G3507_RuntimeConfig.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>../Board/MSP_LITO_G3507_RuntimeConfig.h</FilePath>
             </File>
           </Files>
         </Group>

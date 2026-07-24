@@ -8,13 +8,13 @@
 
 使用 Keil uVision 5.38、ARMClang 6.23、TI MSPM0G1X0X/G3X0X DFP 1.3.1。环境检查脚本是 `setup_keil_mspm0_env.ps1`，全量构建脚本是 `build_keil.ps1`。
 
-当前 `ti_msp_dl_config.h/.c` 是工程唯一有效的硬件配置源。旧 `.syscfg` 与手写端口不一致且不参与构建，已移除，避免误操作重新生成并覆盖真实映射。
+当前 `SysConfig/MSP_LITO_G3507_Board.syscfg` 是工程唯一有效的硬件配置源。Keil 在构建前自动生成 `SysConfig/Generated/ti_msp_dl_config.h/.c`，生成文件不手工修改，避免图形配置和源码出现两套映射。
 
 ## 2. 移植结构
 
 | 层 | 关键文件 | 作用 |
 |---|---|---|
-| TI配置 | `Inc/ti_msp_dl_config.h`、`Src/ti_msp_dl_config.c` | 时钟、GPIO、UART0、ADC0、SPI0 |
+| TI图形配置 | `SysConfig/MSP_LITO_G3507_Board.syscfg`、`SysConfig/Generated/ti_msp_dl_config.*` | 时钟、GPIO、UART0、ADC0、SPI0 |
 | HAL兼容 | `Port/stm32h7xx_hal.h`、`Port/nuedc_hal_compat.c` | GPIO映射、SysTick、UART、ADS8363软件SPI |
 | FPGA链路 | `Port/fpga_link_ti.c` | TI DriverLib SPI0、6字节帧、ACK与超时 |
 | FPGA ProMax | `../Modules/fpga_promax*`、`Port/fpga_promax_link_ti.c` | 8路DDC与4×32匹配滤波控制、压缩结果读取 |

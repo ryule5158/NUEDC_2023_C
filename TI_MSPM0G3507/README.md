@@ -6,6 +6,25 @@ Keil 工程：
 
 `Keil/TI_MSPM0G3507.uvprojx`
 
+TI 图形化配置工程：
+
+`SysConfig/MSP_LITO_G3507_Board.syscfg`
+
+打开 SysConfig 图形界面：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\open_sysconfig.ps1
+```
+
+Keil 每次构建前会自动运行 `generate_sysconfig.ps1`，把图形配置生成到
+`SysConfig/Generated/ti_msp_dl_config.c/.h`。这两个文件是自动生成文件，
+不要手工修改。详细使用与引脚核对见
+`Docs/TI_SysConfig_图形化配置说明.md`。
+
+BX71 的 SPI0 使用 PA15 GPIO 软件片选，但实板要求 Motorola 4-wire 的
+FRF 设置。`Board/MSP_LITO_G3507_RuntimeConfig.c` 在 SysConfig 初始化后
+恢复这一项已验证设置，并由启动串口进行读回检查。
+
 命令行强制全量构建：
 
 ```powershell
@@ -17,7 +36,7 @@ powershell -ExecutionPolicy Bypass -File .\build_keil.ps1
 
 ## 当前实板测试入口
 
-- `Src/main.c` 当前用于TI与BX71、高速DAC、ADC和ProMax实板联测，不运行AD9910验相后台。
+- `Src/main.c` 当前用于TI与BX71、高速DAC、ADC、ProMax和AD9910实板联测；AD9910仅按串口命令运行，不恢复验相后台。
 - UART0使用PA10/PA11、115200-8-N-1；SPI0使用PA12/PA14/PA13和PA15低有效软件片选。
 - 上电只初始化UART和SPI等基础资源，不会在BX71尚未接线时自动访问FPGA。
 - AD9708测试使用原始码，不读取或修改用户电压校准参数；已验证的AD9910库继续保留。
@@ -38,6 +57,12 @@ MSP-LITO-G3507 FPGA AD/DA TEST READY
 - `a`：AD9280立即采集1024点并打印统计与前32点。
 - `c`：S1连接S2后的DAC到ADC闭环采集。
 - `p/v`：读取ProMax状态或完成实时功率与匹配滤波测试。
+- `D/F`：AD9910输出1 MHz或5 MHz、约50%满量程正弦波；命令为大写，避免与FPGA测试冲突。
+- `P`：AD9910静音并进入外部掉电状态；命令为大写。
+
+AD9910使用单向GPIO软件SPI，没有配置寄存器回读线。因此串口的
+`WRITE OK`只代表TI端写时序已经完成，最终必须用示波器确认AD9910
+射频输出的频率和幅度。
 
 ## TI 与 FPGA 接口
 
